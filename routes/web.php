@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\HomeController;
 
 
 /*
@@ -32,10 +34,12 @@ Route::get('/register', function () {
     return view('register');
 });
 
-Route::get('/login', function () {
-    return view('login');
-});
 
 //Action Register
 Route::get('register', [RegisterController::class,'register'])->name('register');
 Route::post('register/action', [RegisterController::class, 'actionregister'])->name('actionregister');
+
+//Action Login
+Route::get ('/login', [LoginController::class,'login'])->name('login')->middleware('guest');
+Route::post ('/logout', [LoginController::class,'logout']);
+Route::post ('/login', [LoginController::class,'authenticate']);

@@ -141,10 +141,12 @@
         </li>
 
         <li>
-          <a class="dropdown-item d-flex align-items-center" href="/login">
-            <i class="bi bi-box-arrow-right"></i>
-            <span>Sign Out</span>
-          </a>
+        <div class="nav-item text-nowrap">
+          <form action="/logout" method="post" >
+             @csrf
+              <button type="submit">Sign Out</button>
+          </form>
+        </div>
         </li>
 
       </ul><!-- End Profile Dropdown Items -->
