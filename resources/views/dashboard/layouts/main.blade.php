@@ -36,14 +36,13 @@
   <!-- ======= Header ======= -->
     @include('dashboard.layouts.header')
   <!-- End Header -->
-
+  
   <!-- ======= Sidebar ======= -->
     @include('dashboard.layouts.sidebar')
   <!-- End Sidebar-->
 
   <main id="main" class="main">
-
-
+    @yield('container')
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
