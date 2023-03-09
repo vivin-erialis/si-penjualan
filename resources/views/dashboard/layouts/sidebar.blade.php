@@ -177,9 +177,9 @@
   <li class="nav-heading">Pages</li>
 
   <li class="nav-item">
-    <a class="nav-link collapsed" href="users-profile.html">
+    <a class="nav-link collapsed" href="/kategori">
       <i class="bi bi-person"></i>
-      <span>Profile</span>
+      <span>Kategori</span>
     </a>
   </li><!-- End Profile Page Nav -->
 
