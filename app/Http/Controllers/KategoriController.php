@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\kategori;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 
 class KategoriController extends Controller
@@ -26,7 +26,7 @@ class KategoriController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.kategori.create');
     }
 
     /**
@@ -38,6 +38,12 @@ class KategoriController extends Controller
     public function store(Request $request)
     {
         //
+        $validatedData=$request->validate([
+            'kategori_kode' => 'required|unique:kategoris',
+            'kategori_nama' => 'required'
+        ]);
+        Kategori::create($validatedData);
+        return redirect('/kategori')->with('pesan','Data Berhasil Ditambahkan');
     }
 
     /**

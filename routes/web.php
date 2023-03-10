@@ -46,4 +46,4 @@ Route::post ('/logout', [LoginController::class,'logout']);
 Route::post ('/login', [LoginController::class,'authenticate']);
 
 //Kategori Dashboard
-Route::get('/kategori', [KategoriController::class, 'index'])->middleware('auth');
+Route::resource('/kategori', KategoriController::class)->middleware('auth');
