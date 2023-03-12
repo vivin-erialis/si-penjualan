@@ -1,230 +1,79 @@
-<aside id="sidebar" class="sidebar">
+<aside id="left-panel" class="left-panel">
+        <nav class="navbar navbar-expand-sm navbar-default">
+            <div id="main-menu" class="main-menu collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a href="index.html"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
+                    </li>
+                    <li class="menu-title">UI elements</li><!-- /.menu-title -->
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Components</a>
+                        <ul class="sub-menu children dropdown-menu">                            <li><i class="fa fa-puzzle-piece"></i><a href="ui-buttons.html">Buttons</a></li>
+                            <li><i class="fa fa-id-badge"></i><a href="ui-badges.html">Badges</a></li>
+                            <li><i class="fa fa-bars"></i><a href="ui-tabs.html">Tabs</a></li>
 
-<ul class="sidebar-nav" id="sidebar-nav">
+                            <li><i class="fa fa-id-card-o"></i><a href="ui-cards.html">Cards</a></li>
+                            <li><i class="fa fa-exclamation-triangle"></i><a href="ui-alerts.html">Alerts</a></li>
+                            <li><i class="fa fa-spinner"></i><a href="ui-progressbar.html">Progress Bars</a></li>
+                            <li><i class="fa fa-fire"></i><a href="ui-modals.html">Modals</a></li>
+                            <li><i class="fa fa-book"></i><a href="ui-switches.html">Switches</a></li>
+                            <li><i class="fa fa-th"></i><a href="ui-grids.html">Grids</a></li>
+                            <li><i class="fa fa-file-word-o"></i><a href="ui-typgraphy.html">Typography</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Tables</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="fa fa-table"></i><a href="tables-basic.html">Basic Table</a></li>
+                            <li><i class="fa fa-table"></i><a href="tables-data.html">Data Table</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Forms</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-th"></i><a href="forms-basic.html">Basic Form</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a href="forms-advanced.html">Advanced Form</a></li>
+                        </ul>
+                    </li>
 
-  <li class="nav-item">
-    <a class="nav-link " href="index.html">
-      <i class="bi bi-grid"></i>
-      <span>Dashboard</span>
-    </a>
-  </li><!-- End Dashboard Nav -->
+                    <li class="menu-title">Icons</li><!-- /.menu-title -->
 
-  <li class="nav-item">
-    <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-      <i class="bi bi-menu-button-wide"></i><span>Barang Produksi</span><i class="bi bi-chevron-down ms-auto"></i>
-    </a>
-    <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-      <li>
-        <a href="components-alerts.html">
-          <i class="bi bi-circle"></i><span>Bunga</span>
-        </a>
-      </li>
-      <li>
-        <a href="components-accordion.html">
-          <i class="bi bi-circle"></i><span>Kertas Hias</span>
-        </a>
-      </li>
-      <li>
-        <a href="components-badges.html">
-          <i class="bi bi-circle"></i><span>Gabus</span>
-        </a>
-      </li>
-      <li>
-        <a href="components-breadcrumbs.html">
-          <i class="bi bi-circle"></i><span>Breadcrumbs</span>
-        </a>
-      </li>
-      <li>
-        <a href="components-buttons.html">
-          <i class="bi bi-circle"></i><span>Buttons</span>
-        </a>
-      </li>
-      <li>
-        <a href="components-cards.html">
-          <i class="bi bi-circle"></i><span>Cards</span>
-        </a>
-      </li>
-      <li>
-        <a href="components-carousel.html">
-          <i class="bi bi-circle"></i><span>Carousel</span>
-        </a>
-      </li>
-      <li>
-        <a href="components-list-group.html">
-          <i class="bi bi-circle"></i><span>List group</span>
-        </a>
-      </li>
-      <li>
-        <a href="components-modal.html">
-          <i class="bi bi-circle"></i><span>Modal</span>
-        </a>
-      </li>
-      <li>
-        <a href="components-tabs.html">
-          <i class="bi bi-circle"></i><span>Tabs</span>
-        </a>
-      </li>
-      <li>
-        <a href="components-pagination.html">
-          <i class="bi bi-circle"></i><span>Pagination</span>
-        </a>
-      </li>
-      <li>
-        <a href="components-progress.html">
-          <i class="bi bi-circle"></i><span>Progress</span>
-        </a>
-      </li>
-      <li>
-        <a href="components-spinners.html">
-          <i class="bi bi-circle"></i><span>Spinners</span>
-        </a>
-      </li>
-      <li>
-        <a href="components-tooltips.html">
-          <i class="bi bi-circle"></i><span>Tooltips</span>
-        </a>
-      </li>
-    </ul>
-  </li><!-- End Components Nav -->
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Icons</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-fort-awesome"></i><a href="font-fontawesome.html">Font Awesome</a></li>
+                            <li><i class="menu-icon ti-themify-logo"></i><a href="font-themify.html">Themefy Icons</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="widgets.html"> <i class="menu-icon ti-email"></i>Widgets </a>
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Charts</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-line-chart"></i><a href="charts-chartjs.html">Chart JS</a></li>
+                            <li><i class="menu-icon fa fa-area-chart"></i><a href="charts-flot.html">Flot Chart</a></li>
+                            <li><i class="menu-icon fa fa-pie-chart"></i><a href="charts-peity.html">Peity Chart</a></li>
+                        </ul>
+                    </li>
 
-  <li class="nav-item">
-    <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-      <i class="bi bi-journal-text"></i><span>Pembelian Barang</span><i class="bi bi-chevron-down ms-auto"></i>
-    </a>
-    <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-      <li>
-        <a href="forms-elements.html">
-          <i class="bi bi-circle"></i><span>Form Elements</span>
-        </a>
-      </li>
-      <li>
-        <a href="forms-layouts.html">
-          <i class="bi bi-circle"></i><span>Form Layouts</span>
-        </a>
-      </li>
-      <li>
-        <a href="forms-editors.html">
-          <i class="bi bi-circle"></i><span>Form Editors</span>
-        </a>
-      </li>
-      <li>
-        <a href="forms-validation.html">
-          <i class="bi bi-circle"></i><span>Form Validation</span>
-        </a>
-      </li>
-    </ul>
-  </li><!-- End Forms Nav -->
-
-  <li class="nav-item">
-    <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-      <i class="bi bi-layout-text-window-reverse"></i><span>Pesanan Produk</span><i class="bi bi-chevron-down ms-auto"></i>
-    </a>
-    <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-      <li>
-        <a href="tables-general.html">
-          <i class="bi bi-circle"></i><span>General Tables</span>
-        </a>
-      </li>
-      <li>
-        <a href="tables-data.html">
-          <i class="bi bi-circle"></i><span>Data Tables</span>
-        </a>
-      </li>
-    </ul>
-  </li><!-- End Tables Nav -->
-
-  <li class="nav-item">
-    <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-      <i class="bi bi-bar-chart"></i><span>Produk Terjual</span><i class="bi bi-chevron-down ms-auto"></i>
-    </a>
-    <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-      <li>
-        <a href="charts-chartjs.html">
-          <i class="bi bi-circle"></i><span>Chart.js</span>
-        </a>
-      </li>
-      <li>
-        <a href="charts-apexcharts.html">
-          <i class="bi bi-circle"></i><span>ApexCharts</span>
-        </a>
-      </li>
-      <li>
-        <a href="charts-echarts.html">
-          <i class="bi bi-circle"></i><span>ECharts</span>
-        </a>
-      </li>
-    </ul>
-  </li><!-- End Charts Nav -->
-
-  <li class="nav-item">
-    <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-      <i class="bi bi-gem"></i><span>Laporan</span><i class="bi bi-chevron-down ms-auto"></i>
-    </a>
-    <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-      <li>
-        <a href="icons-bootstrap.html">
-          <i class="bi bi-circle"></i><span>Laporan Penjualan</span>
-        </a>
-      </li>
-      <li>
-        <a href="icons-remix.html">
-          <i class="bi bi-circle"></i><span>Laporan Pengeluaran</span>
-        </a>
-      </li>
-    </ul>
-  </li><!-- End Icons Nav -->
-
-  <li class="nav-heading">Pages</li>
-
-  <li class="nav-item">
-    <a class="nav-link collapsed" href="/kategori">
-      <i class="bi bi-person"></i>
-      <span>Kategori</span>
-    </a>
-  </li><!-- End Profile Page Nav -->
-
-  <li class="nav-item">
-    <a class="nav-link collapsed" href="pages-faq.html">
-      <i class="bi bi-question-circle"></i>
-      <span>F.A.Q</span>
-    </a>
-  </li><!-- End F.A.Q Page Nav -->
-
-  <li class="nav-item">
-    <a class="nav-link collapsed" href="pages-contact.html">
-      <i class="bi bi-envelope"></i>
-      <span>Contact</span>
-    </a>
-  </li><!-- End Contact Page Nav -->
-
-  <li class="nav-item">
-    <a class="nav-link collapsed" href="pages-register.html">
-      <i class="bi bi-card-list"></i>
-      <span>Register</span>
-    </a>
-  </li><!-- End Register Page Nav -->
-
-  <li class="nav-item">
-    <a class="nav-link collapsed" href="pages-login.html">
-      <i class="bi bi-box-arrow-in-right"></i>
-      <span>Login</span>
-    </a>
-  </li><!-- End Login Page Nav -->
-
-  <li class="nav-item">
-    <a class="nav-link collapsed" href="pages-error-404.html">
-      <i class="bi bi-dash-circle"></i>
-      <span>Error 404</span>
-    </a>
-  </li><!-- End Error 404 Page Nav -->
-
-  <li class="nav-item">
-    <a class="nav-link collapsed" href="pages-blank.html">
-      <i class="bi bi-file-earmark"></i>
-      <span>Blank</span>
-    </a>
-  </li><!-- End Blank Page Nav -->
-
-</ul>
-
-</aside>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-area-chart"></i>Maps</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-map-o"></i><a href="maps-gmap.html">Google Maps</a></li>
+                            <li><i class="menu-icon fa fa-street-view"></i><a href="maps-vector.html">Vector Maps</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-title">Extras</li><!-- /.menu-title -->
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Pages</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-sign-in"></i><a href="page-login.html">Login</a></li>
+                            <li><i class="menu-icon fa fa-sign-in"></i><a href="page-register.html">Register</a></li>
+                            <li><i class="menu-icon fa fa-paper-plane"></i><a href="pages-forget.html">Forget Pass</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </nav>
+    </aside>
