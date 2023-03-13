@@ -121,6 +121,7 @@
     <script src="/js/lib/data-table/buttons.print.min.js"></script>
     <script src="/js/lib/data-table/buttons.colVis.min.js"></script>
     <script src="/js/init/datatables-init.js"></script>
+    
     <!--Local Stuff-->
     <script>
         jQuery(document).ready(function($) {

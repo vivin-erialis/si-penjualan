@@ -16,7 +16,7 @@
                                 <ol class="breadcrumb text-right">
                                     <li><a href="#">Dashboard</a></li>
                                     <li><a href="#">Table</a></li>
-                                    <li class="active">Data table</li>
+                                    <li class="active">Kategori</li>
                                 </ol>
                             </div>
                         </div>
@@ -32,8 +32,9 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">Data Table</strong>
+                                <strong class="card-title">Data Kategori</strong>
                             </div>
+                            
                             <div class="card-body">
                                 <a class="btn btn-success" href="/kategori/create">Insert</a>
                                 <table id="bootstrap-data-table" class="table table-striped table-bordered">
@@ -53,8 +54,12 @@
             <td>{{ $kategori->kategori_nama}}</td>
            
             <td>
-              <a href="/" class="btn btn-warning">Edit</a>
-              <a href="/" class="btn btn-danger">Delete</a>
+              <a href="/kategori/{{$kategori->id}}/edit" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+              <form action="/kategori/{{$kategori->id}}" method="post" class="d-inline">
+					                            @method('DELETE')
+					                            @csrf
+					                            <button class="btn btn-danger" type="submit" onclick="return confirm('Yakin akan menghapus data ?')"><i class="fa fa-trash"></i></i></button>
+			                                	</form>		
             </td>
           </tr>
           @endforeach

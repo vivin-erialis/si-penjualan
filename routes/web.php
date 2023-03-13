@@ -24,10 +24,6 @@ Route::get('/', function () {
 
 //Dashboard
 Route::get('/dashboard', function () {
-    return view('layouts.main');
-});
-
-Route::get('/home', function () {
     return view('dashboard.layouts.main');
 });
 

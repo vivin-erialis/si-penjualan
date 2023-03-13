@@ -9,7 +9,7 @@ class LoginController extends Controller
 {
     public function login()
     {
-        return view  ('login ');
+        return view  ('login');
     }
 
     public function authenticate(Request $request)
@@ -22,7 +22,7 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
  
-            return redirect()->intended('home');
+            return redirect()->intended('dashboard');
         }
  
         return back()->with('errorLogin','Email or Password invalid !');

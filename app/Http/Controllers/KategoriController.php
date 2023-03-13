@@ -63,9 +63,12 @@ class KategoriController extends Controller
      * @param  \App\Models\kategori  $kategori
      * @return \Illuminate\Http\Response
      */
-    public function edit(kategori $kategori)
+    public function edit(kategori $kategoris, $id)
     {
         //
+        return view('dashboard.kategori.edit',[ 
+            'kategori'=>Kategori::find($id)
+        ]);
     }
 
     /**
@@ -75,9 +78,15 @@ class KategoriController extends Controller
      * @param  \App\Models\kategori  $kategori
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, kategori $kategori)
+    public function update(Request $request, kategori $kategoris,$id)
     {
         //
+        $validatedData=$request->validate([
+            'kategori_kode' => 'required',
+            'kategori_nama' => 'required'
+        ]);
+        Kategori::where('id', $id)->update($validatedData);
+        return redirect('/kategori')->with('pesan','Data Berhasil Diubah');
     }
 
     /**
@@ -86,8 +95,10 @@ class KategoriController extends Controller
      * @param  \App\Models\kategori  $kategori
      * @return \Illuminate\Http\Response
      */
-    public function destroy(kategori $kategori)
+    public function destroy(kategori $kategoris, $id)
     {
         //
+        Kategori::destroy($id);
+        return redirect('/kategori')->with('pesan','Data Berhasil Dihapus');
     }
 }
