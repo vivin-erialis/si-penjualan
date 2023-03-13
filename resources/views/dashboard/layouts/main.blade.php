@@ -10,6 +10,8 @@
     <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
     <link rel="shortcut icon" href="https://i.imgur.com/QRAUqs9.png">
 
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.bundle.min.css">
     <link rel="stylesheet" href="/css/lib/css/normalize.css">
     <link rel="stylesheet" href="/css/lib/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
@@ -86,6 +88,8 @@
     <!-- /#right-panel -->
 
     <!-- Scripts -->
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/bootstrap/js/pooper.min.js"></script>
     <script src="/js/jquery.js"></script>
     <script src="/js/pooper.js"></script>
     <script src="/js/bootstrap.js"></script>
@@ -105,6 +109,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/simpleweather@3.1.0/jquery.simpleWeather.min.js"></script>
     <script src="/js/init/weather-init.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.js"></script>
@@ -313,6 +318,25 @@
             });
             // Bar Chart #flotBarChart End
         });
-    </script>
+
+    
+    let nama = $('#nama').value;
+    var i = 0;
+    $('#add').click(function(){
+        ++i;
+        $('#table').append(
+            `<tr>
+            <td><input type="text" class="form-control" name="inputs[`+i+`][kategori_kode]" placeholder=""></td>
+            <td><input type="text" class="form-control" name="inputs[`+i+`][kategori_nama]" placeholder=""></td>
+            <td><button type="button" class="btn btn-danger remove-table-row">Hapus</button></td>
+            </tr>`
+            );
+    });
+
+    $(document).on('click','.remove-table-row', function(){
+        $(this).parents('tr').remove();
+    });
+</script>
+
 </body>
 </html>

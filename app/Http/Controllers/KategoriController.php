@@ -14,8 +14,8 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        return view('dashboard.kategori.index',[
-            'kategori'=>Kategori::latest()->paginate(5)
+        return view('dashboard.kategori.index', [
+            'kategori' => Kategori::all()
         ]);
     }
 
@@ -38,12 +38,19 @@ class KategoriController extends Controller
     public function store(Request $request)
     {
         //
-        $validatedData=$request->validate([
-            'kategori_kode' => 'required|unique:kategoris',
-            'kategori_nama' => 'required'
-        ]);
-        Kategori::create($validatedData);
-        return redirect('/kategori')->with('pesan','Data Berhasil Ditambahkan');
+
+        $request->validate(
+            [
+                "inputs.*.kategori_kode" => 'required',
+                "inputs.*.kategori_nama" => 'required',
+
+            ]
+        );
+        foreach ($request->inputs as $value) {
+            Kategori::create($value);
+        }
+
+        return redirect('/kategori')->with('pesan', 'Data Berhasil Ditambahkan');
     }
 
     /**
@@ -66,8 +73,8 @@ class KategoriController extends Controller
     public function edit(kategori $kategoris, $id)
     {
         //
-        return view('dashboard.kategori.edit',[ 
-            'kategori'=>Kategori::find($id)
+        return view('dashboard.kategori.edit', [
+            'kategori' => Kategori::find($id)
         ]);
     }
 
@@ -78,15 +85,15 @@ class KategoriController extends Controller
      * @param  \App\Models\kategori  $kategori
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, kategori $kategoris,$id)
+    public function update(Request $request, kategori $kategoris, $id)
     {
         //
-        $validatedData=$request->validate([
+        $validatedData = $request->validate([
             'kategori_kode' => 'required',
             'kategori_nama' => 'required'
         ]);
         Kategori::where('id', $id)->update($validatedData);
-        return redirect('/kategori')->with('pesan','Data Berhasil Diubah');
+        return redirect('/kategori')->with('pesan', 'Data Berhasil Diubah');
     }
 
     /**
@@ -99,6 +106,6 @@ class KategoriController extends Controller
     {
         //
         Kategori::destroy($id);
-        return redirect('/kategori')->with('pesan','Data Berhasil Dihapus');
+        return redirect('/kategori')->with('pesan', 'Data Berhasil Dihapus');
     }
 }

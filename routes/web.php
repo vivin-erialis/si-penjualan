@@ -25,7 +25,7 @@ Route::get('/', function () {
 //Dashboard
 Route::get('/dashboard', function () {
     return view('dashboard.layouts.main');
-});
+})->middleware('auth');
 
 Route::get('/register', function () {
     return view('register');

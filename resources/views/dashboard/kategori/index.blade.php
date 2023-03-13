@@ -24,8 +24,23 @@
                 </div>
             </div>
         </div>
-
+        
         <div class="content">
+        <div class="row">
+            <div class="col-lg-1">
+            <a class="btn btn-success mb-4" href="/kategori/create"><i class="fa fa-plus"></i></a>
+        
+            </div>
+            <div class="col-lg-6">
+                                @if (session()->has('pesan'))
+    <div class="alert alert-success d-flex align-items-center" role="alert">
+    {{session ('pesan')}}
+  </div>
+
+    @endif
+                                </div>
+
+        </div>
             <div class="animated fadeIn">
                 <div class="row">
 
@@ -36,8 +51,11 @@
                             </div>
                             
                             <div class="card-body">
-                                <a class="btn btn-success" href="/kategori/create">Insert</a>
+                                
+                                
+                                
                                 <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                                    
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -75,5 +93,6 @@
             </div><!-- .animated -->
         </div><!-- .content -->
 
+     
 
 @endsection

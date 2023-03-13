@@ -28,33 +28,22 @@
       <div class="row">
         <div class="col-lg-7">
         <div class="card">
-        <div class="card-header">Form Kategori</div>
+        <div class="card-header"><strong>Form Kategori</strong></div>
             <div class="card-body">
               
 
               <!-- Horizontal Form -->
               <form action="/kategori" method="POST">
                 @csrf
-                @error('kategori_kode')
-                {{ $message }}
-                @enderror
-                <div class="row mb-3">
-                  
-                  <div class="col-sm-12">
-                  <label for="kategoriKode" col-form-label">Kode</label>
-                    <input type="text" class="form-control @error('kategori_kode') is-invalid @enderror" id="kategori_kode" name="kategori_kode">
-                  </div>
-                </div>
-                @error('kategori_nama')
-                {{ $message }}
-                @enderror
-                <div class="row mb-4">
-                  
-                  <div class="col-sm-12">
-                  <label for="kategoriNama" col-form-label">Kategori</label>
-                    <input type="text" class="form-control @error('kategori_nama') is-invalid @enderror" id="kategori_nama" name="kategori_nama">
-                  </div>
-                </div>
+                <table class="table table-bordered" id="table" name="table">
+                <tr>
+                    <td><input type="text" class="form-control" name="inputs[0][kategori_kode]" id="kategori_kode" placeholder="masukkan kode"></td>
+                    <td><input type="text" class="form-control" name="inputs[0][kategori_nama]" placeholder="masukan kategori">
+                    </td>                   
+                    <td><button type="button" class="btn btn-success" name="add" id="add">Tambah Data</button></td>
+                </tr>
+
+            </table>
                 <div class="text-center">
                   <button type="submit" class="btn btn-success btn-sm">Submit</button>
                   <button type="reset" class="btn btn-secondary btn-sm">Reset</button>
@@ -71,6 +60,7 @@
 
         
 </div>
+
 <!-- End Page Title -->
     
           

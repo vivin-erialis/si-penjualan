@@ -6,8 +6,8 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Ela Admin - HTML5 Admin Template</title>
-    <meta name="description" content="Ela Admin - HTML5 Admin Template">
+    <title>Ayesha Projek</title>
+    <meta name="description" content="Ayesha Projek">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
@@ -26,17 +26,15 @@
 
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
 </head>
-<body class="bg-dark">
+<body class="bg-light">
 
-    <div class="sufee-login d-flex align-content-center flex-wrap">
+    <div class="sufee-login d-flex align-content-center justify-content-center flex-wrap">
         <div class="container">
-            <div class="login-content">
+            <div class="login-content  col-lg-4">
                 <div class="login-logo">
-                    <a href="/">
-                        <img class="align-content" src="images/logo.png" alt="">
-                    </a>
+                <a class="logo-login mr-5" href="/">Ayesha Projek</a>
                 </div>
-                <div class="login-form">
+                <div class="login-form bg-dark">
                 @if(session()->has('errorLogin'))
                   <div class="alert alert-danger" role="alert">
                     {{ session('errorLogin')}}
@@ -46,29 +44,24 @@
                       @csrf
                         <div class="form-group">
                             <label>Email address</label>
-                            <input type="email" name="email" class="form-control" placeholder="Email">
+                            <input type="email" name="email" class="form-control" placeholder="masukan email ">
                         </div>
                         <div class="form-group">
                             <label>Password</label>
-                            <input type="password" name="password" class="form-control" placeholder="Password">
+                            <input type="password" name="password" class="form-control" placeholder="masukan password">
                         </div>
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox"> Remember Me
                             </label>
                             <label class="pull-right">
-                                <a href="#">Forgotten Password?</a>
+                                <a href="#" class="forgot-psw">Forgotten Password?</a>
                             </label>
 
                         </div>
-                        <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30">Sign in</button>
-                        <div class="social-login-content">
-                            <div class="social-button">
-                                <button type="button" class="btn social facebook btn-flat btn-addon mb-3"><i class="ti-facebook"></i>Sign in with facebook</button>
-                                <button type="button" class="btn social twitter btn-flat btn-addon mt-2"><i class="ti-twitter"></i>Sign in with twitter</button>
-                            </div>
-                        </div>
-                        <div class="register-link m-t-15 text-center">
+                        <button type="submit" class="btn btn-success mt-3">Sign in</button>
+                       
+                        <div class="register-link mt-3 text-center">
                             <p>Don't have account ? <a href="/register"> Sign Up Here</a></p>
                         </div>
                     </form>
