@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BarangMasukController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
@@ -43,3 +44,6 @@ Route::post ('/login', [LoginController::class,'authenticate']);
 
 //Kategori Dashboard
 Route::resource('/kategori', KategoriController::class)->middleware('auth');
+
+//Barang Masuk
+Route::resource('/barangMasuk', BarangMasukController::class)->middleware('auth');

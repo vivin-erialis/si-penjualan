@@ -12,8 +12,8 @@
                 <li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Barang</a>
                     <ul class="sub-menu children dropdown-menu">
-                        <li><i class="menu-icon fa fa-line-chart mr-3"></i><a href="/">Stok</a></li>
-                        <li><i class="menu-icon fa fa-area-chart mr-3"></i><a href="/">Terpakai</a></li>
+                        <li><i class="menu-icon fa fa-line-chart mr-3"></i><a href="/barangMasuk">Stok</a></li>
+                        <li><i class="menu-icon fa fa-area-chart mr-3"></i><a href="/barangKeluar">Terpakai</a></li>
                     </ul>
                 </li>
                 <li class="{{ Request::is('supplier') ? 'active' : ''}}">

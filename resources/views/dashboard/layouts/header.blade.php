@@ -8,14 +8,14 @@
     <div class="top-right">
         <div class="header-menu">
             <div class="user-area dropdown float-right">
-                <a href="#" class="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <p class="mt-3">Vivin Erialis Puteri</p>
+                <a href="" class="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-user mx-2"></i>Vivin Erialis Puteri
                 </a>
                 <div class="user-menu dropdown-menu">
                     <div class="nav-item text-nowrap">
                         <form action="/logout" method="post">
                             @csrf
-                            <button type="submit">Sign Out</button>
+                            <button type="submit" class="btn btn-sm">Sign Out</button>
                         </form>
                     </div>
                 </div>
