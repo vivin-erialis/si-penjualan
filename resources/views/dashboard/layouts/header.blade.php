@@ -8,8 +8,8 @@
     <div class="top-right">
         <div class="header-menu">
             <div class="user-area dropdown float-right">
-                <a href="" class="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fa fa-user mx-2"></i>Vivin Erialis Puteri
+                <a href="" class="dropdown nama" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-user mx-2"></i>{{Auth()->user()->name}}
                 </a>
                 <div class="user-menu dropdown-menu">
                     <div class="nav-item text-nowrap">

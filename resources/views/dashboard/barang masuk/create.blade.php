@@ -31,7 +31,7 @@
                     <div class="card-body">
                         <form action="/barangMasuk" method="POST">
                             @csrf
-                            <table class="table" id="table-kategori" name="table">
+                            <table class="table" id="table-barangmasuk" name="table">
                                 <tr>
                                     <td><input type="text" class="form-control" name="inputs[0][kode]" placeholder="masukkan kode"></td>
                                     <td><input type="text" class="form-control" name="inputs[0][nama_barang]" placeholder="masukan nama">

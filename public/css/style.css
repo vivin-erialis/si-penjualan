@@ -1788,7 +1788,9 @@ header .form-inline .search-form.close {
   padding: .75em 1.125em;
   width: 100%;
 }
-
+.nama {
+  font-size: 13px;
+}
 .card .card-top .card-title,
 .card .card-footer .card-title {
   color: #343a40;

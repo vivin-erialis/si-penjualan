@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BarangController;
 use App\Http\Controllers\BarangMasukController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
@@ -47,3 +48,6 @@ Route::resource('/kategori', KategoriController::class)->middleware('auth');
 
 //Barang Masuk
 Route::resource('/barangMasuk', BarangMasukController::class)->middleware('auth');
+
+//Barang
+Route::resource('/barang', BarangController::class)->middleware('auth');

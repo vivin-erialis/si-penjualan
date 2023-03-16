@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barang;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
 
-class KategoriController extends Controller
+class BarangController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,9 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        return view('dashboard.kategori.index', [
+        //
+        return view('dashboard.barang.index', [
+            'barang' => Barang::all(),
             'kategori' => Kategori::all()
         ]);
     }
@@ -26,7 +29,8 @@ class KategoriController extends Controller
      */
     public function create()
     {
-        return view('dashboard.kategori.create');
+        //
+
     }
 
     /**
@@ -38,28 +42,30 @@ class KategoriController extends Controller
     public function store(Request $request)
     {
         //
-
         $request->validate(
             [
-                "inputs.*.kategori_kode" => 'required',
-                "inputs.*.kategori_nama" => 'required',
+                "inputs.*.kode" => 'required',
+                "inputs.*.kode_kategori" => 'required',
+                "inputs.*.nama_barang" => 'required',
+                "inputs.*.harga" => 'required',
+                "inputs.*.stok" => 'required'
 
             ]
         );
         foreach ($request->inputs as $value) {
-            Kategori::create($value);
+            Barang::create($value);
         }
 
-        return redirect('/kategori')->with('pesan', 'Data Berhasil Ditambahkan');
+        return redirect('/barang')->with('pesan', 'Data Berhasil Ditambahkan');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\kategori  $kategori
+     * @param  \App\Models\Barang  $barang
      * @return \Illuminate\Http\Response
      */
-    public function show(kategori $kategori)
+    public function show(Barang $barang)
     {
         //
     }
@@ -67,43 +73,34 @@ class KategoriController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\kategori  $kategori
+     * @param  \App\Models\Barang  $barang
      * @return \Illuminate\Http\Response
      */
-    public function edit(kategori $kategoris, $id)
+    public function edit(Barang $barang)
     {
         //
-      
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\kategori  $kategori
+     * @param  \App\Models\Barang  $barang
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, kategori $kategoris, $id)
+    public function update(Request $request, Barang $barang)
     {
         //
-        $validatedData = $request->validate([
-            'kategori_kode' => 'required',
-            'kategori_nama' => 'required'
-        ]);
-        Kategori::where('id', $id)->update($validatedData);
-        return redirect('/kategori')->with('pesan', 'Data Berhasil Diubah');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\kategori  $kategori
+     * @param  \App\Models\Barang  $barang
      * @return \Illuminate\Http\Response
      */
-    public function destroy(kategori $kategoris, $id)
+    public function destroy(Barang $barang)
     {
         //
-        Kategori::destroy($id);
-        return redirect('/kategori')->with('pesan', 'Data Berhasil Dihapus');
     }
 }
