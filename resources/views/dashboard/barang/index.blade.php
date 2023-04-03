@@ -14,8 +14,8 @@
                 <div class="page-header float-right">
                     <div class="page-title">
                         <ol class="breadcrumb text-right">
-                            <li><a href="/barang">Dashboard</a></li>
-                            <li><a href="/barang">Table</a></li>
+                            <li class="active">Dashboard</li>
+                            <li class="active">Table</li>
                             <li class="active">Barang</li>
                         </ol>
                     </div>
@@ -41,11 +41,11 @@
                     <div class="card-header">
                         <div class="row p-2">
                             <div class="col-md-10 mt-1">
-                                <strong class="card-title">Data Kategori</strong>
+                                <strong class="card-title">Data Barang</strong>
                             </div>
                             <div class="col-md-2">
                                 <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addModal">
-                                    <i class="fa fa-plus mr-1"></i>Add Row
+                                    <i class="fa fa-plus mr-1"></i>Tambah Data
                                 </button>
                             </div>
                         </div>
@@ -68,12 +68,14 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $barang->kode}}</td>
-                                    <td>{{ $barang->kode_kategori}}</td>
+                                    <td>{{ $barang->id_kategori}}</td>
                                     <td>{{ $barang->nama_barang}}</td>
-                                    <td>{{ $barang->harga}}</td>
-                                    <td>Rp. {{ $barang->stok}}</td>
+                                    <td>Rp. {{ number_format($barang->harga)}}</td>
+                                    <td>{{ $barang->stok}}</td>
                                     <td>
-                                        <a href="/barang/{{$barang->id}}/edit" class="btn btn-warning btn-sm mx-1 mr-2"><i class="fa fa-edit"></i></a>
+                                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal<?php echo $barang['id'] ?>">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
                                         <form action="/barang/{{$barang->id}}" method="post" class="d-inline">
                                             @method('DELETE')
                                             @csrf
@@ -81,6 +83,58 @@
                                         </form>
                                     </td>
                                 </tr>
+                                <!-- Pop Up Edit -->
+                                <div class="modal fade" id="editModal<?php echo $barang['id'] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content px-3 pr-3">
+                                            <div class="row card-header">
+                                                <strong class="fs-6">Form Barang</strong>
+                                            </div>
+
+                                            <form action="/barang/{{ $barang->id }}" method="POST" class="p-3 mt-2">
+                                                @method('PUT')
+                                                @csrf
+                                                <div>
+                                                    <div class="form-group">
+                                                        <label for="kode">Kode</label>
+                                                        <input type="text" class="form-control" name="kode" value="<?php echo $barang['kode']; ?>">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="">Kategori</label>
+                                                        <select class="form-control form-select mt-2" aria-label="Default select example" name="id_kategori">
+                                                            <option>-- Pilih Kategori --</option>
+                                                            @foreach($kategori as $kat)
+                                                            <option value="{{ $kat->id}}">{{ $kat->kategori_nama }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="" class="mt-3">Nama Barang</label>
+                                                        <input type="text" class="form-control" name="nama_barang" value="<?php echo $barang['nama_barang']; ?>">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="">Harga</label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text" id="bassic-addond1">Rp</span>
+                                                            </div>
+                                                            <input type="number" class="form-control" name="harga" value="<?php echo $barang['harga']; ?>">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="">Stok</label>
+                                                        <input type="number" class="form-control" name="stok" value="<?php echo $barang['stok']; ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer text-center">
+                                                    <button type="submit" class="btn btn-success btn-sm mx-1"><i class="fa fa-save mx-1"></i> Save</button>
+                                                    <button type="button" class="btn btn-secondary btn-sm mx-1" data-bs-dismiss="modal"><i class="fa fa-close mx-1"></i>Close</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Pop Up Edit -->
                                 @endforeach
                             </tbody>
                         </table>
@@ -110,9 +164,10 @@
                             <label for="kode">Kode</label>
                             <input type="text" class="form-control" name="inputs[0][kode]">
                         </div>
-                        <div class="frm-group">
+                        <div class="form-group">
                             <label for="">Kategori</label>
-                            <select class="form-control form-select mt-2" aria-label="Default select example" name="inputs[0][kode_kategori]">
+                            <select class="form-control form-select mt-2" aria-label="Default select example" name="inputs[0][id_kategori]">
+                                <option>-- Pilih Kategori --</option>
                                 @foreach($kategori as $kategori)
                                 <option value="{{ $kategori->id }}">{{ $kategori->kategori_nama }}</option>
                                 @endforeach
@@ -128,12 +183,12 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="bassic-addond1">Rp</span>
                                 </div>
-                                <input type="text" class="form-control" name="inputs[0][harga]">
+                                <input type="number" class="form-control" name="inputs[0][harga]">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="">Stok</label>
-                            <input type="text" class="form-control" name="inputs[0][stok]">
+                            <input type="number" class="form-control" name="inputs[0][stok]">
                         </div>
                     </div>
                     <div class="modal-footer text-center">

@@ -88,3 +88,11 @@ jQuery(document).ready(function($) {
   
  
 });
+
+$(document).On('click', '.save', function() {
+	Swal.fire(
+		'Sukses',
+		'Data Berhasil Disimpan',
+		'success'
+	)
+})

@@ -33,9 +33,7 @@
                             @csrf
                             <table class="table" id="table" name="table">
                                 <tr>
-                                    <td><input type="text" class="form-control" name="inputs[0][kategori_kode]" id="kategori_kode" placeholder="masukkan kode"></td>
-                                    <td><input type="text" class="form-control" name="inputs[0][kategori_nama]" placeholder="masukan kategori">
-                                    </td>
+                                    <td><input type="text" class="form-control" name="inputs[0][kategori_nama]" placeholder="masukan kategori"></td>
                                     <td><button type="button" class="btn btn-success btn-sm" name="add" id="add"><i class="fa fa-plus"></i></button></td>
                                 </tr>
                             </table>

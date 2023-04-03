@@ -36,7 +36,7 @@ Googel Fonts  */
 }
 
 .logo {
-  background: linear-gradient(90deg, #647bb2, #869dcf);
+  background: linear-gradient(20deg, #0099d4, #0099d4);
   font-family: 'Bowlby One SC', cursive;
   font-size: 24px;
   text-transform: uppercase;
@@ -1173,6 +1173,9 @@ aside.left-panel:hover {
 .right-panel .top-rigth {
   float: left;
 }
+.breadcrumbs {
+  color: white;
+}
 
 .right-panel .breadcrumbs {
   float: left;
@@ -1182,7 +1185,8 @@ aside.left-panel:hover {
 }
 
 .right-panel .breadcrumbs .breadcrumbs-inner {
-  background-color: #fff;
+  background-color: #0099d4;
+  border-radius: 6px;
 }
 
 .right-panel .breadcrumbs .col-lg-8 .page-header {
@@ -1193,7 +1197,7 @@ aside.left-panel:hover {
   min-height: 50px;
   margin: 0px;
   padding: 0px 15px;
-  background: #ffffff;
+  background: #0099d4;
   border-bottom: 0px;
 }
 
@@ -1205,7 +1209,7 @@ aside.left-panel:hover {
 .right-panel .page-header .breadcrumb {
   margin: 0px;
   padding: 13.5px 0;
-  background: #fff;
+  background: #0099d4;
   text-transform: capitalize;
 }
 

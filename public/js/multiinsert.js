@@ -5,7 +5,6 @@ let nama = $('#nama').value;
             ++i;
             $('#table').append(
                 `<tr>
-            <td><input type="text" class="form-control" name="inputs[` + i + `][kategori_kode]"></td>
             <td><input type="text" class="form-control" name="inputs[` + i + `][kategori_nama]"></td>
             <td><button type="button" class="btn btn-danger btn-sm remove-table-row"><i class="fa fa-trash"></i></button></td>
             </tr>`

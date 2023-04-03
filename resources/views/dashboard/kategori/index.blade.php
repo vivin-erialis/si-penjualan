@@ -15,8 +15,8 @@
                 <div class="page-header float-right">
                     <div class="page-title">
                         <ol class="breadcrumb text-right">
-                            <li><a href="/kategori">Dashboard</a></li>
-                            <li><a href="/kategori">Table</a></li>
+                            <li class="active">Dashboard</li>
+                            <li class="active">Table</li>
                             <li class="active">Kategori</li>
                         </ol>
                     </div>
@@ -44,23 +44,22 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row p-2">
-                        <div class="col-md-10 mt-1">
-                        <strong class="card-title">Data Kategori</strong>
-                        </div>
-                        <div class="col-md-2">
-                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addModal">
-                                <i class="fa fa-plus mr-1"></i>Add Row
-                            </button>
-                        </div>
+                            <div class="col-md-10 mt-1">
+                                <strong class="card-title">Data Kategori</strong>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addModal">
+                                    <i class="fa fa-plus mr-1"></i>Tambah Data
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    
+
                     <div class="card-body">
                         <table id="bootstrap-data-table" class="table table-striped table-hover">
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Kode</th>
                                     <th>Nama</th>
                                     <th>Action</th>
                                 </tr>
@@ -69,7 +68,6 @@
                                 @foreach ($kategori as $kategori)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $kategori->kategori_kode}}</td>
                                     <td>{{ $kategori->kategori_nama}}</td>
                                     <td>
                                         <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal<?php echo $kategori['id'] ?>">
@@ -92,20 +90,14 @@
                                                     @method('PUT')
                                                     @csrf
                                                     <div class="row mb-3">
-                                                        <label for="kategoriKode" class="col-sm-3 col-form-label">Kode</label>
-                                                        <div class="col-sm-9">
-                                                            <input type="text" class="form-control @error('kategori_kode') is-invalid @enderror" name="kategori_kode" value="<?php echo $kategori['kategori_kode']; ?>">
-                                                        </div>
-                                                    </div>
-                                                    <div class="row mb-3">
                                                         <label for="kategoriNama" class="col-sm-3 col-form-label">Kategori</label>
                                                         <div class="col-sm-9">
                                                             <input type="text" class="form-control @error('kategori_nama') is-invalid @enderror" name="kategori_nama" value="<?php echo $kategori['kategori_nama']; ?>">
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="submit" class="btn btn-success btn-sm">Save</button>
-                                                        <button type="button" class="btn btn-secondary btn-sm mx-1" data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-success btn-sm save"><i class="fa fa-save mx-1"></i>Save</button>
+                                                        <button type="button" class="btn btn-secondary btn-sm mx-1" data-bs-dismiss="modal"><i class="fa fa-close mx-1"></i>Close</button>
 
                                                     </div>
                                                 </form>
@@ -126,22 +118,18 @@
         <div class="modal fade" id="addModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                <div class="row card-header">
-                    <div class="col-md-10">
-                        <strong class="fs-6">Form Kategori</strong>
+                    <div class="row card-header">
+                        <div class="col-md-10">
+                            <strong class="fs-6">Form Kategori</strong>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="btn" data-bs-dismiss="modal"><i class="fa fa-close"></i></button>
+                        </div>
                     </div>
-                    <div class="col-md-2">
-                        <button type="button" class="btn btn-danger btn-sm mx-1" data-bs-dismiss="modal"><i class="fa fa-close"></i></button>
-                    </div>
-                </div>
                     <form action="/kategori" method="POST">
                         @csrf
                         <table class="table" id="table" name="table">
                             <tr>
-                                <td>
-                                    <label class="mx-2" for="kategoriKode">Kode</label>
-                                    <input type="text" class="form-control" name="inputs[0][kategori_kode]" id="kategori_kode">
-                                </td>
                                 <td>
                                     <label class="mx-2" for="kategoriNama">Kategori</label>
                                     <input type="text" class="form-control" name="inputs[0][kategori_nama]">
@@ -150,19 +138,19 @@
                             </tr>
                         </table>
                         <div class="modal-footer text-center">
-                        <button type="submit" class="btn btn-success btn-sm mx-1"><i class="fa fa-save mx-1"></i> Save</button>
-                        <button type="reset" class="btn btn-secondary btn-sm mx-1"><i class="fa fa-undo mx-1"></i>Reset</button>
-                    </div>
+                            <button type="submit" class="btn btn-success btn-sm mx-1"><i class="fa fa-save mx-1"></i> Save</button>
+                            <button type="reset" class="btn btn-secondary btn-sm mx-1"><i class="fa fa-undo mx-1"></i>Reset</button>
                         </div>
-                    </form>
-
-
-
                 </div>
+                </form>
+
+
+
             </div>
         </div>
-        <!-- End Pop Up Add -->
     </div>
+    <!-- End Pop Up Add -->
+</div>
 </div>
 <!-- End Main Content -->
 @endsection

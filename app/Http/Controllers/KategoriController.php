@@ -41,7 +41,6 @@ class KategoriController extends Controller
 
         $request->validate(
             [
-                "inputs.*.kategori_kode" => 'required',
                 "inputs.*.kategori_nama" => 'required',
 
             ]
@@ -87,7 +86,6 @@ class KategoriController extends Controller
     {
         //
         $validatedData = $request->validate([
-            'kategori_kode' => 'required',
             'kategori_nama' => 'required'
         ]);
         Kategori::where('id', $id)->update($validatedData);

@@ -15,9 +15,9 @@ class BarangController extends Controller
      */
     public function index()
     {
-        //
+        // return Barang::with('kategori')->get();
         return view('dashboard.barang.index', [
-            'barang' => Barang::all(),
+            'barang' => Barang::with('kategori')->get(),
             'kategori' => Kategori::all()
         ]);
     }
@@ -45,7 +45,7 @@ class BarangController extends Controller
         $request->validate(
             [
                 "inputs.*.kode" => 'required',
-                "inputs.*.kode_kategori" => 'required',
+                "inputs.*.id_kategori" => 'required',
                 "inputs.*.nama_barang" => 'required',
                 "inputs.*.harga" => 'required',
                 "inputs.*.stok" => 'required'
@@ -88,9 +88,18 @@ class BarangController extends Controller
      * @param  \App\Models\Barang  $barang
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Barang $barang)
+    public function update(Request $request, Barang $barangs, $id)
     {
         //
+        $validatedData = $request->validate([
+            'kode' => 'required',
+            'id_kategori' => 'required',
+            'nama_barang' => 'required',
+            'harga' => 'required',
+            'stok' => 'required'
+        ]);
+        Barang::where('id', $id)->update($validatedData);
+        return redirect('/barang')->with('pesan', 'Data Berhasil Diubah');
     }
 
     /**
@@ -99,8 +108,10 @@ class BarangController extends Controller
      * @param  \App\Models\Barang  $barang
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Barang $barang)
+    public function destroy(Barang $barangs, $id)
     {
         //
+        Barang::destroy($id);
+        return redirect('/barang')->with('pesan', 'Data Berhasil Dihapus');
     }
 }
