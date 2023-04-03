@@ -12,6 +12,6 @@ class Barang extends Model
     protected $guarded = [];
     public function kategori()
     {
-    	return $this->belongsTo(Kategori::class);
+    	return $this->belongsTo(Kategori::class,'id_kategori');
     }
 }

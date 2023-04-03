@@ -64,7 +64,7 @@
                                     <td>{{ $barang_masuk->kode}}</td>
                                     <td>{{ $barang_masuk->nama_barang}}</td>
                                     <td>{{ $barang_masuk->jumlah}}</td>
-                                    <td>Rp. {{ $barang_masuk->harga}}</td>
+                                    <td>@rp($barang_masuk->harga)</td>
                                     <td>{{ $barang_masuk->keterangan}}</td>
                                     <td>
                                         <a href="/barangMasuk/{{$barang_masuk->id}}/edit" class="btn btn-warning btn-sm mx-1 mr-2"><i class="fa fa-edit"></i></a>

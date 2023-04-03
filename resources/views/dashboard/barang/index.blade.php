@@ -68,10 +68,10 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $barang->kode}}</td>
-                                    <td>{{ $barang->kode_kategori}}</td>
+                                    <td>{{ $barang->kategori->kategori_kode}}</td>
                                     <td>{{ $barang->nama_barang}}</td>
-                                    <td>{{ $barang->harga}}</td>
-                                    <td>Rp. {{ $barang->stok}}</td>
+                                    <td>@rp($barang->harga)</td>
+                                    <td>{{ $barang->stok}}</td>
                                     <td>
                                         <a href="/barang/{{$barang->id}}/edit" class="btn btn-warning btn-sm mx-1 mr-2"><i class="fa fa-edit"></i></a>
                                         <form action="/barang/{{$barang->id}}" method="post" class="d-inline">
@@ -112,7 +112,7 @@
                         </div>
                         <div class="frm-group">
                             <label for="">Kategori</label>
-                            <select class="form-control form-select mt-2" aria-label="Default select example" name="inputs[0][kode_kategori]">
+                            <select class="form-control form-select mt-2" aria-label="Default select example" name="inputs[0][id_kategori]">
                                 @foreach($kategori as $kategori)
                                 <option value="{{ $kategori->id }}">{{ $kategori->kategori_nama }}</option>
                                 @endforeach
