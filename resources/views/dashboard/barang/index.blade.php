@@ -68,9 +68,10 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $barang->kode}}</td>
-                                    <td>{{ $barang->id_kategori}}</td>
+                                    <td>{{ $barang->kategori->kategori_nama}}</td>
                                     <td>{{ $barang->nama_barang}}</td>
                                     <td>Rp. {{ number_format($barang->harga)}}</td>
+                                    
                                     <td>{{ $barang->stok}}</td>
                                     <td>
                                         <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal<?php echo $barang['id'] ?>">

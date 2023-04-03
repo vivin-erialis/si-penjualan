@@ -9,10 +9,8 @@ class kategori extends Model
 {
     use HasFactory;
     protected $guarded=[];
-    public function kategori()
+    public function barang()
     {
-    	return $this->belongsTo(Kategori::class);
+    	return $this->hasMany(Barang::class);
     }
-
-
 }
