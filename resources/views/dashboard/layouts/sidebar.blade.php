@@ -5,22 +5,23 @@
                 <li class="{{ Request::is('dashboard') ? 'active' : ''}}">
                     <a href="/dashboard"><i class="menu-icon fa fa-home"></i>Dashboard </a>
                 </li>
-                <li class="menu-title">Kebutuhan Produksi</li>
+                <li class="menu-title">DATA TOKO</li>
                 <li class="{{ Request::is('kategori') ? 'active' : ''}}">
                     <a href="/kategori"><i class="menu-icon fa fa-tasks"></i>Kategori Barang</a>
                 </li>
-                <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Barang</a>
-                    <ul class="sub-menu children dropdown-menu">
-                    <li><i class="menu-icon fa fa-line-chart mr-3"></i><a href="/barang">Data Barang</a></li>
-                        <li><i class="menu-icon fa fa-line-chart mr-3"></i><a href="/barangMasuk">Barang Masuk</a></li>
-                        <li><i class="menu-icon fa fa-area-chart mr-3"></i><a href="/barangKeluar">Barang Keluar</a></li>
-                    </ul>
+                <li class="{{ Request::is('barang') ? 'active' : ''}}">
+                    <a href="/barang"><i class="menu-icon fa fa-tasks"></i>Data Barang</a>
+                </li>
+                <li class="{{ Request::is('barangMasuk') ? 'active' : ''}}">
+                    <a href="/barangMasuk"><i class="menu-icon fa fa-tasks"></i>Data Barang Masuk</a>
+                </li>
+                <li class="{{ Request::is('barangKeluar') ? 'active' : ''}}">
+                    <a href="/barangKeluar"><i class="menu-icon fa fa-tasks"></i>Data Barang Keluar</a>
                 </li>
                 <li class="{{ Request::is('supplier') ? 'active' : ''}}">
-                    <a href="/supplier"><i class="menu-icon fa fa-users"></i>Supplier</a>
+                    <a href="/supplier"><i class="menu-icon fa fa-book"></i>Laporan</a>
                 </li>
-                
+
             </ul>
         </div><!-- /.navbar-collapse -->
     </nav>

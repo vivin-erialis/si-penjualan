@@ -70,8 +70,7 @@
                                     <td>{{ $barang->kode}}</td>
                                     <td>{{ $barang->kategori->kategori_nama}}</td>
                                     <td>{{ $barang->nama_barang}}</td>
-                                    <td>Rp. {{ number_format($barang->harga)}}</td>
-                                    
+                                    <td>@rp($barang->harga)</td>
                                     <td>{{ $barang->stok}}</td>
                                     <td>
                                         <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal<?php echo $barang['id'] ?>">
@@ -154,7 +153,7 @@
                         <strong class="fs-6">Form Barang</strong>
                     </div>
                     <div class="col-md-2">
-                        <button type="button" class="btn btn-danger btn-sm mx-1" data-bs-dismiss="modal"><i class="fa fa-close"></i></button>
+                        <button type="button" class="btn btn-sm mx-1" data-bs-dismiss="modal"><i class="fa fa-close"></i></button>
                     </div>
                 </div>
 
