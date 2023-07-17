@@ -15,17 +15,20 @@ class LoginController extends Controller
     public function authenticate(Request $request)
     {
         $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
+            'email'=>'required',
+            'password'=>'required'
         ]);
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-
-            return redirect()->intended('dashboard');
+        if(Auth::attempt($credentials)){
+            if(Auth::user()->role=='admin'){
+                return redirect('/dashboardadmin');
+            }
+            if(Auth::user()->role=='petugas'){
+                return view('petugas.dashboard.home.dashboard');
+            }
         }
-
-        return back()->with('errorLogin','Email or Password invalid !');
+        
+        return back()->with('errorLogin','Email or Password anda salah !');
     }
     public function logout(Request $request)
     {

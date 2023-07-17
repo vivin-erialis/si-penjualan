@@ -11,12 +11,21 @@ class Barang extends Model
     use HasFactory;
 
     protected $guarded = [];
-    public function kategori()
+    public function kategoribarang()
     {
     	// return $this->belongsTo(Kategori::class,'id');
         // return $this->hasOne(Kategori::class,'id');
-    	return $this->belongsTo(Kategori::class,'id_kategori');
+    	return $this->belongsTo(KategoriBarang::class,'id_kategori');
     }
+    public static function generateKodeBarang($jenisBarang)
+{
+    $lastBarang = self::latest()->first();
+    $nomorUrut = $lastBarang ? (int) substr($lastBarang->kode_barang, 3, 3) + 1 : 1;
+    $nomorUrutPadded = str_pad($nomorUrut, 3, '0', STR_PAD_LEFT);
+    $kodeBarang = 'B' . $jenisBarang . '-' . $nomorUrutPadded;
+    return $kodeBarang;
+}
+
     
 
 }

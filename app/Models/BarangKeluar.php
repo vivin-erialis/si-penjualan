@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class BarangKeluar extends Model
 {
     use HasFactory;
+    
+    protected $guarded=[];
+
+    public function barang()
+    {
+        return $this->belongsTo(Barang::class);
+    }
 }

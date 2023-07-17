@@ -10,9 +10,6 @@ jQuery(document).ready(function($) {
 
 	jQuery('.selectpicker').selectpicker;
 
-
-	
-
 	$('.search-trigger').on('click', function(event) {
 		event.preventDefault();
 		event.stopPropagation();
@@ -46,8 +43,6 @@ jQuery(document).ready(function($) {
 		});
 	});
 
-
-	 
 	 
 	// Menu Trigger
 	$('#menuToggle').on('click', function(event) {
@@ -89,10 +84,10 @@ jQuery(document).ready(function($) {
  
 });
 
-$(document).On('click', '.save', function() {
-	Swal.fire(
-		'Sukses',
-		'Data Berhasil Disimpan',
-		'success'
-	)
-})
+// $(document).On('click', '.save', function() {
+// 	Swal.fire(
+// 		'Sukses',
+// 		'Data Berhasil Disimpan',
+// 		'success'
+// 	)
+// })

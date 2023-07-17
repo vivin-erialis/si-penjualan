@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barang;
 use App\Models\BarangMasuk;
 use Illuminate\Http\Request;
 
@@ -40,21 +41,25 @@ class BarangMasukController extends Controller
     public function store(Request $request)
     {
         //
-        $request->validate(
-            [
-                "inputs.*.kode" => 'required',
-                "inputs.*.nama_barang" => 'required',
-                "inputs.*.jumlah" => 'required',
-                "inputs.*.harga" => 'required',
-                "inputs.*.keterangan" => 'required',
+        {
+            $barang = Barang::findOrFail($request->id);
+            $barang->stok += $request->jumlah;
+            $barang->save();
+    
+            BarangMasuk::create([
+                'id' => $barang->id,
+                'kode' =>$barang->kode,
+                'nama_barang' =>$barang->namaBarang,
+                'jumlah' => $request->jumlah,
+                'harga' => $barang->harga,
+                'keterangan' =>$barang->keterangan
+            ]);
+            return response()->json([
+                'success' => true,
+            ]);
+            // return redirect('/barangMasuk')->with('pesan', 'Data Berhasil Ditambahkan');
 
-            ]
-        );
-        foreach ($request->inputs as $value) {
-            BarangMasuk::create($value);
         }
-
-        return redirect('/barangMasuk')->with('pesan', 'Data Berhasil Ditambahkan');
     }
 
     /**

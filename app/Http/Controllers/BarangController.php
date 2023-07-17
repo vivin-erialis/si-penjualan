@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Barang;
 use App\Models\Kategori;
+use App\Models\KategoriBarang;
 use Illuminate\Http\Request;
 
 class BarangController extends Controller
@@ -16,9 +17,9 @@ class BarangController extends Controller
     public function index()
     {
         // return Barang::with('kategori')->get();
-        return view('dashboard.barang.index', [
-            'barang' => Barang::with('kategori')->get(),
-            'kategori' => Kategori::all()
+        return view('admin.dashboard.barang.index', [
+            'barang' => Barang::with('kategoribarang')->get(),
+            'kategoribarang' => KategoriBarang::all()
         ]);
     }
 
@@ -56,7 +57,7 @@ class BarangController extends Controller
             Barang::create($value);
         }
 
-        return redirect('/barang')->with('pesan', 'Data Berhasil Ditambahkan');
+        return redirect('/admin/barang')->with('pesan', 'Data Berhasil Ditambahkan');
     }
 
     /**
