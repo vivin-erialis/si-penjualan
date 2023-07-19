@@ -16,7 +16,8 @@ class BarangMasukController extends Controller
     public function index()
     {
         //
-        return view('dashboard.barang masuk.index', [
+        return view('admin.dashboard.barangMasuk.index', [
+            'barang' => Barang::with('barang')->get(),
             'barang_masuk' => BarangMasuk::all()
         ]);
     }

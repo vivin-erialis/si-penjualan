@@ -15,16 +15,19 @@ class Barang extends Model
     {
     	// return $this->belongsTo(Kategori::class,'id');
         // return $this->hasOne(Kategori::class,'id');
-    	return $this->belongsTo(KategoriBarang::class,'id_kategori');
+    	return $this->belongsTo(KategoriBarang::class,'kode_kategori', 'id');
+
     }
-    public static function generateKodeBarang($jenisBarang)
-{
-    $lastBarang = self::latest()->first();
-    $nomorUrut = $lastBarang ? (int) substr($lastBarang->kode_barang, 3, 3) + 1 : 1;
-    $nomorUrutPadded = str_pad($nomorUrut, 3, '0', STR_PAD_LEFT);
-    $kodeBarang = 'B' . $jenisBarang . '-' . $nomorUrutPadded;
-    return $kodeBarang;
-}
+    public function barang()
+    {
+    	// return $this->belongsTo(Kategori::class,'id');
+        // return $this->hasOne(Kategori::class,'id');
+        return $this->hasMany(BarangMasuk::class, 'nama_barang', 'id');
+        return $this->hasMany(BarangKeluar::class, 'nama_barang', 'id');
+
+
+    }
+   
 
     
 

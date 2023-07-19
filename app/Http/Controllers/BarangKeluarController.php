@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BarangKeluar;
+use App\Models\Barang;
 use Illuminate\Http\Request;
 
 class BarangKeluarController extends Controller
@@ -15,6 +16,10 @@ class BarangKeluarController extends Controller
     public function index()
     {
         //
+        return view('admin.dashboard.barangKeluar.index', [
+            'barang' => Barang::with('barang')->get(),
+            'barang_masuk' => BarangKeluar::all()
+        ]);
     }
 
     /**

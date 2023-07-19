@@ -2,12 +2,15 @@
 
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\BarangMasukController;
+use App\Http\Controllers\BarangKeluarController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KategoriBarangController;
 use App\Http\Controllers\KategoriProdukController;
+use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\PenjualanController;
 use App\Http\Middleware\CheckLevel;
 use App\Models\Barang;
 
@@ -32,6 +35,12 @@ Route::middleware(['auth', 'CheckLevel:admin'])->group(function () {
     Route::resource('/admin/kategoribarang', KategoriBarangController::class);
     Route::resource('/admin/kategoriproduk', KategoriProdukController::class);
     Route::resource('/admin/barang', BarangController::class);
+    Route::resource('/admin/produk', ProdukController::class);
+    Route::resource('/admin/penjualan', PenjualanController::class);
+    Route::resource('/admin/barangMasuk', BarangMasukController::class);
+    Route::resource('/admin/barangKeluar', BarangKeluarController::class);
+
+
 
 });
 
@@ -60,7 +69,7 @@ Route::post ('/login', [LoginController::class,'authenticate']);
 
 
 //Barang Masuk
-Route::resource('/barangMasuk', BarangMasukController::class)->middleware('auth');
+// Route::resource('/barangMasuk', BarangMasukController::class)->middleware('auth');
 
 //Barang
-Route::resource('/barang', BarangController::class)->middleware('auth');
+// Route::resource('/barang', BarangController::class)->middleware('auth');

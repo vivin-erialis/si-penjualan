@@ -1,4 +1,4 @@
-@extends('dashboard.layouts.main')
+@extends('admin.dashboard.layouts.main')
 @section('container')
     <!-- <div class="row">
         <div class="col mt-1">
@@ -65,42 +65,38 @@
         </div>
     </div>
 
-    <!-- Pop Up Add -->
-    <div class="modal fade" id="addModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="row card-header">
-                    <div class="col-md-10">
-                        <strong class="fs-6">Form Barang Masuk</strong>
-                    </div>
-                    <div class="col-md-2">
-                        <button type="button" class="btn btn-sm mx-1" data-bs-dismiss="modal"><i class="fa fa-close"></i></button>
-                    </div>
+<!-- Pop Up Add -->
+<div class="modal fade" id="addModal"  data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="row card-header">
+                <div class="col-md-10">
+                    <strong class="fs-6">Form Barang</strong>
                 </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-sm mx-1" data-bs-dismiss="modal"><i class="fa fa-close"></i></button>
+                </div>
+            </div>
 
-                <form action="/barangMasuk" method="POST" class="p-3 mt-2">
-                    @csrf
-                    <div>
-                        <div class="form-group">
-                            <label for="kode">Id</label>
-                            <input type="text" class="form-control" name="id">
-                        </div>
-                        <div class="form-group">
-                            <label for="">Kode</label>
-                            <input type="text" class="form-control" name="kode">
-
-                        </div>
-                        <div class="form-group">
-                            <label for="barang_id">Barang</label>
-                            <select name="barang_id" id="barang_id" class="form-control" required>
-                                <option value="">Pilih Barang</option>
-                            </select>
-                        </div>
-                        <input type="text" class="form-control" name="nama_barang">
+            <form action="/barang" method="POST" class="p-3 mt-2">
+                @csrf
+                <div>
+                    <div class="form-group">
+                        <label for="kode">Kode</label>
+                        <input type="text" class="form-control" name="inputs[0][kode]">
                     </div>
                     <div class="form-group">
-                        <label for="" class="mt-3">Jumlah</label>
-                        <input type="text" class="form-control" name="jumlah">
+                        <label for="">Kategori</label>
+                        <select class="form-control form-select mt-2" aria-label="Default select example" name="inputs[0][kode_kategori]">
+                            <option>-- Pilih Kategori --</option>
+                            @foreach($barang as $barang)
+                            <option value="{{ $barang->id }}">{{ $barang->nama_barang }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="mt-3">Nama Barang</label>
+                        <input type="text" class="form-control" name="inputs[0][nama_barang]">
                     </div>
                     <div class="form-group">
                         <label for="">Harga</label>
@@ -108,18 +104,22 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="bassic-addond1">Rp</span>
                             </div>
-                            <input type="number" class="form-control" name="harga">
+                            <input type="number" class="form-control" name="inputs[0][harga]">
                         </div>
                     </div>
-
-            </div>
-            <div class="modal-footer text-center">
-                <button type="submit" class="btn btn-success btn-sm mx-1"><i class="fa fa-save mx-1"></i> Save</button>
-                <button type="reset" class="btn btn-secondary btn-sm mx-1"><i class="fa fa-undo mx-1"></i>Reset</button>
-            </div>
+                    <div class="form-group">
+                        <label for="">Stok</label>
+                        <input type="number" class="form-control" name="inputs[0][stok]">
+                    </div>
+                </div>
+                <div class="modal-footer text-center">
+                    <button type="submit" class="btn btn-success btn-sm mx-1"><i class="fa fa-save mx-1"></i> Save</button>
+                    <button type="reset" class="btn btn-secondary btn-sm mx-1"><i class="fa fa-undo mx-1"></i>Reset</button>
+                </div>
             </form>
         </div>
     </div>
+</div>
 <!-- End Pop Up Add -->
 <script>
     $(document).ready(function() {

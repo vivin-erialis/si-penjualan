@@ -15,29 +15,29 @@
                     <a href="/admin/kategoriproduk"><i class="menu-icon fa fa-tasks"></i>Kategori Produk</a>
                 </li>
 
-                <li class="{{ Request::is('produk') ? 'active' : ''}}">
-                    <a href="/produk"><i class="menu-icon fa fa-trash"></i>Produk</a>
+                <li class="{{ Request::is('admin/produk') ? 'active' : ''}}">
+                    <a href="/admin/produk"><i class="menu-icon fa fa-trash"></i>Produk</a>
                 </li>
 
                 <!-- Menu Data Barang -->
                 <li class="menu-title">Data Barang</li>
-                <li class="{{ Request::is('barang') ? 'active' : ''}}">
+                <li class="{{ Request::is('admin/barang') ? 'active' : ''}}">
                     <a href="/admin/barang"><i class="menu-icon fa fa-tasks"></i>Data Barang</a>
                 </li>
-                <li class="{{ Request::is('barangMasuk') ? 'active' : ''}}">
-                    <a href="/barangMasuk"><i class="menu-icon fa fa-tasks"></i>Data Barang Masuk</a>
+                <li class="{{ Request::is('admin/barangMasuk') ? 'active' : ''}}">
+                    <a href="/admin/barangMasuk"><i class="menu-icon fa fa-tasks"></i>Data Barang Masuk</a>
                 </li>
-                <li class="{{ Request::is('barangKeluar') ? 'active' : ''}}">
-                    <a href="/barangKeluar"><i class="menu-icon fa fa-tasks"></i>Data Barang Keluar</a>
+                <li class="{{ Request::is('admin/barangKeluar') ? 'active' : ''}}">
+                    <a href="/admin/barangKeluar"><i class="menu-icon fa fa-tasks"></i>Data Barang Keluar</a>
                 </li>
 
                 <!-- Menu Data Laporan -->
                 <li class="menu-title">Data Laporan</li>
-                <li class="{{ Request::is('pembelian') ? 'active' : ''}}">
+                <li class="{{ Request::is('admin/pembelian') ? 'active' : ''}}">
                     <a href="/pembelian"><i class="menu-icon fa fa-file-invoice"></i>Laporan Pembelian</a>
                 </li>
 
-                <li class="{{ Request::is('supplier') ? 'active' : ''}}">
+                <li class="{{ Request::is('admin/supplier') ? 'active' : ''}}">
                     <a href="/penjualan"><i class="menu-icon fa fa-file"></i>Laporan Penjualan</a>
                 </li>
             </ul>

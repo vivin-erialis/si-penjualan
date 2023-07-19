@@ -1,11 +1,14 @@
 @extends('admin.dashboard.layouts.main')
 @section('container')
-<!-- Main Content -->
-<!-- @if (session('pesan'))
-<script>
-    Swal.fire('Berhasil', '{{ session('pesan') }}', 'success');
-</script>
-@endif -->
+<div class="row">
+    <div class="col mt-1">
+        @if (session()->has('pesan'))
+        <div class="alert alert-success d-flex align-items-center" role="alert">
+            {{session ('pesan')}}
+        </div>
+        @endif
+    </div>
+</div>
 <div class="animated fadeIn">
     <div class="row">
         <div class="col-md-12">
@@ -13,7 +16,7 @@
                 <div class="card-header">
                     <div class="row p-1">
                         <div class="col-md-10 mt-1">
-                            <strong class="card-title">Data Kategori Produk</strong>
+                            <strong class="card-title">Data Kategori</strong>
                         </div>
                         <div class="col-md-2">
                             <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addModal">
@@ -29,6 +32,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Nama</th>
+                                <th>Kode </th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -36,6 +40,7 @@
                             @foreach ($kategoriproduk as $kategori)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
+                                <td>{{ $kategori->kode_kategori}}</td>
                                 <td>{{ $kategori->nama_kategori}}</td>
                                 <td>
                                     <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal<?php echo $kategori['id'] ?>">
@@ -58,15 +63,22 @@
                                                 @method('PUT')
                                                 @csrf
                                                 <div class="row mb-3">
-                                                    <label for="kategoriNama" class="col-sm-3 col-form-label">Kategori</label>
+                                                    <label for="kategoriKode" class="col-sm-3 col-form-label">Kode </label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" class="form-control @error('kode_kategori') is-invalid @enderror" name="kode_kategori" value="<?php echo $kategori['kode_kategori']; ?>">
+                                                    </div>
+
+                                                </div>
+                                                <div class="row mb-3">
+
+                                                    <label for="kategoriNama" class="col-sm-3 col-form-label">Nama</label>
                                                     <div class="col-sm-9">
                                                         <input type="text" class="form-control @error('nama_kategori') is-invalid @enderror" name="nama_kategori" value="<?php echo $kategori['nama_kategori']; ?>">
                                                     </div>
                                                 </div>
+
                                                 <div class="modal-footer">
                                                     <button type="submit" class="btn btn-success btn-sm save"><i class="fa fa-save mx-1"></i>Save</button>
-                                                    <button type="button" class="btn btn-secondary btn-sm mx-1" data-bs-dismiss="modal"><i class="fa fa-close mx-1"></i>Close</button>
-
                                                 </div>
                                             </form>
 
@@ -96,11 +108,22 @@
                     <table class="table" id="table" name="table">
                         <tr>
                             <td>
-                                <label class="mx-2" for="kategoriNama">Kategori</label>
-                                <input type="text" class="form-control" name="inputs[0][nama_kategori]">
+                                <div class="form-row">
+                                    <div class="col">
+                                        <label class="mx-2" for="kategoriKode">Kode Kategori</label>
+                                        <input type="text" class="form-control" name="inputs[0][kode_kategori]">
+                                    </div>
+                                    <div class="col">
+                                        <label class="mx-2" for="kategoriNama">Nama Kategori</label>
+                                        <input type="text" class="form-control" name="inputs[0][nama_kategori]">
+                                    </div>
+                                </div>
                             </td>
-                            <td><button type="button" class="btn btn-dark btn-sm" style="margin-top: 29px;" name="add" id="add"><i class="fa fa-plus"></i></button></td>
+                            <td>
+                                <button type="button" class="btn btn-dark btn-sm" style="margin-top: 29px;" name="add" id="add"><i class="fa fa-plus"></i></button>
+                            </td>
                         </tr>
+
                     </table>
                     <div class="modal-footer text-center">
                         <button type="submit" class="btn btn-success btn-sm mx-1"><i class="fa fa-save mx-1"></i> Save</button>

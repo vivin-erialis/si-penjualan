@@ -15,12 +15,10 @@ return new class extends Migration
     {
         Schema::create('barang_masuks', function (Blueprint $table) {
             $table->id();
-            $table->string('kode')->unique();
-            $table->foreignId('id_barang');
-            $table->string('nama_barang');
-            $table->integer('jumlah');
-            $table->integer('harga');
-            $table->string('keterangan');
+            $table->string('kode_transaksi', 30)->unique();
+            $table->date('tanggal_transaksi');
+            $table->string('nama_barang', 100);
+            $table->string('satuan', 30);
             $table->timestamps();
         });
     }

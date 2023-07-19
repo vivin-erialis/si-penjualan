@@ -41,6 +41,7 @@ class KategoriProdukController extends Controller
         //
         $request->validate(
             [
+                "inputs.*.kode_kategori" => 'required',
                 "inputs.*.nama_kategori" => 'required',
             ]
         );
@@ -88,6 +89,7 @@ class KategoriProdukController extends Controller
     {
         //
         $validatedData = $request->validate([
+            'kode_kategori' => 'required',
             'nama_kategori' => 'required'
         ]);
         KategoriProduk::where('id', $id)->update($validatedData);
