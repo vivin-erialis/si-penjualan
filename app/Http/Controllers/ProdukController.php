@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\KategoriProduk;
 use App\Models\Produk;
+use GuzzleHttp\Handler\Proxy;
 use Illuminate\Http\Request;
 
 class ProdukController extends Controller
@@ -30,6 +31,7 @@ class ProdukController extends Controller
     public function create()
     {
         //
+        
     }
 
     /**
@@ -101,7 +103,7 @@ class ProdukController extends Controller
     {
         //
         // Validasi input
-        $request->validate([
+        $validatedData = $request->validate([
             'kode_produk' => 'required',
             'kode_kategori' => 'required',
             'nama_produk' => 'required',
@@ -109,22 +111,7 @@ class ProdukController extends Controller
             'status' => 'required',
             'deskripsi' => 'required',
         ]);
-
-        // Cari produk berdasarkan ID
-        $produk = Produk::find($id);
-
-        // Perbarui data produk
-        $produk->kode_produk = $request->kode_produk;
-        $produk->kode_kategori = $request->kode_kategori;
-        $produk->nama_produk = $request->nama_produk;
-        $produk->harga = $request->harga;
-        $produk->status = $request->status;
-        $produk->deskripsi = $request->deskripsi;
-
-        // Simpan perubahan
-        $produk->save();
-
-        // Redirect atau berikan respons sesuai kebutuhan Anda
+        Produk::where('id', $id)->update($validatedData);
         return redirect('/admin/produk')->with('pesan', 'Produk berhasil diperbarui');
     }
 

@@ -121,7 +121,7 @@
                                         <div class="progress-bar bg-flat-color-4" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
-                            </div> <!-- /.card-body -->
+                            </div> /.card-body
                         </div> -->
                     </div> <!-- /.row -->
                     <div class="card-body"></div>

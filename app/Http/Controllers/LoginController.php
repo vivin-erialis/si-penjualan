@@ -24,7 +24,7 @@ class LoginController extends Controller
                 return redirect('/dashboardadmin');
             }
             if(Auth::user()->role=='petugas'){
-                return view('petugas.dashboard.home.dashboard');
+                return redirect('/dashboardpetugas');
             }
         }
         

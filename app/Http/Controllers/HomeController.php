@@ -17,6 +17,11 @@ class HomeController extends Controller
         return view ('admin.dashboard.home.dashboard');
     }
 
+    public function indexPetugas()
+    {
+        return view ('petugas.dashboard.home.dashboard');
+    }
+
     /**
      * Show the form for creating a new resource.
      *

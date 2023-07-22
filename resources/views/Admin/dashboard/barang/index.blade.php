@@ -33,7 +33,7 @@
                                 <th>Kode</th>
                                 <th>Kategori</th>
                                 <th>Nama</th>
-                                <th>Harga</th>
+                              
                                 <th>Stok</th>
                                 <th>Action</th>
                             </tr>
@@ -45,7 +45,7 @@
                                 <td>{{ $barang->kode}}</td>
                                 <td>{{ $barang->kategoribarang->nama_kategori}}</td>
                                 <td>{{ $barang->nama_barang}}</td>
-                                <td>@rp($barang->harga)</td>
+                               
                                 <td>{{ $barang->stok}}</td>
                                 <td>
                                     <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal<?php echo $barang['id'] ?>">
@@ -90,15 +90,7 @@
                                                     <label for="" class="mt-3">Nama Barang</label>
                                                     <input type="text" class="form-control" name="nama_barang" value="<?php echo $barang['nama_barang']; ?>">
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="">Harga</label>
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text" id="bassic-addond1">Rp</span>
-                                                        </div>
-                                                        <input type="number" class="form-control" name="harga" value="<?php echo $barang['harga']; ?>">
-                                                    </div>
-                                                </div>
+                                                
                                                 <div class="form-group">
                                                     <label for="">Stok</label>
                                                     <input type="number" class="form-control" name="stok" value="<?php echo $barang['stok']; ?>" readonly>
@@ -121,19 +113,17 @@
     </div>
 </div>
 <!-- Pop Up Add -->
-<div class="modal fade" id="addModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="addModal"  data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="row card-header">
                 <div class="col-md-10">
                     <strong class="fs-6">Form Barang</strong>
                 </div>
-                <div class="col-md-2">
-                    <button type="button" class="btn btn-sm mx-1" data-bs-dismiss="modal"><i class="fa fa-close"></i></button>
-                </div>
+               
             </div>
 
-            <form action="/barang" method="POST" class="p-3 mt-2">
+            <form action="/admin/barang" method="POST" class="p-3 mt-2">
                 @csrf
                 <div>
                     <div class="form-group">
@@ -153,18 +143,10 @@
                         <label for="" class="mt-3">Nama Barang</label>
                         <input type="text" class="form-control" name="inputs[0][nama_barang]">
                     </div>
-                    <div class="form-group">
-                        <label for="">Harga</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="bassic-addond1">Rp</span>
-                            </div>
-                            <input type="number" class="form-control" name="inputs[0][harga]">
-                        </div>
-                    </div>
+                    
                     <div class="form-group">
                         <label for="">Stok</label>
-                        <input type="number" class="form-control" name="inputs[0][stok]">
+                        <input type="number" class="form-control" name="inputs[0][stok]" value="0" readonly>
                     </div>
                 </div>
                 <div class="modal-footer text-center">

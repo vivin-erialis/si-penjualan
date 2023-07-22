@@ -91,7 +91,7 @@
         <!-- /.content -->
 
         <!-- Footer -->
-        @include('petugas.dashboard.layouts.footer')
+        <!-- @include('petugas.dashboard.layouts.footer') -->
         <!-- /.site-footer -->
     </div>
     <!-- /#right-panel -->

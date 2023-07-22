@@ -13,15 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('produks', function (Blueprint $table) {
+        Schema::create('transaksis', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_produk', 30)->unique();
-            $table->string('nama_produk', 100);
-            $table->foreignId('kode_kategori');
-            $table->double('harga', 10, 2);
-            $table->text('deskripsi');
-            $table->string('status')->default('Belum Terjual');
+            $table->foreignId('kode_barang');
+            // $table->unsignedBigInteger('barang_id');
+            $table->enum('jenis_transaksi', ['masuk', 'keluar']);
+            // $table->string('jenis_transaksi');
+
+            $table->integer('jumlah');
             $table->timestamps();
+    
+            // $table->foreign('barang_id')->references('id')->on('barangs');
         });
     }
 
@@ -32,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('produks');
+        Schema::dropIfExists('transaksis');
     }
 };

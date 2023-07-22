@@ -11,6 +11,9 @@ use App\Http\Controllers\KategoriBarangController;
 use App\Http\Controllers\KategoriProdukController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\Controller\SewaContoller;
+use App\Http\Controllers\SewaController;
 use App\Http\Middleware\CheckLevel;
 use App\Models\Barang;
 
@@ -39,27 +42,30 @@ Route::middleware(['auth', 'CheckLevel:admin'])->group(function () {
     Route::resource('/admin/penjualan', PenjualanController::class);
     Route::resource('/admin/barangMasuk', BarangMasukController::class);
     Route::resource('/admin/barangKeluar', BarangKeluarController::class);
+    Route::resource('/admin/transaksi', TransaksiController::class);
+    Route::resource('/admin/sewa', SewaController::class);
+    Route::get('/register', function () {
+        return view('register');
+    });
+    
+    
+    //Action Register
+    Route::get('register', [RegisterController::class,'register'])->name('register');
+    Route::post('register/action', [RegisterController::class, 'actionregister'])->name('actionregister');
 
 
 
 });
 
 Route::middleware(['auth', 'CheckLevel:petugas'])->group(function () {
-    Route::get('/dashboardpetugas', [HomeController::class, 'index']);
+    Route::get('/dashboardpetugas', [HomeController::class, 'indexPetugas']);
     Route::resource('/kategori', KategoriController::class);
 
    
 });
 
 
-Route::get('/register', function () {
-    return view('register');
-});
 
-
-//Action Register
-Route::get('register', [RegisterController::class,'register'])->name('register');
-Route::post('register/action', [RegisterController::class, 'actionregister'])->name('actionregister');
 
 //Action Login
 Route::get ('/login', [LoginController::class,'login'])->name('login')->middleware('guest');

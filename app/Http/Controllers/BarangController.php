@@ -48,7 +48,6 @@ class BarangController extends Controller
                 "inputs.*.kode" => 'required',
                 "inputs.*.kode_kategori" => 'required',
                 "inputs.*.nama_barang" => 'required',
-                "inputs.*.harga" => 'required',
                 "inputs.*.stok" => 'required'
 
             ]
@@ -96,7 +95,6 @@ class BarangController extends Controller
             'kode' => 'required',
             'kode_kategori' => 'required',
             'nama_barang' => 'required',
-            'harga' => 'required',
             'stok' => 'required'
         ]);
         Barang::where('id', $id)->update($validatedData);

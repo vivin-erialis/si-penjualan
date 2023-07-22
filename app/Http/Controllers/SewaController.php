@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Penjualan;
-use App\Models\Produk;
+use App\Models\Sewa;
 use Illuminate\Http\Request;
 
-class PenjualanController extends Controller
+class SewaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,6 +15,9 @@ class PenjualanController extends Controller
     public function index()
     {
         //
+        // return view('admin.dashboard.sewa.index', {
+        //     sew
+        // });
     }
 
     /**
@@ -37,30 +39,15 @@ class PenjualanController extends Controller
     public function store(Request $request)
     {
         //
-        // Validasi data yang diterima dari form
-        $validatedData = $request->validate([
-            'kode_penjualan' => 'required',
-            'nama_produk' => 'required',
-            'kode_kategori' => 'required',
-            'tanggal_transaksi' => 'required',
-            'harga' => 'required',
-        ]);
-        Penjualan::create($validatedData);
-
-        Produk::where('nama_produk', '=', $request->nama_produk)->update(['status' => 'Terjual']);
-
-        // Redirect ke halaman atau tampilan lain jika diperlukan
-        return redirect()->back()->with('berhasil', 'Data penjualan berhasil disimpan.');
     }
-
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Penjualan  $penjualan
+     * @param  \App\Models\Sewa  $sewa
      * @return \Illuminate\Http\Response
      */
-    public function show(Penjualan $penjualan)
+    public function show(Sewa $sewa)
     {
         //
     }
@@ -68,10 +55,10 @@ class PenjualanController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Penjualan  $penjualan
+     * @param  \App\Models\Sewa  $sewa
      * @return \Illuminate\Http\Response
      */
-    public function edit(Penjualan $penjualan)
+    public function edit(Sewa $sewa)
     {
         //
     }
@@ -80,10 +67,10 @@ class PenjualanController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Penjualan  $penjualan
+     * @param  \App\Models\Sewa  $sewa
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Penjualan $penjualan)
+    public function update(Request $request, Sewa $sewa)
     {
         //
     }
@@ -91,10 +78,10 @@ class PenjualanController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Penjualan  $penjualan
+     * @param  \App\Models\Sewa  $sewa
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Penjualan $penjualan)
+    public function destroy(Sewa $sewa)
     {
         //
     }

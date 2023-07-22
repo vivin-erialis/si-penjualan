@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('kode')->unique();
             $table->foreignId('kode_kategori');
             $table->string('nama_barang');
-            $table->double('harga', 10,2);
             $table->integer('stok');
             $table->timestamps();
         });
