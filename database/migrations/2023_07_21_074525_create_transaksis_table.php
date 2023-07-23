@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('transaksis', function (Blueprint $table) {
             $table->id();
+            $table->string('kode_transaksi')->unique();
             $table->foreignId('kode_barang');
             // $table->unsignedBigInteger('barang_id');
             $table->enum('jenis_transaksi', ['masuk', 'keluar']);

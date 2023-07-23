@@ -19,7 +19,7 @@
                             <strong class="card-title">Data Transaksi</strong>
                         </div>
                         <div class="col-md-2">
-                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addModal">
+                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addModal" onclick="generateKodeTransaksi()">
                                 <i class="fa fa-plus mr-1"></i>Tambah Data
                             </button>
                         </div>
@@ -69,6 +69,10 @@
                                             @csrf
                                             <div>
                                                 <div class="form-group">
+                                                    <label for="kode_transaksi">Kode</label>
+                                                    <input type="text" class="form-control" name="kode_transaksi" value="{{ $item->kode_transaksi }}">
+                                                </div>
+                                                <div class="form-group">
                                                     <label for="kode_barang">Kode</label>
                                                     <input type="text" class="form-control" name="kode_barang" value="{{ $item->kode_barang }}">
                                                 </div>
@@ -117,6 +121,10 @@
             <div class="modal-body">
                 <form action="/admin/transaksi" method="POST">
                     @csrf
+                    <div class="form-group">
+                        <label for="kodeTransaksi">Kode</label>
+                        <input type="text" class="form-control" id="kodeTransaksiInput" name="kode_transaksi" readonly>
+                    </div>
                     <div class="form-group">
                         <label for="kode_barang">Barang</label>
                         <select class="form-control" name="kode_barang" id="kode_barang" required>

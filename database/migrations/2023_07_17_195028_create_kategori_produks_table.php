@@ -15,8 +15,9 @@ return new class extends Migration
     {
         Schema::create('kategori_produks', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_kategori',5)->unique();
+            $table->string('kode_kategori')->unique();
             $table->string('nama_kategori',100);
+            $table->enum('tipe',['sewa','produk']);
             $table->timestamps();
         });
     }

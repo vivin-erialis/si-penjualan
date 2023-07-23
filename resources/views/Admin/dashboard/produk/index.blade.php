@@ -28,7 +28,7 @@
                             <strong class="card-title">Data Produk</strong>
                         </div>
                         <div class="col-md-2">
-                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addModal">
+                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addModal" onclick="generateKodeProduk()">
                                 <i class="fa fa-plus mr-1"></i>Tambah Data
                             </button>
                         </div>
@@ -67,7 +67,7 @@
                                     </form>
                                     
                                     @if($produk->status != 'Terjual')
-                                    <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#penjualanModal<?php echo $produk['id'] ?>">
+                                    <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#penjualanModal<?php echo $produk['id'] ?>" onclick="generateKodePenjualan()">
                                         <i class="fa fa-check"></i>
                                     </button>
                                     @endif
@@ -86,7 +86,7 @@
                                                 <div class="form-group">
                                                     <label for="kode_penjualan">Kode Penjualan</label>
 
-                                                    <input type="text" class="form-control" name="kode_penjualan">
+                                                    <input type="text" class="form-control" id="kodePenjualanInput" name="kode_penjualan" readonly>
 
                                                 </div>
                                                 <div class="form-group">
@@ -223,7 +223,7 @@
                 <div>
                     <div class="form-group">
                         <label for="kode_produk">Kode Produk</label>
-                        <input type="text" class="form-control" name="kode_produk">
+                        <input type="text" class="form-control" id="kodeProdukInput" name="kode_produk" readonly>
                     </div>
                     <div class="form-group">
                         <label for="kode_kategori">Kategori</label>

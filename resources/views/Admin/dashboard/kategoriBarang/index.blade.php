@@ -19,7 +19,7 @@
                             <strong class="card-title">Data Kategori</strong>
                         </div>
                         <div class="col-md-2">
-                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addModal">
+                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addModal" onclick="generateKodeKategoriBarang()">
                                 <i class="fa fa-plus mr-1"></i>Tambah Data
                             </button>
                         </div>
@@ -31,8 +31,8 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama</th>
-                                <th>Kode </th>
+                                <th>Kode</th>
+                                <th>Nama </th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -65,7 +65,7 @@
                                                 <div class="row mb-3">
                                                     <label for="kategoriKode" class="col-sm-3 col-form-label">Kode </label>
                                                     <div class="col-sm-9">
-                                                        <input type="text" class="form-control @error('kode_kategori') is-invalid @enderror" name="kode_kategori" value="<?php echo $kategori['kode_kategori']; ?>">
+                                                        <input type="text" class="form-control @error('kode_kategori') is-invalid @enderror" name="kode_kategori" value="<?php echo $kategori['kode_kategori']; ?>" readonly>
                                                     </div>
 
                                                 </div>
@@ -105,31 +105,28 @@
                 </div>
                 <form action="/admin/kategoribarang" method="POST">
                     @csrf
-                    <table class="table" id="table" name="table">
-                        <tr>
-                            <td>
-                                <div class="form-row">
-                                    <div class="col">
-                                        <label class="mx-2" for="kategoriKode">Kode Kategori</label>
-                                        <input type="text" class="form-control" name="inputs[0][kode_kategori]">
-                                    </div>
-                                    <div class="col">
-                                        <label class="mx-2" for="kategoriNama">Nama Kategori</label>
-                                        <input type="text" class="form-control" name="inputs[0][nama_kategori]">
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-dark btn-sm" style="margin-top: 29px;" name="add" id="add"><i class="fa fa-plus"></i></button>
-                            </td>
-                        </tr>
+                    <div class="px-4 mt-4">
+                        <div class="row mb-3">
+                            <label for="kategoriKode" class="col-sm-3 col-form-label">Kode</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="inputs[0][kode_kategori]" id="kodeKategoriInput" readonly>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="kategoriNama" class="col-sm-3 col-form-label">Nama</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="inputs[0][nama_kategori]">
+                            </div>
+                        </div>
+                        
 
-                    </table>
-                    <div class="modal-footer text-center">
-                        <button type="submit" class="btn btn-success btn-sm mx-1"><i class="fa fa-save mx-1"></i> Save</button>
-                        <button type="reset" class="btn btn-secondary btn-sm mx-1"><i class="fa fa-undo mx-1"></i>Reset</button>
+                        
+                        <div class="modal-footer text-center">
+                            <button type="submit" class="btn btn-success btn-sm mx-1"><i class="fa fa-save mx-1"></i> Save</button>
+                            <button type="reset" class="btn btn-secondary btn-sm mx-1"><i class="fa fa-undo mx-1"></i>Reset</button>
+                        </div>
                     </div>
-            </div>
+        
             </form>
         </div>
     </div>

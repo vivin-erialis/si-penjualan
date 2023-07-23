@@ -48,6 +48,7 @@ class TransaksiController extends Controller
         // Barang::where('kode_produk', '=', $request->kode_produk)->update(['status' => 'Terjual']);
 
         $data = $request->validate([
+            'kode_transaksi' => 'required',
             'kode_barang' => 'required|exists:barangs,id',
             'jenis_transaksi' => 'required|in:masuk,keluar',
             'jumlah' => 'required|integer|min:1',

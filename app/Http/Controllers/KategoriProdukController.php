@@ -43,6 +43,8 @@ class KategoriProdukController extends Controller
             [
                 "inputs.*.kode_kategori" => 'required',
                 "inputs.*.nama_kategori" => 'required',
+                "inputs.*.tipe" => 'required',
+
             ]
         );
         foreach ($request->inputs as $value) {

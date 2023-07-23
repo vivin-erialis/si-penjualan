@@ -19,7 +19,7 @@
                             <strong class="card-title">Data Barang</strong>
                         </div>
                         <div class="col-md-2">
-                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addModal">
+                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addModal" onclick="generateKodeBarang()">
                                 <i class="fa fa-plus mr-1"></i>Tambah Data
                             </button>
                         </div>
@@ -128,7 +128,7 @@
                 <div>
                     <div class="form-group">
                         <label for="kode">Kode</label>
-                        <input type="text" class="form-control" name="inputs[0][kode]">
+                        <input type="text" class="form-control" id="kodeBarangInput" name="inputs[0][kode]" readonly>
                     </div>
                     <div class="form-group">
                         <label for="">Kategori</label>

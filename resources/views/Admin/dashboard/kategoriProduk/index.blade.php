@@ -19,7 +19,7 @@
                             <strong class="card-title">Data Kategori</strong>
                         </div>
                         <div class="col-md-2">
-                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addModal">
+                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addModal" onclick="generateKodeKategoriProduk()">
                                 <i class="fa fa-plus mr-1"></i>Tambah Data
                             </button>
                         </div>
@@ -31,8 +31,9 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama</th>
-                                <th>Kode </th>
+                                <th>Kode</th>
+                                <th>Nama </th>
+                                <th>Tipe</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -42,6 +43,8 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $kategori->kode_kategori}}</td>
                                 <td>{{ $kategori->nama_kategori}}</td>
+                                <td>{{ $kategori->tipe}}</td>
+
                                 <td>
                                     <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal<?php echo $kategori['id'] ?>">
                                         <i class="fa fa-edit"></i>
@@ -76,7 +79,6 @@
                                                         <input type="text" class="form-control @error('nama_kategori') is-invalid @enderror" name="nama_kategori" value="<?php echo $kategori['nama_kategori']; ?>">
                                                     </div>
                                                 </div>
-
                                                 <div class="modal-footer">
                                                     <button type="submit" class="btn btn-success btn-sm save"><i class="fa fa-save mx-1"></i>Save</button>
                                                 </div>
@@ -105,36 +107,46 @@
                 </div>
                 <form action="/admin/kategoriproduk" method="POST">
                     @csrf
-                    <table class="table" id="table" name="table">
-                        <tr>
-                            <td>
-                                <div class="form-row">
-                                    <div class="col">
-                                        <label class="mx-2" for="kategoriKode">Kode Kategori</label>
-                                        <input type="text" class="form-control" name="inputs[0][kode_kategori]">
-                                    </div>
-                                    <div class="col">
-                                        <label class="mx-2" for="kategoriNama">Nama Kategori</label>
-                                        <input type="text" class="form-control" name="inputs[0][nama_kategori]">
-                                    </div>
+                    <div class="px-4 mt-4">
+                        <div class="row mb-3">
+                            <label for="kategoriKode" class="col-sm-3 col-form-label">Kode</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="inputs[0][kode_kategori]" id="kodeKategoriInput" readonly>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="kategoriNama" class="col-sm-3 col-form-label">Nama</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="inputs[0][nama_kategori]">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-3 col-form-label">Tipe</label>
+                            <div class="col-sm-9">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="inputs[0][tipe]" value="produk" checked>
+                                    <label class="form-check-label" for="tipeProduk">Produk</label>
                                 </div>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-dark btn-sm" style="margin-top: 29px;" name="add" id="add"><i class="fa fa-plus"></i></button>
-                            </td>
-                        </tr>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="inputs[0][tipe]" value="sewa">
+                                    <label class="form-check-label" for="tipeSewa">Sewa</label>
+                                </div>
+                            </div>
+                        </div>
 
-                    </table>
-                    <div class="modal-footer text-center">
-                        <button type="submit" class="btn btn-success btn-sm mx-1"><i class="fa fa-save mx-1"></i> Save</button>
-                        <button type="reset" class="btn btn-secondary btn-sm mx-1"><i class="fa fa-undo mx-1"></i>Reset</button>
+                        
+                        <div class="modal-footer text-center">
+                            <button type="submit" class="btn btn-success btn-sm mx-1"><i class="fa fa-save mx-1"></i> Save</button>
+                            <button type="reset" class="btn btn-secondary btn-sm mx-1"><i class="fa fa-undo mx-1"></i>Reset</button>
+                        </div>
                     </div>
+
+
+                </form>
             </div>
-            </form>
         </div>
     </div>
-</div>
-<!-- End Pop Up Add -->
-<!-- End Main Content -->
+    <!-- End Pop Up Add -->
+    <!-- End Main Content -->
 
-@endsection
+    @endsection
