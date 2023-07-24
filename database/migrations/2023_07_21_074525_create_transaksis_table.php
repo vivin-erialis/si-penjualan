@@ -20,8 +20,10 @@ return new class extends Migration
             // $table->unsignedBigInteger('barang_id');
             $table->enum('jenis_transaksi', ['masuk', 'keluar']);
             // $table->string('jenis_transaksi');
-
+            $table->string('satuan');
             $table->integer('jumlah');
+            $table->double('harga', 10.2);
+            $table->double('total', 10.2);
             $table->timestamps();
     
             // $table->foreign('barang_id')->references('id')->on('barangs');

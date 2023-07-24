@@ -13,6 +13,7 @@ class KategoriProduk extends Model
     {
     	// return $this->hasMany(Produk::class);
         return $this->hasMany(Produk::class, 'kode_kategori', 'id');
+        // return $this->hasMany(Sewa::class, 'kode_produk', 'id');
  
 
     }

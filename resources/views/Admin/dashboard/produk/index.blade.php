@@ -28,7 +28,7 @@
                             <strong class="card-title">Data Produk</strong>
                         </div>
                         <div class="col-md-2">
-                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addModal" onclick="generateKodeProduk()">
+                            <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#addModal" onclick="generateKodeProduk()">
                                 <i class="fa fa-plus mr-1"></i>Tambah Data
                             </button>
                         </div>
@@ -65,7 +65,7 @@
                                         @csrf
                                         <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Yakin akan menghapus data ?')"><i class="fa fa-trash"></i></i></button>
                                     </form>
-                                    
+
                                     @if($produk->status != 'Terjual')
                                     <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#penjualanModal<?php echo $produk['id'] ?>" onclick="generateKodePenjualan()">
                                         <i class="fa fa-check"></i>
@@ -77,13 +77,18 @@
                             <div class="modal fade" id="penjualanModal<?php echo $produk['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
-                                        <div class="card-header"><strong>Form Penjualan</strong></div>
-                                        <div class="card-body">
-                                            <form action="/admin/penjualan" method="POST">
-                                                @csrf
-                                                @method('POST')
-                                                <input type="hidden" name="produk_id" value="<?php echo $produk['id'] ?>">
-                                                <div class="form-group">
+                                        <div class="row card-header">
+                                            <div class="col">
+                                                <strong>Tambah Data Penjualan</strong>
+                                            </div>
+                                        </div>
+
+                                        <form action="/admin/penjualan" method="POST">
+                                            @csrf
+                                            @method('POST')
+                                            <input type="hidden" name="produk_id" value="<?php echo $produk['id'] ?>">
+                                            <div class="p-3">
+                                                <div class="form-group" hidden>
                                                     <label for="kode_penjualan">Kode Penjualan</label>
 
                                                     <input type="text" class="form-control" id="kodePenjualanInput" name="kode_penjualan" readonly>
@@ -97,7 +102,7 @@
 
                                                 <div class="form-group">
                                                     <label for="kode_kategori">Kategori</label>
-                                                    <select class="form-control form-select mt-2" aria-label="Default select example" name="kode_kategori" readonly >
+                                                    <select class="form-control form-select mt-2" aria-label="Default select example" name="kode_kategori" readonly>
                                                         <option>-- Pilih Kategori --</option>
                                                         @foreach($kategoriproduk as $kategori)
                                                         <option value="{{ $kategori->id }}" {{ $kategori->id == $produk->kode_kategori ? 'selected' : '' }}>{{ $kategori->nama_kategori }}</option>
@@ -120,11 +125,14 @@
                                                         <input type="number" class="form-control" name="harga" value="<?php echo $produk['harga'] ?>" readonly>
                                                     </div>
                                                 </div>
-                                                <div class="modal-footer">
-                                                    <button type="submit" class="btn btn-success btn-sm save"><i class="fa fa-save mx-1"></i>Save</button>
+                                                <div class="mt-3">
+
+                                                    <button type="submit" class="btn btn-success btn-sm mx-1 mb-2 mt-2" style="float: right;"><i class="fa fa-save mx-1"></i> Simpan</button>
+
                                                 </div>
-                                            </form>
-                                        </div>
+                                            </div>
+                                        </form>
+
                                     </div>
                                 </div>
                             </div>
@@ -133,22 +141,22 @@
                             <!-- Pop Up Edit -->
                             <div class="modal fade" id="editModal<?php echo $produk['id'] ?>" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                 <div class="modal-dialog">
-                                    <div class="modal-content px-3 pr-3">
+                                    <div class="modal-content">
                                         <div class="row card-header">
-                                            <strong class="fs-6">Form Produk</strong>
+                                            <strong>Edit Data Produk</strong>
                                         </div>
 
-                                        <form action="/admin/produk/{{ $produk->id }}" method="POST" class="p-3 mt-2">
+                                        <form action="/admin/produk/{{ $produk->id }}" method="POST">
                                             @method('PUT')
                                             @csrf
-                                            <div>
-                                                <div class="form-group">
+                                            <div class="p-3">
+                                                <div class="form-group" hidden>
                                                     <label for="kode_produk">Kode Produk</label>
-                                                    <input type="text" class="form-control" name="kode_produk" value="{{ $produk->kode_produk }}">
+                                                    <input type="text" class="form-control" name="kode_produk" value="{{ $produk->kode_produk }}" readonly>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="kode_kategori">Kategori</label>
-                                                    <select class="form-control form-select mt-2" aria-label="Default select example" name="kode_kategori">
+                                                    <select class="form-control form-select" aria-label="Default select example" name="kode_kategori">
                                                         <option>-- Pilih Kategori --</option>
                                                         @foreach($kategoriproduk as $kategori)
                                                         <option value="{{ $kategori->id }}" {{ $kategori->id == $produk->kode_kategori ? 'selected' : '' }}>
@@ -172,12 +180,19 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="status">Status</label>
-                                                    <select class="form-control form-select mt-2" aria-label="Default select example" name="status" readonly>
-                                                        <option value="Belum Terjual" {{ $produk->status == 'Belum Terjual' ? 'selected' : '' }}>Belum Terjual</option>
-                                                        <option value="Terjual" {{ $produk->status == 'Terjual' ? 'selected' : '' }}>Terjual</option>
-                                                    </select>
+                                                    <!-- <label>Status</label> -->
+                                                    <div style="display: flex;" hidden>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="status" value="Belum Terjual" {{ $produk->status == 'Belum Terjual' ? 'checked' : '' }}>
+                                                            <label class="form-check-label">Belum Terjual</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="status" value="Terjual" {{ $produk->status == 'Terjual' ? 'checked' : '' }}>
+                                                            <label class="form-check-label">Terjual</label>
+                                                        </div>
+                                                    </div>
                                                 </div>
+
                                                 <!-- <div class="form-group">
                         <label for="foto">Foto</label>
                         <input type="file" class="form-control" name="foto">
@@ -187,10 +202,13 @@
                                                     <textarea class="form-control" name="deskripsi" rows="4">{{ $produk->deskripsi }}</textarea>
                                                 </div>
                                             </div>
-                                            <div class="modal-footer text-center">
-                                                <button type="submit" class="btn btn-success btn-sm mx-1"><i class="fa fa-save mx-1"></i> Save</button>
-                                                <button type="reset" class="btn btn-secondary btn-sm mx-1"><i class="fa fa-undo mx-1"></i> Reset</button>
-                                            </div>
+                                           
+                                                <div class="mt-1">
+
+                                                    <button type="submit" class="btn btn-success btn-sm mx-3 mb-3" style="float: right;"><i class="fa fa-save mx-1"></i> Simpan</button>
+
+                                                </div>
+                                            
                                         </form>
                                     </div>
                                 </div>
@@ -211,17 +229,15 @@
         <div class="modal-content">
             <div class="row card-header">
                 <div class="col-md-10">
-                    <strong class="fs-6">Form produk</strong>
+                    <strong>Tambah Data produk</strong>
                 </div>
-                <div class="col-md-2">
-                    <button type="button" class="btn btn-sm mx-1" data-bs-dismiss="modal"><i class="fa fa-close"></i></button>
-                </div>
+
             </div>
 
             <form action="/admin/produk" method="POST" class="p-3 mt-2" enctype="multipart/form-data">
                 @csrf
                 <div>
-                    <div class="form-group">
+                    <div class="form-group" hidden>
                         <label for="kode_produk">Kode Produk</label>
                         <input type="text" class="form-control" id="kodeProdukInput" name="kode_produk" readonly>
                     </div>
@@ -248,12 +264,19 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="status">Status</label>
-                        <select class="form-control form-select mt-2" aria-label="Default select example" name="status" readonly>
-                            <option value="Belum Terjual">Belum Terjual</option>
-                            <option value="Terjual">Terjual</option>
-                        </select>
+                        <!-- <label>Status</label> -->
+                        <div style="display: flex;" hidden>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="status" value="Belum Terjual" checked readonly>
+                                <label class="form-check-label">Belum Terjual</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="pro$produk" value="Terjual" readonly>
+                                <label class="form-check-label">Terjual</label>
+                            </div>
+                        </div>
                     </div>
+
                     <!-- <div class="form-group">
                         <label for="foto">Foto</label>
                         <input type="file" class="form-control" name="foto">
@@ -263,9 +286,10 @@
                         <textarea class="form-control" name="deskripsi" rows="4"></textarea>
                     </div>
                 </div>
-                <div class="modal-footer text-center">
-                    <button type="submit" class="btn btn-success btn-sm mx-1"><i class="fa fa-save mx-1"></i> Save</button>
-                    <button type="reset" class="btn btn-secondary btn-sm mx-1"><i class="fa fa-undo mx-1"></i> Reset</button>
+                <div class="mt-3">
+
+                    <button type="submit" class="btn btn-success btn-sm mx-1 mb-2 mt-2" style="float: right;"><i class="fa fa-save mx-1"></i> Simpan</button>
+
                 </div>
             </form>
         </div>

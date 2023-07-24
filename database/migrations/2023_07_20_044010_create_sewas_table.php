@@ -17,7 +17,12 @@ return new class extends Migration
             $table->id();
             $table->string('kode_sewa')->unique();
             $table->string('nama_penyewa');
+            $table->string('telp');
+            $table->string('alamat');
+            $table->date('tanggal_sewa');
+            $table->string('nama_produk');
             $table->double('harga_sewa');
+            $table->string('deskripsi');
             $table->timestamps();
         });
     }

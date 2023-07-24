@@ -16,10 +16,10 @@
                 <div class="card-header">
                     <div class="row p-2">
                         <div class="col-md-10 mt-1">
-                            <strong class="card-title">Data Transaksi</strong>
+                            <strong class="card-title">Data Sewa</strong>
                         </div>
                         <div class="col-md-2">
-                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addModal">
+                            <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#addModal" onclick="generateKodeSewa()">
                                 <i class="fa fa-plus mr-1"></i>Tambah Data
                             </button>
                         </div>
@@ -30,24 +30,24 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama Barang</th>
-                                <th>Jenis Transaksi</th>
-                                <th>Jumlah</th>
-                                <th>Action</th>
+                                <th>Kode</th>
+                                <th>Nama</th>
+                                <th>Produk</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($transaksi as $item)
+                            @foreach ($sewa as $item)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->kode_barang }}</td>
-                                <td>{{ $item->jenis_transaksi }}</td>
-                                <td>{{ $item->jumlah }}</td>
+                                <td>{{ $item->kode_sewa }}</td>
+                                <td>{{ $item->nama_penyewa}}</td>
+                                <td>{{ $item->nama_produk }}</td>
                                 <td>
                                     <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">
                                         <i class="fa fa-edit"></i>
                                     </button>
-                                    <form action="/admin/transaksi/{{ $item->id }}" method="post" class="d-inline">
+                                    <form action="/admin/sewa/{{ $item->id }}" method="post" class="d-inline">
                                         @method('DELETE')
                                         @csrf
                                         <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Yakin akan menghapus data ?')">
@@ -111,39 +111,82 @@
 <div class="modal fade" id="addModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="transaksiModalLabel">Form Transaksi Barang</h5>
+            <div class="row card-header">
+                <div class="col">
+                    <strong>Form Data Sewa</strong>
+                </div>
             </div>
             <div class="modal-body">
-                <form action="/admin/transaksi" method="POST">
+                <form action="/admin/sewa" method="POST">
                     @csrf
                     <div class="form-group">
-                        <label for="kode_barang">Barang</label>
-                        <select class="form-control" name="kode_barang" id="kode_barang" required>
-                            <!-- Ambil data barang dari database dan tampilkan sebagai pilihan -->
-                            @foreach($barang as $item)
-                            <option value="{{ $item->id }}">{{ $item->nama_barang }}</option>
-                            @endforeach
-                        </select>
+                        <label for="kodeSewa">Kode</label>
+                        <input type="text" class="form-control" id="kodeSewaInput" name="kode_sewa" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="jenis_transaksi">Jenis Transaksi</label>
-                        <select class="form-control" name="jenis_transaksi" id="jenis_transaksi" required>
-                            <option value="masuk">Barang Masuk</option>
-                            <option value="keluar">Barang Keluar</option>
-                        </select>
+                        <label for="nama_penyewa">Nama Penyewa</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+                            </div>
+                            <input type="text" class="form-control" name="nama_penyewa">
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="jumlah">Jumlah</label>
-                        <input type="number" class="form-control" name="jumlah" id="jumlah" required>
+                        <label for="telp">Telepon</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"><i class="fa fa-phone"></i></span>
+                            </div>
+                            <input type="number" class="form-control" name="telp">
+                        </div>
                     </div>
-                    <div class="modal-footer text-center">
-                        <button type="submit" class="btn btn-success btn-sm mx-1"><i class="fa fa-save mx-1"></i> Save</button>
+                    <div class="form-group">
+                        <label for="alamat">Alamat</label>
+                        <textarea class="form-control" name="alamat" rows="3"></textarea>
                     </div>
-                </form>
+                    <div class="form-group">
+                        <label for="tanggal_sewa">Tanggal Sewa</label>
+
+                        <input type="date" class="form-control" name="tanggal_sewa">
+
+                    </div>
+
+                    <div class="form-group">
+                        <label>Produk</label>
+                        <div style="display: flex;">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="nama_produk" value="Papan Bunga">
+                                <label class="form-check-label">Papan Karangan Bunga</label>
+                            </div>
+                            <div class="form-check mx-3">
+                                <input class="form-check-input" type="radio" name="nama_produk" value="Hantaran Nikah">
+                                <label class="form-check-label">Hantaran Nikah</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="harga_sewa">Harga</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Rp</span>
+                            </div>
+                            <input type="number" class="form-control" name="harga_sewa">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="deskripsi">Deskripsi</label>
+                        <textarea class="form-control" name="deskripsi" rows="4"></textarea>
+                    </div>
             </div>
+
+            <div class="modal-footer text-center">
+                <button type="submit" class="btn btn-success btn-sm mx-1"><i class="fa fa-save mx-1"></i> Save</button>
+            </div>
+            </form>
         </div>
     </div>
+</div>
 </div>
 <!-- End Pop Up Add -->
 @endsection

@@ -19,7 +19,7 @@
                             <strong class="card-title">Data Kategori</strong>
                         </div>
                         <div class="col-md-2">
-                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addModal" onclick="generateKodeKategoriBarang()">
+                            <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#addModal" onclick="generateKodeKategoriBarang()">
                                 <i class="fa fa-plus mr-1"></i>Tambah Data
                             </button>
                         </div>
@@ -57,7 +57,11 @@
                             <div class="modal fade" id="editModal<?php echo $kategori['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
-                                        <div class="card-header"><strong>Edit Kategori</strong></div>
+                                        <div class="row card-header">
+                                            <div class="col">
+                                                <strong>Edit Data Kategori</strong>
+                                            </div>
+                                        </div>
                                         <div class="card-body">
                                             <form action="/admin/kategoribarang/{{ $kategori->id }}" method="POST">
                                                 @method('PUT')
@@ -77,8 +81,10 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="modal-footer">
-                                                    <button type="submit" class="btn btn-success btn-sm save"><i class="fa fa-save mx-1"></i>Save</button>
+                                                <div class="mt-3">
+
+                                                    <button type="submit" class="btn btn-success btn-sm mx-1 mb-2 mt-2" style="float: right;"><i class="fa fa-save mx-1"></i> Simpan</button>
+
                                                 </div>
                                             </form>
 
@@ -100,7 +106,7 @@
             <div class="modal-content">
                 <div class="row card-header">
                     <div class="col">
-                        <strong class="fs-6">Form Kategori</strong>
+                        <strong>Tambah Data Kategori</strong>
                     </div>
                 </div>
                 <form action="/admin/kategoribarang" method="POST">
@@ -118,20 +124,19 @@
                                 <input type="text" class="form-control" name="inputs[0][nama_kategori]">
                             </div>
                         </div>
-                        
 
-                        
-                        <div class="modal-footer text-center">
-                            <button type="submit" class="btn btn-success btn-sm mx-1"><i class="fa fa-save mx-1"></i> Save</button>
-                            <button type="reset" class="btn btn-secondary btn-sm mx-1"><i class="fa fa-undo mx-1"></i>Reset</button>
+                        <div class="mt-3 mb-2">
+
+                            <button type="submit" class="btn btn-success btn-sm mx-1 mb-3 mt-2" style="float: right;"><i class="fa fa-save mx-1"></i> Simpan</button>
+
                         </div>
                     </div>
-        
-            </form>
+
+                </form>
+            </div>
         </div>
     </div>
-</div>
-<!-- End Pop Up Add -->
-<!-- End Main Content -->
+    <!-- End Pop Up Add -->
+    <!-- End Main Content -->
 
-@endsection
+    @endsection

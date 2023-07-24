@@ -41,6 +41,10 @@ Googel Fonts  */
   -webkit-background-clip: text;
 }
 
+.alert {
+  background-color: #4dbd74 !important;
+  color: white !important;
+}
 
 .bg-flat-color-2 {
   background: #ab8ce4;
@@ -48,6 +52,11 @@ Googel Fonts  */
 
 .bg-flat-color-3 {
   background: #4FB477;
+}
+
+.footer-modal {
+  display: flex;
+  float: left;
 }
 
 .bg-flat-color-4 {

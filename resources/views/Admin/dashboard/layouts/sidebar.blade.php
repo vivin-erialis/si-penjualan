@@ -16,19 +16,19 @@
                 </li>
 
                 <li class="{{ Request::is('admin/produk') ? 'active' : ''}}">
-                    <a href="/admin/produk"><i class="menu-icon fa fa-trash"></i>Produk</a>
+                    <a href="/admin/produk"><i class="menu-icon fa fa-tags"></i>Produk</a>
                 </li>
                 <li class="{{ Request::is('admin/sewa') ? 'active' : ''}}">
-                    <a href="/admin/sewa"><i class="menu-icon fa fa-trash"></i>Sewa</a>
+                    <a href="/admin/sewa"><i class="menu-icon fa fa-note-sticky"></i>Sewa</a>
                 </li>
 
                 <!-- Menu Data Barang -->
                 <li class="menu-title">Data Barang</li>
                 <li class="{{ Request::is('admin/barang') ? 'active' : ''}}">
-                    <a href="/admin/barang"><i class="menu-icon fa fa-tasks"></i>Data Barang</a>
+                    <a href="/admin/barang"><i class="menu-icon fa fa-cubes-stacked"></i>Data Barang</a>
                 </li>
                 <li class="{{ Request::is('admin/transaksi') ? 'active' : ''}}">
-                    <a href="/admin/transaksi"><i class="menu-icon fa fa-tasks"></i>Transaksi</a>
+                    <a href="/admin/transaksi"><i class="menu-icon fa fa-newspaper"></i>Transaksi</a>
                 </li>
 
                 <!-- Menu Data Laporan -->

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sewa;
+use App\Models\KategoriProduk;
 use Illuminate\Http\Request;
 
 class SewaController extends Controller
@@ -15,9 +16,10 @@ class SewaController extends Controller
     public function index()
     {
         //
-        // return view('admin.dashboard.sewa.index', {
-        //     sew
-        // });
+        return view('admin.dashboard.sewa.index', [
+            'sewa' => Sewa::with('kategoriproduk')->get(),
+            'kategoriproduk' => KategoriProduk::all()
+        ]);
     }
 
     /**
@@ -39,6 +41,21 @@ class SewaController extends Controller
     public function store(Request $request)
     {
         //
+        $validatedData = $request->validate([
+            'kode_sewa' => 'required',
+            'nama_penyewa' => 'required',
+            'telp' => 'required',
+            'alamat' => 'required',
+            'tanggal_sewa' => 'required',
+            'nama_produk' => 'required',
+            'harga_sewa' => 'required',
+            'deskripsi' => 'required',
+
+        ]);
+        Sewa::create($validatedData);
+
+        // Redirect ke halaman atau tampilan lain jika diperlukan
+        return redirect('/admin/sewa')->with('pesan', 'Data Sewa berhasil disimpan.');
     }
 
     /**
@@ -81,8 +98,10 @@ class SewaController extends Controller
      * @param  \App\Models\Sewa  $sewa
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Sewa $sewa)
+    public function destroy($id)
     {
         //
+        Sewa::destroy($id);
+        return redirect('/admin/sewa')->with('pesan', 'Data Berhasil Dihapus');
     }
 }

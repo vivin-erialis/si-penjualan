@@ -92,7 +92,8 @@ class KategoriProdukController extends Controller
         //
         $validatedData = $request->validate([
             'kode_kategori' => 'required',
-            'nama_kategori' => 'required'
+            'nama_kategori' => 'required',
+            'tipe' => 'required'
         ]);
         KategoriProduk::where('id', $id)->update($validatedData);
         return redirect('/admin/kategoriproduk')->with('pesan', 'Data Berhasil Diubah');
