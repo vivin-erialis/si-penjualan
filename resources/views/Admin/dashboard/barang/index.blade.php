@@ -56,8 +56,10 @@
                                         @csrf
                                         <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Yakin akan menghapus data ?')"><i class="fa fa-trash"></i></i></button>
                                     </form>
+                                    
                                 </td>
                             </tr>
+                           
                             <!-- Pop Up Edit -->
                             <div class="modal fade" id="editModal<?php echo $barang['id'] ?>" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -91,7 +93,7 @@
                                                     <input type="text" class="form-control" name="nama_barang" value="<?php echo $barang['nama_barang']; ?>">
                                                 </div>
 
-                                                <div class="form-group">
+                                                <div class="form-group" hidden>
                                                     <label for="">Stok</label>
                                                     <input type="number" class="form-control" name="stok" value="<?php echo $barang['stok']; ?>" readonly>
                                                 </div>
@@ -108,6 +110,8 @@
                                 </div>
                             </div>
                             <!-- End Pop Up Edit -->
+
+
                             @endforeach
                         </tbody>
                     </table>
@@ -130,13 +134,13 @@
             <form action="/admin/barang" method="POST" class="p-3 mt-2">
                 @csrf
                 <div>
-                    <div class="form-group" hidden>
+                    <div class="form-group">
                         <label for="kode">Kode</label>
                         <input type="text" class="form-control" id="kodeBarangInput" name="inputs[0][kode]" readonly>
                     </div>
                     <div class="form-group">
                         <label for="">Kategori</label>
-                        <select class="form-control form-select mt-2" aria-label="Default select example" name="inputs[0][kode_kategori]">
+                        <select class="form-control form-select mt-2" aria-label="Default select example" name="inputs[0][kode_kategori]" required>
                             <option>-- Pilih Kategori --</option>
                             @foreach($kategoribarang as $kategori)
                             <option value="{{ $kategori->id }}">{{ $kategori->nama_kategori }}</option>
@@ -145,10 +149,10 @@
                     </div>
                     <div class="form-group">
                         <label for="" class="mt-3">Nama Barang</label>
-                        <input type="text" class="form-control" name="inputs[0][nama_barang]">
+                        <input type="text" class="form-control" name="inputs[0][nama_barang]" required>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" hidden>
                         <label for="">Stok</label>
                         <input type="number" class="form-control" name="inputs[0][stok]" value="0" readonly>
                     </div>

@@ -13,6 +13,7 @@ use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\Controller\SewaContoller;
+use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\SewaController;
 use App\Http\Middleware\CheckLevel;
 use App\Models\Barang;
@@ -77,5 +78,5 @@ Route::post ('/login', [LoginController::class,'authenticate']);
 //Barang Masuk
 // Route::resource('/barangMasuk', BarangMasukController::class)->middleware('auth');
 
-//Barang
-// Route::resource('/barang', BarangController::class)->middleware('auth');
+//Galeri
+Route::resource('/galeri', GaleriController::class);

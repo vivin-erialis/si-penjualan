@@ -25,7 +25,7 @@ class Barang extends Model
         // return $this->hasOne(Kategori::class,'id');
         return $this->hasMany(BarangMasuk::class, 'nama_barang', 'id');
         return $this->hasMany(BarangKeluar::class, 'nama_barang', 'id');
-        return $this->hasMany(Transaksi::class);
+        return $this->hasMany(Transaksi::class, 'nama_barang', 'id');
 
 
     }

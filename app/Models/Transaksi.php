@@ -11,6 +11,6 @@ class Transaksi extends Model
     protected $guarded=[];
     public function barang()
     {
-        return $this->belongsTo(Barang::class , 'kode', 'id', 'nama_barang');
+        return $this->belongsTo(Barang::class , 'kode_barang', 'id', 'nama_barang');
     }
 }

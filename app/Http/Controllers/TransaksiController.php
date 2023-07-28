@@ -51,7 +51,10 @@ class TransaksiController extends Controller
             'kode_transaksi' => 'required',
             'kode_barang' => 'required|exists:barangs,id',
             'jenis_transaksi' => 'required|in:masuk,keluar',
+            'satuan' => 'required',
             'jumlah' => 'required|integer|min:1',
+            'harga' => 'required',
+            'total' => 'required',
         ]);
 
 
@@ -111,9 +114,33 @@ class TransaksiController extends Controller
      * @param  \App\Models\Transaksi  $transaksi
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Transaksi $transaksi)
+    public function update(Request $request, $id)
     {
         //
+        $data = $request->validate([
+            'kode_transaksi' => 'required',
+            'kode_barang' => 'required|exists:barangs,id',
+            'jenis_transaksi' => 'required|in:masuk,keluar',
+            'satuan' => 'required',
+            'jumlah' => 'required|integer|min:1',
+            'harga' => 'required',
+            'total' => 'required',
+        ]);
+
+
+        // Update stok barang
+        $barang = Barang::find($data['kode_barang']);
+        if ($data['jenis_transaksi'] === 'masuk') {
+            $stokSetelahDitambah = $barang->stok + $data['jumlah'];
+            $barang->stok = $stokSetelahDitambah - $barang->stok;
+        } else {
+            $stokSetelahDikurang= $barang->stok - $data['jumlah'];
+            $barang->stok = $stokSetelahDikurang - $barang->stok;        }
+        $barang->save();
+        Transaksi::where('id', $id)->update($data);
+        return redirect('/admin/transaksi')->with('pesan', 'Data Transaksi Berhasil Diubah');
+
+
     }
 
     /**

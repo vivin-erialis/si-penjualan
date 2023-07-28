@@ -24,6 +24,9 @@ Googel Fonts  */
 .bg-flat-color-1 {
   background: #00c292;
 }
+*{
+  font-size: 13px !important;
+}
 
 .content {
   background-color: whitesmoke;
@@ -58,6 +61,7 @@ Googel Fonts  */
   display: flex;
   float: left;
 }
+
 
 .bg-flat-color-4 {
   background: #fb9678;

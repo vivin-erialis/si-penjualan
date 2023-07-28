@@ -176,3 +176,39 @@ function generateKodeSewa() {
 
     document.getElementById('kodeSewaInput').value = kodeSewa;
 }
+
+function calculateTotal() {
+    // Mendapatkan nilai jumlah dan harga dari input
+    const jumlah = parseFloat(document.getElementById('jumlah').value);
+    const harga = parseFloat(document.getElementById('harga').value);
+
+    // Menghitung total berdasarkan jumlah dan harga yang dimasukkan
+    const total = jumlah * harga;
+
+    // Menampilkan total pada input total
+    document.getElementById('total').value = total;
+}
+
+function checkEnter(event) {
+    if (event.key === "click") {
+        calculateTotal(); // Panggil fungsi calculateTotal() saat tombol "Enter" ditekan
+    }
+}
+
+function calculateTotal1() {
+    // Mendapatkan nilai jumlah dan harga dari input
+    const jumlah = parseFloat(document.getElementById('jumlah_1').value);
+    const harga = parseFloat(document.getElementById('harga_1').value);
+
+    // Menghitung total berdasarkan jumlah dan harga yang dimasukkan
+    const total = jumlah * harga;
+
+    // Menampilkan total pada input total
+    document.getElementById('total_1').value = total;
+}
+
+function checkEnter(event) {
+    if (event.key === "click") {
+        calculateTotal(); // Panggil fungsi calculateTotal() saat tombol "Enter" ditekan
+    }
+}

@@ -30,6 +30,7 @@
                         <thead>
                             <tr>
                                 <th>No</th>
+                                <th>Kode Transaksi</th>
                                 <th>Nama Barang</th>
                                 <th>Jenis Transaksi</th>
                                 <th>Jumlah</th>
@@ -40,7 +41,12 @@
                             @foreach ($transaksi as $item)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->kode_barang }}</td>
+                                <td><span class="badge badge-primary">{{ $item->kode_transaksi }}</span></td>
+                                <td> 
+                                    @if($item->barang)
+                                    {{ ($item->Barang->nama_barang) }}
+                                    @endif
+                                </td>
                                 <td>{{ $item->jenis_transaksi }}</td>
                                 <td>{{ $item->jumlah }}</td>
                                 <td>
@@ -54,56 +60,118 @@
                                             <i class="fa fa-trash"></i>
                                         </button>
                                     </form>
+                                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#detailModal{{ $item->id }}">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
                                 </td>
                             </tr>
-                            <!-- Pop Up Edit -->
-                            <div class="modal fade" id="editModal{{ $item->id }}" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal fade" id="detailModal{{ $item->id }}" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                 <div class="modal-dialog">
-                                    <div class="modal-content px-3 pr-3">
+                                    <div class="modal-content">
                                         <div class="row card-header">
-                                            <strong class="fs-6">Form Transaksi</strong>
+                                            <strong> Detail Data Transaksi</strong>
                                         </div>
+                                        <div class="card-body">
+                                            <ul class="list-group list-group-flush p-2">
+                                                <li class="list-group-item">
+                                                    Kode Transaksi <span class="badge badge-primary pull-right">{{ $item->kode_transaksi }}</span>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    Jenis Transaksi <span class="badge badge-primary pull-right">{{ $item->jenis_transaksi }}</span>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    Jumlah <span class="badge badge-primary pull-right">{{ $item->jumlah }}</span>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    Total <span class="badge badge-primary pull-right ">{{ $item->total }}</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-                                        <form action="/admin/transaksi/{{ $item->id }}" method="POST" class="p-3 mt-2">
-                                            @method('PUT')
-                                            @csrf
-                                            <div>
-                                                <div class="form-group">
-                                                    <label for="kode_transaksi">Kode</label>
-                                                    <input type="text" class="form-control" name="kode_transaksi" value="{{ $item->kode_transaksi }}">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="kode_barang">Kode</label>
-                                                    <input type="text" class="form-control" name="kode_barang" value="{{ $item->kode_barang }}">
-                                                </div>
+                                </div>
 
-                                                <div class="form-group">
-                                                    <label for="nama_barang" class="mt-3">Nama Barang</label>
-                                                    <input type="text" class="form-control" name="nama_barang" value="{{ $item->nama_barang }}">
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="jenis_transaksi">Jenis Transaksi</label>
-                                                    <select class="form-control" name="jenis_transaksi">
-                                                        <option value="masuk" {{ $item->jenis_transaksi === 'masuk' ? 'selected' : '' }}>Barang Masuk</option>
-                                                        <option value="keluar" {{ $item->jenis_transaksi === 'keluar' ? 'selected' : '' }}>Barang Keluar</option>
-                                                    </select>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="jumlah">Jumlah</label>
-                                                    <input type="number" class="form-control" name="jumlah" value="{{ $item->jumlah }}">
-                                                </div>
+                                <!-- Pop Up Edit -->
+                                <div class="modal fade" id="editModal{{ $item->id }}" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="row card-header">
+                                                <strong> Edit Data Transaksi</strong>
                                             </div>
-                                            <div class="modal-footer text-center">
-                                                <button type="submit" class="btn btn-success btn-sm mx-1"><i class="fa fa-save mx-1"></i> Save</button>
-                                            </div>
-                                        </form>
+
+                                            <form action="/admin/transaksi/{{ $item->id }}" method="POST" class="mt-1">
+                                                @method('PUT')
+                                                @csrf
+
+                                                <div class="p-3">
+                                                    <div class="form-group">
+                                                        <label for="kodeTransaksi">Kode</label>
+                                                        <input type="text" class="form-control" value="{{ $item->kode_transaksi }}" name="kode_transaksi" readonly>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="kode_barang">Barang</label>
+                                                        <select class="form-control" name="kode_barang" id="kode_barang" required>
+                                                            <!-- Ambil data barang dari database dan tampilkan sebagai pilihan -->
+                                                            @foreach($barang as $barangItem)
+                                                            <option value="{{ $barangItem->id }}" @if($barangItem->id === $item->kode_barang) selected @endif>
+                                                                {{ $barangItem->nama_barang }}
+                                                            </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Jenis Transaksi</label>
+                                                        <div style="display: flex;">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio" name="jenis_transaksi" value="masuk" @if($item->jenis_transaksi === 'masuk') checked @endif>
+                                                                <label class="form-check-label">Barang Masuk</label>
+                                                            </div>
+                                                            <div class="form-check mx-3">
+                                                                <input class="form-check-input" type="radio" name="jenis_transaksi" value="keluar" @if($item->jenis_transaksi === 'keluar') checked @endif>
+                                                                <label class="form-check-label">Barang Keluar</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="satuan">Satuan</label>
+                                                        <input type="text" class="form-control" name="satuan" id="satuan" value="{{ $item->satuan }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="jumlah">Jumlah</label>
+                                                        <input type="number" class="form-control" id="jumlah_1" name="jumlah" value="{{ $item->jumlah }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="harga">Harga</label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text" id="basic-addon1">Rp</span>
+                                                            </div>
+                                                            <input type="number" id="harga_1" class="form-control" name="harga" value="{{ $item->harga }}" oninput="calculateTotal1()">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="total">Total</label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text" id="basic-addon1">Rp</span>
+                                                            </div>
+                                                            <input type="number" id="total_1" class="form-control" value="{{ $item->total }}" name="total" readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mt-3">
+
+                                                        <button type="submit" class="btn btn-success btn-sm mx-1 mb-2 mt-2" style="float: right;"><i class="fa fa-save mx-1"></i> Simpan</button>
+
+                                                    </div>
+                                                </div>
+
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- End Pop Up Edit -->
-                            @endforeach
+                                <!-- End Pop Up Edit -->
+                                @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -115,8 +183,8 @@
 <div class="modal fade" id="addModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="transaksiModalLabel">Form Transaksi Barang</h5>
+            <div class="row card-header">
+                <strong> Tambah Data Transaksi</strong>
             </div>
             <div class="modal-body">
                 <form action="/admin/transaksi" method="POST">
@@ -129,25 +197,61 @@
                         <label for="kode_barang">Barang</label>
                         <select class="form-control" name="kode_barang" id="kode_barang" required>
                             <!-- Ambil data barang dari database dan tampilkan sebagai pilihan -->
-                            @foreach($barang as $item)
-                            <option value="{{ $item->id }}">{{ $item->nama_barang }}</option>
+                            @foreach($barang as $barangItem)
+                            <option value="{{ $barangItem->id }}" @if($barangItem->id === $item->kode_barang) selected @endif>
+                                {{ $barangItem->nama_barang }}
+                            </option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="jenis_transaksi">Jenis Transaksi</label>
-                        <select class="form-control" name="jenis_transaksi" id="jenis_transaksi" required>
-                            <option value="masuk">Barang Masuk</option>
-                            <option value="keluar">Barang Keluar</option>
-                        </select>
+                        <label>Jenis Transaksi</label>
+                        <div style="display: flex;">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="jenis_transaksi" value="masuk">
+                                <label class="form-check-label">Barang Masuk</label>
+                            </div>
+                            <div class="form-check mx-3">
+                                <input class="form-check-input" type="radio" name="jenis_transaksi" value="keluar">
+                                <label class="form-check-label">Barang Keluar</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="satuan">Satuan</label>
+                        <input type="text" class="form-control" name="satuan" id="satuan" required>
                     </div>
                     <div class="form-group">
                         <label for="jumlah">Jumlah</label>
-                        <input type="number" class="form-control" name="jumlah" id="jumlah" required>
+                        <input type="number" class="form-control" id="jumlah" name="jumlah" id="jumlah" required>
                     </div>
-                    <div class="modal-footer text-center">
-                        <button type="submit" class="btn btn-success btn-sm mx-1"><i class="fa fa-save mx-1"></i> Save</button>
+                    <div class="form-group">
+                        <label for="harga">Harga</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Rp</span>
+                            </div>
+                            <input type="number" id="harga" class="form-control" name="harga" oninput="calculateTotal()">
+                        </div>
                     </div>
+                    <div class="form-group">
+                        <label for="total">Total</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Rp</span>
+                            </div>
+                            <input type="number" id="total" class="form-control" name="total">
+                        </div>
+                    </div>
+                    <div class="mt-3">
+
+                        <button type="submit" class="btn btn-success btn-sm mx-1 mb-2 mt-2" style="float: right;"><i class="fa fa-save mx-1"></i> Simpan</button>
+
+                    </div>
+
+
+
                 </form>
             </div>
         </div>

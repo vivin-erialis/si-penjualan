@@ -136,7 +136,7 @@
                         <div class="row mb-3">
                             <label for="kategoriNama" class="col-sm-3 col-form-label">Nama</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="inputs[0][nama_kategori]">
+                                <input type="text" class="form-control" name="inputs[0][nama_kategori]" required>
                             </div>
                         </div>
                         <div class="row mb-3">
