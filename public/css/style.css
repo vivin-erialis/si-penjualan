@@ -40,7 +40,9 @@ div.dataTables_wrapper div.dataTables_filter input {
 .stat-widget-five .stat-text {
   font-size: 18px !important;
 }
-
+/* *{
+  font-size: 14px !important;
+} */
 div.dataTables_wrapper div.dataTables_length select {
   width: 40px !important;
 }
@@ -1819,7 +1821,7 @@ header .form-inline .search-form.close {
 }
 
 .card-title {
-  font-size: 18px;
+  font-size: 16px;
   /* color: white; */
 }
 .card .card-top button,

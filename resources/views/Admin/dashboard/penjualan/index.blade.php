@@ -30,14 +30,12 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                <div class="row p-2">
+                    <div class="row p-2">
                         <div class="col-md-10 mt-1">
                             <strong class="card-title">Data Penjualan</strong>
                         </div>
                         <div class="col-md-2">
-                            <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#addModal" onclick="generateKodeTransaksi()">
-                                <i class="fa fa-print mr-1"></i>Cetak Laporan
-                            </button>
+                        <a class="btn btn-default" href="{{route('cetaklaporanpenjualan')}}" target="blank"><i class="fa fa-print"></i> Cetak PDF</a>
                         </div>
                     </div>
                 </div>
@@ -50,10 +48,19 @@
                                 <th>Nama</th>
                                 <th>Tanggal</th>
                                 <th>Harga</th>
-                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($penjualan as $item)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{$item->kode_penjualan}}</td>
+                                <td>{{$item->nama_produk}}</td>
+                                <td>{{$item->tanggal_transaksi}}</td>
+                                <td>{{$item->harga}}</td>
+                            </tr>
+                            @endforeach
+
 
                         </tbody>
                     </table>

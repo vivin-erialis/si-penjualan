@@ -3,6 +3,7 @@
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\BarangMasukController;
 use App\Http\Controllers\BarangKeluarController;
+use App\Http\Controllers\CetakLaporanController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
@@ -20,6 +21,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\GantiPasswordController;
 use App\Http\Middleware\CheckLevel;
 use App\Models\Barang;
+use App\Models\KategoriBarang;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +51,7 @@ Route::middleware(['auth', 'CheckLevel:admin'])->group(function () {
     Route::resource('/admin/transaksi', TransaksiController::class);
     Route::resource('/admin/sewa', SewaController::class);
     Route::resource('/admin/petugas', StaffController::class);
+    Route::get('/admin/cetakpenjualan', [CetakLaporanController::class, 'cetaklaporanpenjualan'])->name('cetaklaporanpenjualan');
     Route::get('/admin/penjualan/by-date-range', [PenjualanController::class, 'getDataByDateRange']);
 
     Route::get('/register', function () {
