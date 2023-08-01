@@ -16,6 +16,21 @@ class PenjualanController extends Controller
     public function index()
     {
         //
+        return view('admin.dashboard.penjualan.index', [
+            'penjualan' => Penjualan::with('produk')->get(),
+            'produk' => Produk::all()
+        ]);
+    }
+
+    
+    public function getDataByDateRange(Request $request)
+    {
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+    
+        $dataPenjualan = Penjualan::whereBetween('tanggal_transaksi', [$startDate, $endDate])->get();
+    
+        return response()->json($dataPenjualan);
     }
 
     /**

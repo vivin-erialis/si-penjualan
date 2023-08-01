@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Home;
+use Carbon\Carbon;
+use App\Models\Penjualan;
+use App\Models\Transaksi;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -14,13 +17,56 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view ('admin.dashboard.home.dashboard');
+        $totalTerjual = $this->getTotalTerjual();
+        $totalPendapatan = $this->getTotalPendapatan();
+        $totalPengeluaran = $this->getTotalPengeluaran();
+        return view('admin.dashboard.home.dashboard', compact('totalTerjual', 'totalPendapatan', 'totalPengeluaran'));
+    }
+
+    // ... kode lain dalam controller ...
+
+    public function getTotalTerjual()
+    {
+        $bulanIni = Carbon::now()->month;
+        $tahunIni = Carbon::now()->year;
+
+        $totalTerjual = Penjualan::whereMonth('created_at', $bulanIni)
+            ->whereYear('created_at', $tahunIni)
+            ->count();
+
+        return $totalTerjual;
+    }
+
+    public function getTotalPendapatan()
+    {
+        $bulanIni = Carbon::now()->month;
+        $tahunIni = Carbon::now()->year;
+
+        $totalPendapatan = Penjualan::whereMonth('created_at', $bulanIni)
+            ->whereYear('created_at', $tahunIni)
+            ->sum('harga');
+
+        return $totalPendapatan;
+    }
+
+    public function getTotalPengeluaran()
+    {
+        $bulanIni = Carbon::now()->month;
+        $tahunIni = Carbon::now()->year;
+
+        $totalPengeluaran = Transaksi::whereMonth('created_at', $bulanIni)
+            ->whereYear('created_at', $tahunIni)
+            ->where('jenis_transaksi', '=', 'keluar')
+            ->sum('total');
+
+        return $totalPengeluaran;
     }
 
     public function indexPetugas()
     {
-        return view ('petugas.dashboard.home.dashboard');
+        return view('petugas.dashboard.home.dashboard');
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -49,7 +95,7 @@ class HomeController extends Controller
      * @param  \App\Models\Home  $home
      * @return \Illuminate\Http\Response
      */
-    public function show(Home $home)
+    public function show()
     {
         //
     }
@@ -60,7 +106,7 @@ class HomeController extends Controller
      * @param  \App\Models\Home  $home
      * @return \Illuminate\Http\Response
      */
-    public function edit(Home $home)
+    public function edit()
     {
         //
     }
@@ -72,7 +118,7 @@ class HomeController extends Controller
      * @param  \App\Models\Home  $home
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Home $home)
+    public function update(Request $request)
     {
         //
     }
@@ -83,7 +129,7 @@ class HomeController extends Controller
      * @param  \App\Models\Home  $home
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Home $home)
+    public function destroy()
     {
         //
     }

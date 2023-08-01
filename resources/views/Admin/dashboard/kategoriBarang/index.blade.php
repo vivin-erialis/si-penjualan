@@ -16,10 +16,10 @@
                 <div class="card-header">
                     <div class="row p-1">
                         <div class="col-md-10 mt-1">
-                            <strong class="card-title">Data Kategori</strong>
+                            <strong class="card-title"> Kategori Barang</strong>
                         </div>
                         <div class="col-md-2">
-                            <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#addModal" onclick="generateKodeKategoriBarang()">
+                            <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#addModal">
                                 <i class="fa fa-plus mr-1"></i>Tambah Data
                             </button>
                         </div>
@@ -31,7 +31,6 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Kode</th>
                                 <th>Nama </th>
                                 <th>Aksi</th>
                             </tr>
@@ -40,7 +39,6 @@
                             @foreach ($kategoribarang as $kategori)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $kategori->kode_kategori}}</td>
                                 <td>{{ $kategori->nama_kategori}}</td>
                                 <td>
                                     <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal<?php echo $kategori['id'] ?>">
@@ -66,13 +64,13 @@
                                             <form action="/admin/kategoribarang/{{ $kategori->id }}" method="POST">
                                                 @method('PUT')
                                                 @csrf
-                                                <div class="row mb-3">
+                                                <!-- <div class="row mb-3">
                                                     <label for="kategoriKode" class="col-sm-3 col-form-label">Kode </label>
                                                     <div class="col-sm-9">
                                                         <input type="text" class="form-control @error('kode_kategori') is-invalid @enderror" name="kode_kategori" value="<?php echo $kategori['kode_kategori']; ?>" readonly>
                                                     </div>
 
-                                                </div>
+                                                </div> -->
                                                 <div class="row mb-3">
 
                                                     <label for="kategoriNama" class="col-sm-3 col-form-label">Nama</label>
@@ -112,12 +110,12 @@
                 <form action="/admin/kategoribarang" method="POST">
                     @csrf
                     <div class="px-4 mt-4">
-                        <div class="row mb-3">
+                        <!-- <div class="row mb-3">
                             <label for="kategoriKode" class="col-sm-3 col-form-label">Kode</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" name="inputs[0][kode_kategori]" id="kodeKategoriInput" readonly>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="row mb-3">
                             <label for="kategoriNama" class="col-sm-3 col-form-label">Nama</label>
                             <div class="col-sm-9">

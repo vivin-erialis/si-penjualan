@@ -45,7 +45,7 @@ class BarangController extends Controller
         //
         $request->validate(
             [
-                "inputs.*.kode" => 'required',
+                // "inputs.*.kode" => 'required',
                 "inputs.*.kode_kategori" => 'required',
                 "inputs.*.nama_barang" => 'required',
                 "inputs.*.stok" => 'required'
@@ -56,7 +56,7 @@ class BarangController extends Controller
             Barang::create($value);
         }
 
-        return redirect('/admin/barang')->with('pesan', 'Data Berhasil Ditambahkan');
+        return redirect('/admin/barang')->with('pesan', 'Data Barang Berhasil Ditambah');
     }
 
     /**
@@ -92,13 +92,13 @@ class BarangController extends Controller
     {
         //
         $validatedData = $request->validate([
-            'kode' => 'required',
+            // 'kode' => 'required',
             'kode_kategori' => 'required',
             'nama_barang' => 'required',
             'stok' => 'required'
         ]);
         Barang::where('id', $id)->update($validatedData);
-        return redirect('/admin/barang')->with('pesan', 'Data Berhasil Diubah');
+        return redirect('/admin/barang')->with('pesan', 'Data Barang Berhasil Diubah');
     }
 
     /**
@@ -111,6 +111,6 @@ class BarangController extends Controller
     {
         //
         Barang::destroy($id);
-        return redirect('/admin/barang')->with('pesan', 'Data Berhasil Dihapus');
+        return redirect('/admin/barang')->with('pesan', 'Data Barang Berhasil Dihapus');
     }
 }

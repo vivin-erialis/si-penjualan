@@ -1,97 +1,84 @@
 @extends('admin.dashboard.layouts.main')
 @section('container')
-    <!-- Animated -->
-    <div class="animated fadeIn">
-        <!-- Widgets  -->
-        <div class="row">
-            <div class="col-lg-3 col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="stat-widget-five">
-                            <div class="stat-icon dib flat-color-1">
-                                <i class="pe-7s-cash"></i>
-                            </div>
-                            <div class="stat-content">
-                                <div class="text-left dib">
-                                    <div class="stat-text">Rp<span class="count"></span></div>
-                                    <div class="stat-heading">Pendapatan</div>
-                                </div>
-                            </div>
+<!-- Animated -->
+<div class="animated fadeIn">
+    <!-- Widgets  -->
+    <div class="row">
+        <div class="col-lg-4 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="stat-widget-five">
+                        <div class="stat-icon dib flat-color-1">
+                            <i class="pe-7s-cash"></i>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="stat-widget-five">
-                            <div class="stat-icon dib flat-color-2">
-                                <i class="pe-7s-cash"></i>
-                            </div>
-                            <div class="stat-content">
-                                <div class="text-left dib">
-                                    <div class="stat-text">Rp<span class="count"></span></div>
-                                    <div class="stat-heading">Pengeluaran</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="stat-widget-five">
-                            <div class="stat-icon dib flat-color-3">
-                                <i class="pe-7s-cart"></i>
-                            </div>
-                            <div class="stat-content">
-                                <div class="text-left dib">
-                                    <div class="stat-text"><span class="count"></span></div>
-                                    <div class="stat-heading">Pesanan</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="stat-widget-five">
-                            <div class="stat-icon dib flat-color-4">
-                                <i class="pe-7s-browser"></i>
-                            </div>
-                            <div class="stat-content">
-                                <div class="text-left dib">
-                                    <div class="stat-text"><span class="count"></span></div>
-                                    <div class="stat-heading">Stok</div>
-                                </div>
+                        <div class="stat-content">
+                            <div class="text-left dib">
+                                <div class="stat-text mr-1">Rp.<span class="count">{{ $totalPendapatan }}</span></div>
+                                <div class="stat-heading">Pendapatan</div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- /Widgets -->
-        <!--  Traffic  -->
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="box-title">Grafik Penjualan </h4>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-8">
-                            <div class="card-body">
-                                <!-- <canvas id="TrafficChart"></canvas>   -->
-                                <div id="traffic-chart" class="traffic-chart"></div>
+
+        <div class="col-lg-4 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="stat-widget-five">
+                        <div class="stat-icon dib flat-color-2">
+                            <i class="pe-7s-cash"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="text-left dib">
+                                <div class="stat-text mr-1">Rp.<span class="count">{{ $totalPengeluaran }}</span></div>
+                                <div class="stat-heading">Pengeluaran</div>
                             </div>
                         </div>
-                        <!-- <div class="col-lg-4">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="stat-widget-five">
+                        <div class="stat-icon dib flat-color-3">
+                            <i class="pe-7s-cart"></i>
+                        </div>
+                        <div class="stat-content">
+                           
+                            <div class="text-left dib">
+                                <div class="stat-text">
+                                    <span class="count">{{ $totalTerjual }}</span>
+                                </div>
+                                <div class="stat-heading">Terjual</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+      
+    </div>
+    <!-- /Widgets -->
+    <!--  Traffic  -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="box-title">Grafik Penjualan </h4>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="card-body">
+                            <!-- <canvas id="TrafficChart"></canvas>   -->
+                            <div id="traffic-chart" class="traffic-chart"></div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-lg-4">
                             <div class="card-body">
                                 <div class="progress-box progress-1">
                                     <h4 class="por-title">Visits</h4>
@@ -123,13 +110,13 @@
                                 </div>
                             </div> /.card-body
                         </div> -->
-                    </div> <!-- /.row -->
-                    <div class="card-body"></div>
-                </div>
-            </div><!-- /# column -->
-        </div>
-        <!--  /Traffic -->
+                </div> <!-- /.row -->
+                <div class="card-body"></div>
+            </div>
+        </div><!-- /# column -->
     </div>
-    <!-- .animated -->
+    <!--  /Traffic -->
+</div>
+<!-- .animated -->
 
 @endsection

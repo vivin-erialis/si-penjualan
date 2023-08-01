@@ -57,18 +57,21 @@ class TransaksiController extends Controller
             'total' => 'required',
         ]);
 
-
-        $transaksi = Transaksi::create($data);
-
-
         // Update stok barang
         $barang = Barang::find($data['kode_barang']);
         if ($data['jenis_transaksi'] === 'masuk') {
             $barang->stok += $data['jumlah'];
         } else {
             $barang->stok -= $data['jumlah'];
+            if ($barang->stok < 0) {
+                // Stok tidak mencukupi untuk transaksi keluar
+                // Anda bisa menangani kasus ini sesuai dengan kebutuhan Anda
+                return redirect('/admin/transaksi')->with('pesan', 'Stok barang tidak mencukupi');
+            }
+        
         }
         $barang->save();
+        $transaksi = Transaksi::create($data);
 
         return redirect('/admin/transaksi')->with('pesan', 'Data berhasil Ditambah');
 
@@ -134,11 +137,26 @@ class TransaksiController extends Controller
             $stokSetelahDitambah = $barang->stok + $data['jumlah'];
             $barang->stok = $stokSetelahDitambah - $barang->stok;
         } else {
-            $stokSetelahDikurang= $barang->stok - $data['jumlah'];
-            $barang->stok = $stokSetelahDikurang - $barang->stok;        }
+            // Jika jenis transaksi bukan 'masuk', kurangi jumlah baru dari stok barang
+            $stokSetelahDikurang = $barang->stok - $data['jumlah'];
+        
+            // Periksa apakah stok cukup untuk transaksi keluar
+            if ($stokSetelahDikurang < 0) {
+                // Stok tidak mencukupi untuk transaksi keluar
+                // Anda bisa menangani kasus ini sesuai dengan kebutuhan Anda
+                return redirect('/admin/transaksi')->with('pesan', 'Stok barang tidak mencukupi');
+            }
+        
+            $barang->stok = $stokSetelahDikurang;
+        }
+        
+        // Simpan perubahan stok barang
         $barang->save();
+        
+        // Update data transaksi
         Transaksi::where('id', $id)->update($data);
         return redirect('/admin/transaksi')->with('pesan', 'Data Transaksi Berhasil Diubah');
+
 
 
     }
@@ -153,6 +171,6 @@ class TransaksiController extends Controller
     {
         //
         Transaksi::destroy($id);
-        return redirect('/admin/transaksi')->with('pesan', 'Data Berhasil Dihapus');
+        return redirect('/admin/transaksi')->with('pesan', 'Data Transaksi Berhasil Dihapus');
     }
 }

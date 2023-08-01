@@ -19,7 +19,7 @@
                             <strong class="card-title">Data Barang</strong>
                         </div>
                         <div class="col-md-2">
-                            <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#addModal" onclick="generateKodeBarang()">
+                            <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#addModal">
                                 <i class="fa fa-plus mr-1"></i>Tambah Data
                             </button>
                         </div>
@@ -30,10 +30,8 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Kode</th>
                                 <th>Kategori</th>
                                 <th>Nama</th>
-
                                 <th>Stok</th>
                                 <th>Action</th>
                             </tr>
@@ -42,7 +40,6 @@
                             @foreach ($barang as $barang)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $barang->kode}}</td>
                                 <td>{{ $barang->kategoribarang->nama_kategori}}</td>
                                 <td>{{ $barang->nama_barang}}</td>
 
@@ -72,10 +69,10 @@
                                             @method('PUT')
                                             @csrf
                                             <div class="p-3 mt2">
-                                                <div class="form-group" hidden>
+                                                <!-- <div class="form-group" hidden>
                                                     <label for="kode">Kode</label>
                                                     <input type="text" class="form-control" name="kode" value="<?php echo $barang['kode']; ?>" readonly>
-                                                </div>
+                                                </div> -->
                                                 <div class="form-group">
                                                     <label for="kode_kategori">Kategori</label>
                                                     <select class="form-control form-select mt-2" aria-label="Default select example" name="kode_kategori">
@@ -134,10 +131,10 @@
             <form action="/admin/barang" method="POST" class="p-3 mt-2">
                 @csrf
                 <div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="kode">Kode</label>
                         <input type="text" class="form-control" id="kodeBarangInput" name="inputs[0][kode]" readonly>
-                    </div>
+                    </div> -->
                     <div class="form-group">
                         <label for="">Kategori</label>
                         <select class="form-control form-select mt-2" aria-label="Default select example" name="inputs[0][kode_kategori]" required>

@@ -41,7 +41,7 @@ class KategoriProdukController extends Controller
         //
         $request->validate(
             [
-                "inputs.*.kode_kategori" => 'required',
+                // "inputs.*.kode_kategori" => 'required',
                 "inputs.*.nama_kategori" => 'required',
                 "inputs.*.tipe" => 'required',
 
@@ -52,7 +52,7 @@ class KategoriProdukController extends Controller
         }
 
         if (count($request->inputs) > 0) {
-            return redirect('/admin/kategoriproduk')->with('pesan', 'Data Berhasil Ditambahkan');
+            return redirect('/admin/kategoriproduk')->with('pesan', 'Kategori Produk Berhasil Ditambah');
         } else {
             return redirect('/admin/kategoriproduk')->with('pesan', 'Tidak ada data yang ditambahkan');
         }
@@ -91,12 +91,12 @@ class KategoriProdukController extends Controller
     {
         //
         $validatedData = $request->validate([
-            'kode_kategori' => 'required',
+            // 'kode_kategori' => 'required',
             'nama_kategori' => 'required',
             'tipe' => 'required'
         ]);
         KategoriProduk::where('id', $id)->update($validatedData);
-        return redirect('/admin/kategoriproduk')->with('pesan', 'Data Berhasil Diubah');
+        return redirect('/admin/kategoriproduk')->with('pesan', 'Kategori Produk Berhasil Diubah');
     }
 
     /**
@@ -109,6 +109,6 @@ class KategoriProdukController extends Controller
     {
         //
         KategoriProduk::destroy($id);
-        return redirect('/admin/kategoriproduk')->with('pesan', 'Data Berhasil Dihapus');
+        return redirect('/admin/kategoriproduk')->with('pesan', 'Kategori Produk Berhasil Dihapus');
     }
 }

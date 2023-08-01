@@ -41,7 +41,7 @@ class KategoriBarangController extends Controller
         //
         $request->validate(
             [
-                "inputs.*.kode_kategori" => 'required',
+                // "inputs.*.kode_kategori" => 'required',
                 "inputs.*.nama_kategori" => 'required',
             ]
         );
@@ -50,7 +50,7 @@ class KategoriBarangController extends Controller
         }
 
         if (count($request->inputs) > 0) {
-            return redirect('/admin/kategoribarang')->with('pesan', 'Data Berhasil Ditambahkan');
+            return redirect('/admin/kategoribarang')->with('pesan', ' Kategori Barang Berhasil Ditambah');
         } else {
             return redirect('/admin/kategoribarang')->with('pesan', 'Tidak ada data yang ditambahkan');
         }
@@ -89,11 +89,11 @@ class KategoriBarangController extends Controller
     {
         //
         $validatedData = $request->validate([
-            'kode_kategori' => 'required',
+            // 'kode_kategori' => 'required',
             'nama_kategori' => 'required'
         ]);
         KategoriBarang::where('id', $id)->update($validatedData);
-        return redirect('/admin/kategoribarang')->with('pesan', 'Data Berhasil Diubah');
+        return redirect('/admin/kategoribarang')->with('pesan', 'Kategori Barang Berhasil Diubah');
     }
 
     /**
@@ -106,6 +106,6 @@ class KategoriBarangController extends Controller
     {
         //
         KategoriBarang::destroy($id);
-        return redirect('/admin/kategoribarang')->with('pesan', 'Data Berhasil Dihapus');
+        return redirect('/admin/kategoribarang')->with('pesan', 'Kategori Barang Berhasil Dihapus');
     }
 }

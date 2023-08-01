@@ -59,41 +59,75 @@
                             <!-- Pop Up Edit -->
                             <div class="modal fade" id="editModal{{ $item->id }}" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                 <div class="modal-dialog">
-                                    <div class="modal-content px-3 pr-3">
+                                    <div class="modal-content">
                                         <div class="row card-header">
-                                            <strong class="fs-6">Form Transaksi</strong>
+                                            <div class="col">
+                                                <strong>Form Data Sewa</strong>
+                                            </div>
                                         </div>
-
-                                        <form action="/admin/transaksi/{{ $item->id }}" method="POST" class="p-3 mt-2">
-                                            @method('PUT')
-                                            @csrf
-                                            <div>
+                                        <div class="modal-body">
+                                            <form action="/admin/sewa" method="POST">
+                                                @csrf
                                                 <div class="form-group">
-                                                    <label for="kode_barang">Kode</label>
-                                                    <input type="text" class="form-control" name="kode_barang" value="{{ $item->kode_barang }}">
+                                                    <label for="kodeSewa">Kode</label>
+                                                    <input type="text" class="form-control" id="kodeSewaInput" name="kode_sewa" value="{{ $item->kode_transaksi }}" readonly>
                                                 </div>
-
                                                 <div class="form-group">
-                                                    <label for="nama_barang" class="mt-3">Nama Barang</label>
-                                                    <input type="text" class="form-control" name="nama_barang" value="{{ $item->nama_barang }}">
+                                                    <label for="nama_penyewa">Nama Penyewa</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+                                                        </div>
+                                                        <input type="text" class="form-control" name="nama_penyewa" value="{{ $item->nama_penyewa }}">
+                                                    </div>
                                                 </div>
-
                                                 <div class="form-group">
-                                                    <label for="jenis_transaksi">Jenis Transaksi</label>
-                                                    <select class="form-control" name="jenis_transaksi">
-                                                        <option value="masuk" {{ $item->jenis_transaksi === 'masuk' ? 'selected' : '' }}>Barang Masuk</option>
-                                                        <option value="keluar" {{ $item->jenis_transaksi === 'keluar' ? 'selected' : '' }}>Barang Keluar</option>
-                                                    </select>
+                                                    <label for="telp">Telepon</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1"><i class="fa fa-phone"></i></span>
+                                                        </div>
+                                                        <input type="number" class="form-control" name="telp" value="{{ $item->telepon }}">
+                                                    </div>
                                                 </div>
-
                                                 <div class="form-group">
-                                                    <label for="jumlah">Jumlah</label>
-                                                    <input type="number" class="form-control" name="jumlah" value="{{ $item->jumlah }}">
+                                                    <label for="alamat">Alamat</label>
+                                                    <textarea class="form-control" name="alamat" rows="3"></textarea>
                                                 </div>
-                                            </div>
-                                            <div class="modal-footer text-center">
-                                                <button type="submit" class="btn btn-success btn-sm mx-1"><i class="fa fa-save mx-1"></i> Save</button>
-                                            </div>
+                                                <div class="form-group">
+                                                    <label for="tanggal_sewa">Tanggal Sewa</label>
+                                                    <input type="date" class="form-control" name="tanggal_sewa">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Produk</label>
+                                                    <div style="display: flex;">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="nama_produk" value="Papan Bunga">
+                                                            <label class="form-check-label">Papan Karangan Bunga</label>
+                                                        </div>
+                                                        <div class="form-check mx-3">
+                                                            <input class="form-check-input" type="radio" name="nama_produk" value="Hantaran Nikah">
+                                                            <label class="form-check-label">Hantaran Nikah</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="harga_sewa">Harga</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">Rp</span>
+                                                        </div>
+                                                        <input type="number" class="form-control" name="harga_sewa">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="deskripsi">Deskripsi</label>
+                                                    <textarea class="form-control" name="deskripsi" rows="4"></textarea>
+                                                </div>
+                                        </div>
+                                        <div class="mt-2 mr-3">
+                                            <button type="submit" class="btn btn-success btn-sm mx-1 mb-4 mt-2" style="float: right;"><i class="fa fa-save mx-1"></i> Simpan</button>
+                                        </div>
                                         </form>
                                     </div>
                                 </div>
@@ -180,13 +214,12 @@
                     </div>
             </div>
 
-            <div class="modal-footer text-center">
-                <button type="submit" class="btn btn-success btn-sm mx-1"><i class="fa fa-save mx-1"></i> Save</button>
+            <div class="mt-2 mr-3">
+                <button type="submit" class="btn btn-success btn-sm mx-1 mb-4 mt-2" style="float: right;"><i class="fa fa-save mx-1"></i> Simpan</button>
             </div>
             </form>
         </div>
     </div>
-</div>
 </div>
 <!-- End Pop Up Add -->
 @endsection

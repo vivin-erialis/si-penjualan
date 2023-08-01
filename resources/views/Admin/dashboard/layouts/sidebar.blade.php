@@ -8,6 +8,9 @@
                 
                 <!-- Menu Data Master Toko -->
                 <li class="menu-title">Data Master</li>
+                <li class="{{ Request::is('admin/petugas') ? 'active' : ''}}">
+                    <a href="/admin/petugas"><i class="menu-icon fa fa-users"></i>Staff Toko</a>
+                </li>
                 <li class="{{ Request::is('admin/kategoribarang') ? 'active' : ''}}">
                     <a href="/admin/kategoribarang"><i class="menu-icon fa fa-tasks"></i>Kategori Barang</a>
                 </li>
@@ -34,11 +37,10 @@
                 <!-- Menu Data Laporan -->
                 <li class="menu-title">Data Laporan</li>
                 <li class="{{ Request::is('admin/pembelian') ? 'active' : ''}}">
-                    <a href="/pembelian"><i class="menu-icon fa fa-file-invoice"></i>Laporan Pembelian</a>
+                    <a href="/admin/pembelian"><i class="menu-icon fa fa-file-invoice"></i>Laporan Pembelian</a>
                 </li>
-
-                <li class="{{ Request::is('admin/supplier') ? 'active' : ''}}">
-                    <a href="/penjualan"><i class="menu-icon fa fa-file"></i>Laporan Penjualan</a>
+                <li class="{{ Request::is('admin/penjualan') ? 'active' : ''}}">
+                    <a href="/admin/penjualan"><i class="menu-icon fa fa-file"></i>Laporan Penjualan</a>
                 </li>
             </ul>
         </div><!-- /.navbar-collapse -->

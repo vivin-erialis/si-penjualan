@@ -88,7 +88,7 @@
                                             @method('POST')
                                             <input type="hidden" name="produk_id" value="<?php echo $produk['id'] ?>">
                                             <div class="p-3">
-                                                <div class="form-group" hidden>
+                                                <div class="form-group">
                                                     <label for="kode_penjualan">Kode Penjualan</label>
 
                                                     <input type="text" class="form-control" id="kodePenjualanInput" name="kode_penjualan" readonly>

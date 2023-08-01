@@ -24,13 +24,25 @@ Googel Fonts  */
 .bg-flat-color-1 {
   background: #00c292;
 }
-*{
-  font-size: 13px !important;
-}
 
 .content {
   background-color: whitesmoke;
   font-size: 14px;
+}
+
+div.dataTables_wrapper div.dataTables_filter input {
+  width: 150px;
+}
+
+.stat-widget-five .stat-icon {
+  font-size: 50px !important;
+}
+.stat-widget-five .stat-text {
+  font-size: 18px !important;
+}
+
+div.dataTables_wrapper div.dataTables_length select {
+  width: 40px !important;
 }
 
 .logo {

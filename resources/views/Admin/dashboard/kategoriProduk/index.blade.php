@@ -19,7 +19,7 @@
                             <strong class="card-title">Data Kategori</strong>
                         </div>
                         <div class="col-md-2">
-                            <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#addModal" onclick="generateKodeKategoriProduk()">
+                            <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#addModal">
                                 <i class="fa fa-plus mr-1"></i>Tambah Data
                             </button>
                         </div>
@@ -31,7 +31,6 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Kode</th>
                                 <th>Nama </th>
                                 <th>Tipe</th>
                                 <th>Aksi</th>
@@ -41,7 +40,6 @@
                             @foreach ($kategoriproduk as $kategori)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $kategori->kode_kategori}}</td>
                                 <td>{{ $kategori->nama_kategori}}</td>
                                 <td>{{ $kategori->tipe}}</td>
 
@@ -69,40 +67,37 @@
                                             <form action="/admin/kategoriproduk/{{ $kategori->id }}" method="POST">
                                                 @method('PUT')
                                                 @csrf
-                                                <div class="row mb-3" hidden>
-                                                    <label for="kategoriKode" class="col-sm-3 col-form-label">Kode </label>
-                                                    <div class="col-sm-9">
-                                                        <input type="text" class="form-control @error('kode_kategori') is-invalid @enderror" name="kode_kategori" value="<?php echo $kategori['kode_kategori']; ?>">
-                                                    </div>
-
-                                                </div>
-                                                <div class="row mb-3">
-
-                                                    <label for="kategoriNama" class="col-sm-3 col-form-label">Nama</label>
-                                                    <div class="col-sm-9">
-                                                        <input type="text" class="form-control @error('nama_kategori') is-invalid @enderror" name="nama_kategori" value="<?php echo $kategori['nama_kategori']; ?>">
-                                                    </div>
-                                                </div>
-                                                <div class="row mb-3">
-                                                    <label class="col-sm-3 col-form-label">Tipe</label>
-                                                    <div class="col-sm-9" style="display: flex;">
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="tipe" value="produk" checked {{ $kategori->tipe == 'produk' ? 'checked' : '' }}>
-                                                            <label class="form-check-label" for="tipeProduk">Produk</label>
-                                                        </div>
-                                                        <div class="form-check mx-3">
-                                                            <input class="form-check-input" type="radio" name="tipe" value="sewa" {{ $kategori->tipe == 'sewa' ? 'checked' : '' }}>
-                                                            <label class="form-check-label" for="tipeSewa">Sewa</label>
+                                                <div>
+                                                    <!-- <div class="row mb-3" hidden>
+                            <label for="kategoriKode" class="col-sm-3 col-form-label">Kode</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="inputs[0][kode_kategori]" id="kodeKategoriInput" readonly>
+                            </div>
+                        </div> -->
+                                                    <div class="row mb-3">
+                                                        <label for="kategoriNama" class="col-sm-3 col-form-label">Nama</label>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" class="form-control @error('nama_kategori') is-invalid @enderror" name="nama_kategori" value="<?php echo $kategori['nama_kategori']; ?>">
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="mt-3">
-
-                                                    <button type="submit" class="btn btn-success btn-sm mx-1 mb-2 mt-2" style="float: right;"><i class="fa fa-save mx-1"></i> Simpan</button>
-
+                                                    <div class="row mb-3">
+                                                        <label class="col-sm-3 col-form-label">Tipe</label>
+                                                        <div class="col-sm-9" style="display: flex;">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio" name="tipe" value="produk" checked {{ $kategori->tipe == 'produk' ? 'checked' : '' }}>
+                                                                <label class="form-check-label" for="tipeProduk">Produk</label>
+                                                            </div>
+                                                            <div class="form-check mx-3">
+                                                                <input class="form-check-input" type="radio" name="tipe" value="sewa" {{ $kategori->tipe == 'sewa' ? 'checked' : '' }}>
+                                                                <label class="form-check-label" for="tipeSewa">Sewa</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mt-3">
+                                                        <button type="submit" class="btn btn-success btn-sm mx-1 mb-4 mt-2" style="float: right;"><i class="fa fa-save mx-1"></i> Simpan</button>
+                                                    </div>
                                                 </div>
                                             </form>
-
                                         </div>
                                     </div>
                                 </div>
@@ -127,12 +122,12 @@
                 <form action="/admin/kategoriproduk" method="POST">
                     @csrf
                     <div class="px-4 mt-4">
-                        <div class="row mb-3" hidden>
+                        <!-- <div class="row mb-3" hidden>
                             <label for="kategoriKode" class="col-sm-3 col-form-label">Kode</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" name="inputs[0][kode_kategori]" id="kodeKategoriInput" readonly>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="row mb-3">
                             <label for="kategoriNama" class="col-sm-3 col-form-label">Nama</label>
                             <div class="col-sm-9">
@@ -143,7 +138,7 @@
                             <label class="col-sm-3 col-form-label">Tipe</label>
                             <div class="col-sm-9" style="display: flex;">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="inputs[0][tipe]" value="produk" checked>
+                                    <input class="form-check-input" type="radio" name="inputs[0][tipe]" value="produk">
                                     <label class="form-check-label" for="tipeProduk">Produk</label>
                                 </div>
                                 <div class="form-check mx-3">

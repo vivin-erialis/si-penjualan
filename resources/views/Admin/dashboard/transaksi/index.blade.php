@@ -19,7 +19,7 @@
                             <strong class="card-title">Data Transaksi</strong>
                         </div>
                         <div class="col-md-2">
-                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addModal" onclick="generateKodeTransaksi()">
+                            <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#addModal" onclick="generateKodeTransaksi()">
                                 <i class="fa fa-plus mr-1"></i>Tambah Data
                             </button>
                         </div>
@@ -42,7 +42,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td><span class="badge badge-primary">{{ $item->kode_transaksi }}</span></td>
-                                <td> 
+                                <td>
                                     @if($item->barang)
                                     {{ ($item->Barang->nama_barang) }}
                                     @endif
@@ -65,41 +65,14 @@
                                     </button>
                                 </td>
                             </tr>
-                            <div class="modal fade" id="detailModal{{ $item->id }}" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <!-- Pop Up Edit -->
+                            <div class="modal fade" id="editModal{{ $item->id }}" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="row card-header">
-                                            <strong> Detail Data Transaksi</strong>
+                                            <strong> Edit Data Transaksi</strong>
                                         </div>
-                                        <div class="card-body">
-                                            <ul class="list-group list-group-flush p-2">
-                                                <li class="list-group-item">
-                                                    Kode Transaksi <span class="badge badge-primary pull-right">{{ $item->kode_transaksi }}</span>
-                                                </li>
-                                                <li class="list-group-item">
-                                                    Jenis Transaksi <span class="badge badge-primary pull-right">{{ $item->jenis_transaksi }}</span>
-                                                </li>
-                                                <li class="list-group-item">
-                                                    Jumlah <span class="badge badge-primary pull-right">{{ $item->jumlah }}</span>
-                                                </li>
-                                                <li class="list-group-item">
-                                                    Total <span class="badge badge-primary pull-right ">{{ $item->total }}</span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <!-- Pop Up Edit -->
-                                <div class="modal fade" id="editModal{{ $item->id }}" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="row card-header">
-                                                <strong> Edit Data Transaksi</strong>
-                                            </div>
-
-                                            <form action="/admin/transaksi/{{ $item->id }}" method="POST" class="mt-1">
+                                        <form action="/admin/transaksi/{{ $item->id }}" method="POST" class="mt-1">
                                                 @method('PUT')
                                                 @csrf
 
@@ -160,17 +133,38 @@
                                                         </div>
                                                     </div>
                                                     <div class="mt-3">
-
                                                         <button type="submit" class="btn btn-success btn-sm mx-1 mb-2 mt-2" style="float: right;"><i class="fa fa-save mx-1"></i> Simpan</button>
-
                                                     </div>
                                                 </div>
-
                                             </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Pop Up Edit -->
+                            <div class="modal fade" id="detailModal{{ $item->id }}" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="row card-header">
+                                            <strong> Detail Data Transaksi</strong>
+                                        </div>
+                                        <div class="card-body">
+                                            <ul class="list-group list-group-flush p-2">
+                                                <li class="list-group-item">
+                                                    Kode Transaksi <span class="badge badge-primary pull-right">{{ $item->kode_transaksi }}</span>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    Jenis Transaksi <span class="badge badge-primary pull-right">{{ $item->jenis_transaksi }}</span>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    Jumlah <span class="badge badge-primary pull-right">{{ $item->jumlah }}</span>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    Total <span class="badge badge-primary pull-right ">{{ $item->total }}</span>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- End Pop Up Edit -->
                                 @endforeach
                         </tbody>
                     </table>
@@ -198,7 +192,7 @@
                         <select class="form-control" name="kode_barang" id="kode_barang" required>
                             <!-- Ambil data barang dari database dan tampilkan sebagai pilihan -->
                             @foreach($barang as $barangItem)
-                            <option value="{{ $barangItem->id }}" @if($barangItem->id === $item->kode_barang) selected @endif>
+                            <option value="{{ $barangItem->id }}">
                                 {{ $barangItem->nama_barang }}
                             </option>
                             @endforeach
@@ -217,7 +211,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label for="satuan">Satuan</label>
                         <input type="text" class="form-control" name="satuan" id="satuan" required>
@@ -245,13 +238,8 @@
                         </div>
                     </div>
                     <div class="mt-3">
-
                         <button type="submit" class="btn btn-success btn-sm mx-1 mb-2 mt-2" style="float: right;"><i class="fa fa-save mx-1"></i> Simpan</button>
-
                     </div>
-
-
-
                 </form>
             </div>
         </div>

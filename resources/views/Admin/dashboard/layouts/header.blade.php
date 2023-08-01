@@ -5,21 +5,20 @@
             <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
         </div>
     </div>
-    <div class="top-right">
-        <div class="header-menu">
-            <div class="user-area dropdown float-right">
-                <a href="" class="dropdown nama" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fa fa-user mx-2"></i>{{Auth()->user()->name}}
-                </a>
-                <div class="user-menu dropdown-menu">
-                    <div class="nav-item text-nowrap">
-                        <form action="/logout" method="post">
-                            @csrf
-                            <button type="submit" class="btn btn-sm">Sign Out</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+    <div class="user-area dropdown float-right">
+        <a href="" class="dropdown nama" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-user mx-2" style="margin-top: 20px;"></i>{{Auth()->user()->name}}
+        </a>
+
+        <div class="user-menu dropdown-menu">
+
+
+            <a class="nav-link" href="/admin/gantipassword"><i class="fa fa-gear"></i>Ganti Password</a>
+
+            <form action="/logout" method="post">
+                @csrf
+                <button type="submit" class="btn btn-sm nav-link"><i class="fa fa-right-from-bracket"></i>Logout</button>
+            </form>
         </div>
     </div>
 </header>

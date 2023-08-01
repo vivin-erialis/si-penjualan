@@ -18,9 +18,10 @@ class RegisterController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => $request->role,
         ]);
 
-        Session::flash('message', 'Register akun anda berhasil');
+        Session::flash('pesan', 'Register akun anda berhasil');
         return redirect('register');
     }
 }
