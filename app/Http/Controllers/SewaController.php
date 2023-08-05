@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Sewa;
 use App\Models\KategoriProduk;
 use Illuminate\Http\Request;
+use PDF;
+
 
 class SewaController extends Controller
 {
@@ -20,6 +22,15 @@ class SewaController extends Controller
             'sewa' => Sewa::with('kategoriproduk')->get(),
             'kategoriproduk' => KategoriProduk::all()
         ]);
+    }
+
+    public function cetakbuktisewa()
+    {
+        $buktiSewa = Sewa::select('*')
+            ->get();
+
+        $pdf = PDF::loadView('admin.dashboard.sewa.buktisewa', ['sewa' => $buktiSewa]);
+        return $pdf->stream('Bukti-Sewa.pdf');
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Penjualan;
 use App\Models\Produk;
 use Illuminate\Http\Request;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 class PenjualanController extends Controller
 {
@@ -13,11 +14,20 @@ class PenjualanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        if($startDate && $endDate){
+            $penjualan = Penjualan::with('produk')->whereBetween('tanggal_transaksi',[$startDate, $endDate])->get();
+        }else{
+            $penjualan =Penjualan::with('produk')->get();
+        }
+
+
         return view('admin.dashboard.penjualan.index', [
-            'penjualan' => Penjualan::with('produk')->get(),
+            'penjualan' => $penjualan,
             'produk' => Produk::all()
         ]);
     }
@@ -30,7 +40,7 @@ class PenjualanController extends Controller
     
         $dataPenjualan = Penjualan::whereBetween('tanggal_transaksi', [$startDate, $endDate])->get();
     
-        return response()->json($dataPenjualan);
+        return view("admin.Dashboard.penjualan.index");
     }
 
     /**

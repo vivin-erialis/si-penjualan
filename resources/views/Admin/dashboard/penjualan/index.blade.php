@@ -12,14 +12,14 @@
 <div class="row">
     <div class="col mt-1">
         <!-- Add a form to select the date range -->
-        <form id="dateRangeForm" class="form-inline">
+        <form id="dateRangeForm" class="form-inline" method="get" action="/admin/penjualan">
             <div class="form-group mb-2">
                 <label for="startDate" class="sr-only">Tanggal Awal</label>
-                <input type="date" class="form-control" id="startDate" name="start_date" placeholder="Start Date">
+                <input type="date" class="form-control" id="startDate" name="start_date" placeholder="Start Date" value="{{request('start_date')}}">
             </div>
             <div class="form-group mx-sm-3 mb-2">
                 <label for="endDate" class="sr-only">Tanggal Akhir</label>
-                <input type="date" class="form-control" id="endDate" name="end_date" placeholder="End Date">
+                <input type="date" class="form-control" id="endDate" name="end_date" placeholder="End Date" value="{{request('end_date')}}">
             </div>
             <button type="submit" class="btn btn-primary btn-sm mb-2"><i class="fa fa-search mr-2"></i>Cari</button>
         </form>
@@ -35,7 +35,7 @@
                             <strong class="card-title">Data Penjualan</strong>
                         </div>
                         <div class="col-md-2">
-                        <a class="btn btn-default" href="{{route('cetaklaporanpenjualan')}}" target="blank"><i class="fa fa-print"></i> Cetak PDF</a>
+                        <a class="btn btn-warning btn-sm btn-default" href="{{route('cetaklaporanpenjualan')}}" target="blank"><i class="fa fa-print"></i> Cetak Laporan</a>
                         </div>
                     </div>
                 </div>
@@ -57,17 +57,15 @@
                                 <td>{{$item->kode_penjualan}}</td>
                                 <td>{{$item->nama_produk}}</td>
                                 <td>{{$item->tanggal_transaksi}}</td>
-                                <td>{{$item->harga}}</td>
+                                <td>Rp.{{$item->harga}}</td>
                             </tr>
                             @endforeach
-
-
                         </tbody>
                     </table>
                 </div>
                 <!-- resources/views/admin/dashboard/layouts/main.blade.php -->
 
-                <script>
+                <!-- <script>
                     $(document).ready(function() {
                         $('#dateRangeForm').submit(function(event) {
                             event.preventDefault();
@@ -102,6 +100,6 @@
                             });
                         });
                     });
-                </script>
+                </script> -->
 
                 @endsection

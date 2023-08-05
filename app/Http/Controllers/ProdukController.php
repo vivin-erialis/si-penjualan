@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barang;
 use App\Models\KategoriProduk;
 use App\Models\Produk;
 use GuzzleHttp\Handler\Proxy;
@@ -19,7 +20,8 @@ class ProdukController extends Controller
         //
         return view('admin.dashboard.produk.index', [
             'produk' => Produk::with('kategoriproduk')->get(),
-            'kategoriproduk' => KategoriProduk::all()
+            'kategoriproduk' => KategoriProduk::all(),
+            'barang' => Barang::all()
         ]);
     }
 
@@ -110,6 +112,7 @@ class ProdukController extends Controller
             'harga' => 'required',
             'status' => 'required',
             'deskripsi' => 'required',
+            'foto' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
         Produk::where('id', $id)->update($validatedData);
         return redirect('/admin/produk')->with('pesan', 'Produk berhasil diperbarui');

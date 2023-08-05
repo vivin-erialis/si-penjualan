@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('kode_kategori');
             $table->string('nama_barang');
+            $table->double('harga')->default(0);
             $table->integer('stok');
             $table->timestamps();
         });

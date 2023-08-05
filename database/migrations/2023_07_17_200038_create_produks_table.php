@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('nama_produk', 100);
             $table->foreignId('kode_kategori');
             $table->double('harga', 10, 2);
-            $table->text('deskripsi');
+            $table->text('deskripsi')->nullable();
+            $table->string('foto')->nullable();
             $table->string('status')->default('Belum Terjual');
             $table->timestamps();
         });

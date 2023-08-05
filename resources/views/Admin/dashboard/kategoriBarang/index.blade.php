@@ -109,32 +109,48 @@
                 </div>
                 <form action="/admin/kategoribarang" method="POST">
                     @csrf
-                    <div class="px-4 mt-4">
-                        <!-- <div class="row mb-3">
-                            <label for="kategoriKode" class="col-sm-3 col-form-label">Kode</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" name="inputs[0][kode_kategori]" id="kodeKategoriInput" readonly>
-                            </div>
-                        </div> -->
+                    <div class="px-4 mt-4" id="kategori-barang">
                         <div class="row mb-3">
-                            <label for="kategoriNama" class="col-sm-3 col-form-label">Nama</label>
-                            <div class="col-sm-9">
+                            <div class="col-sm-11">
+                                <label for="kategoriNama">Nama</label>
+
                                 <input type="text" class="form-control" name="inputs[0][nama_kategori]" required>
                             </div>
+                            <div class="col-sm-1">
+                                <button type="button" class="btn btn-dark btn-sm" style="margin-top: 31px; margin-left:-15px;" name="add" id="add"><i class="fa fa-plus"></i></button>
+                            </div>
                         </div>
 
-                        <div class="mt-3 mb-2">
 
-                            <button type="submit" class="btn btn-success btn-sm mx-1 mb-3 mt-2" style="float: right;"><i class="fa fa-save mx-1"></i> Simpan</button>
 
-                        </div>
+                    </div>
+                    <div class="mt-3 mb-2">
+
+                        <button type="submit" class="btn btn-success btn-sm mx-1 mb-3 mt-2" style="float: right;"><i class="fa fa-save mx-1"></i> Simpan</button>
+
                     </div>
 
                 </form>
+
+                <!-- <form action="/admin/kategoribarang" method="POST"> -->
+                @csrf
+                <!-- <table class="table" id="kategori-barang" name="table">
+                        <tr>
+                            <td>
+                                <label class="mx-1" for="kategoriNama">Kategori</label>
+                                <input type="text" class="form-control" name="inputs[0][nama_kategori]">
+                            </td>
+                            <td><button type="button" class="btn btn-dark btn-sm" style="margin-top: 29px;" name="add" id="add"><i class="fa fa-plus"></i></button></td>
+                        </tr>
+                    </table>
+                <div class="mt-3 mb-2">
+                        <button type="submit" class="btn btn-success btn-sm mx-1 mb-3 mt-2" style="float: right;"><i class="fa fa-save mx-1"></i> Simpan</button>
+                    </div> -->
             </div>
         </div>
     </div>
-    <!-- End Pop Up Add -->
-    <!-- End Main Content -->
+</div>
+<!-- End Pop Up Add -->
+<!-- End Main Content -->
 
-    @endsection
+@endsection

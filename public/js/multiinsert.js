@@ -1,25 +1,59 @@
 let nama = $('#nama').value;
-// Form Kategori
+// Form Kategori Barang
 var i = 0;
 $('#add').click(function () {
     ++i;
-    $('#table').append(
-        `<tr>
-        <td>
-            <div class="form-row">
-                <div class="col">
-                    <input type="text" class="form-control" name="inputs[` + i + `][kode_kategori]">
+    $('#kategori-barang').append(
+        `
+        <div class="multiinsert row mb-3">
+        <div class="col-sm-11">
+
+            <input type="text" class="form-control" name="inputs[` + i + `][nama_kategori]" required>
+        </div>
+        <div class="col-sm-1">
+        <button type="button" class="btn btn-danger btn-sm remove-komponen" style="margin-left:-15px;"><i class="fa fa-trash"></i></button>
+
+        </div>
+    </div>
+        
+
+       
+    `
+    );
+});
+
+// let nama = $('#nama').value;
+// Form Kategori Produk
+var i = 0;
+$('#add').click(function () {
+    ++i;
+    $('#kategori-produk').append(
+        `
+        <hr>
+        <div class="row mb-3">
+            <label for="kategoriNama" class="col-sm-2 col-form-label">Nama</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" name="inputs[` + i + `][nama_kategori]" required>
+            </div>
+            <div class="col-sm-2">
+
+            <button type="button" class="btn btn-danger btn-sm remove-komponen" style="margin-left:-15px;"><i class="fa fa-trash"></i></button>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">Tipe</label>
+            <div class="col-sm-8" style="display: flex;">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="inputs[` + i + `][tipe]" value="produk">
+                    <label class="form-check-label" for="tipeProduk">Produk</label>
                 </div>
-                <div class="col">
-                    <input type="text" class="form-control" name="inputs[` + i + `][nama_kategori]">
+                <div class="form-check mx-3">
+                    <input class="form-check-input" type="radio" name="inputs[` + i + `][tipe]" value="sewa">
+                    <label class="form-check-label" for="tipeSewa">Sewa</label>
                 </div>
             </div>
-        </td>
-        <td>
-        <button type="button" class="btn btn-danger btn-sm remove-table-row"><i class="fa fa-trash"></i></button>
-        </td>
-    </tr>
-       
+        </div>
+    </div>
     `
     );
 });
@@ -28,15 +62,9 @@ $('#add').click(function () {
 var i = 0;
 $('#add').click(function () {
     ++i;
-    $('#table-barangmasuk').append(
-        `<tr>
-            <td><input type="text" class="form-control" name="inputs[` + i + `][kode]"></td>
-            <td><input type="text" class="form-control" name="inputs[` + i + `][nama_barang]"></td>
-            <td><input type="text" class="form-control" name="inputs[` + i + `][jumlah]"></td>
-            <td><input type="text" class="form-control" name="inputs[` + i + `][harga]"></td>
-            <td><textarea name="inputs[` + i + `][keterangan]"  cols="30" rows="4"></textarea></td>
-            <td><button type="button" class="btn btn-danger btn-sm remove-table-row"><i class="fa fa-trash"></i></button></td>
-            </tr>`
+    $('#produk').append(
+        `
+        `
     );
 });
 
@@ -44,30 +72,47 @@ $('#add').click(function () {
 var i = 0;
 $('#add').click(function () {
     ++i;
-    $('#table-barang').append(
-        `<tr>
-                <td><input type="text" class="form-control" name="inputs[` + i + `][kode]" placeholder="masukkan kode"></td>
-                <td><select class="form-control form-select" aria-label="Default select example" name="inputs[0][kode_kategori]">
-                @foreach($kategori as $kategori)
-                <option value="`+ $kategori.id + `">` + $kategori.kategori_nama + `</option>
-                @endforeach
-            </select></td>
-            
-            </tr>
-            <tr>
-            <td><input type="text" class="form-control" name="inputs[` + i + `][nama_barang]" placeholder="masukkan nama"></td>
-            <td><input type="text" class="form-control" name="inputs[` + i + `][stok]" placeholder="masukkan stok"></td>
-            
-            </tr>
-            <tr>
-            <td><input type="text" class="form-control" name="inputs[` + i + `][harga]" placeholder="masukkan harga"></td>
-            <td><button type="button" class="btn btn-danger btn-sm remove-table-row"><i class="fa fa-trash"></i></button></td>
-            </tr>`
+   
+});
+
+// Multiinsert untuk komponen produk
+var i = 0;
+$('#add').click(function () {
+    ++i;
+    $('#komponen').append(
+        `
+        <div class="form-group multiinsert" style="display: flex;">
+
+        <div class="col-sm-4">
+        <select class="form-control form-select" aria-label="Default select example" name="kode_kategori">
+            <option>Pilih</option>
+            @foreach($barang as $b)
+            <option value="{{ $b->id }}">{{ $b->nama_barang }}</option>
+            @endforeach
+        </select>
+    </div>
+    <div class="col-sm-3">
+
+        <input type="number" class="form-control" id="kodeProdukInput" name="harga">
+    </div>
+    <div class="col-sm-4">
+
+        <input type="number" class="form-control" id="kodeProdukInput" name="harga">
+    </div>
+
+    <div class="col-sm-1">
+    <button type="button" class="btn btn-danger btn-sm remove-komponen" style="margin-left:-15px; margin-top:5px;"><i class="fa fa-trash"></i></button>
+
+                            </div>
+                            </div>
+                       
+
+                    `
     );
 });
 
-$(document).on('click', '.remove-table-row', function () {
-    $(this).parents('tr').remove();
+$(document).on('click', '.remove-komponen', function () {
+    $(this).parents('div.multiinsert').remove();
 });
 
 function generateRandomString(length) {
@@ -78,6 +123,8 @@ function generateRandomString(length) {
     }
     return result;
 }
+
+
 
 // Function Untuk Generate Kode Kategori Produk
 function generateKodeKategoriProduk() {

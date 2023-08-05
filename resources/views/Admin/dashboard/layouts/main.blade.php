@@ -96,7 +96,7 @@
         <!-- /.content -->
 
         <!-- Footer -->
-        <!-- @include('admin.dashboard.layouts.footer') -->
+        @include('admin.dashboard.layouts.footer')
         <!-- /.site-footer -->
     </div>
     <!-- /#right-panel -->

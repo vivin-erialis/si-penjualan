@@ -128,24 +128,24 @@
 
             </div>
 
-            <form action="/admin/barang" method="POST" class="p-3 mt-2">
+            <form action="/admin/barang" method="POST" class="p-2 mt-2">
                 @csrf
-                <div>
+                <div id="barang" style="display: flex;">
                     <!-- <div class="form-group">
                         <label for="kode">Kode</label>
                         <input type="text" class="form-control" id="kodeBarangInput" name="inputs[0][kode]" readonly>
                     </div> -->
-                    <div class="form-group">
+                    <div class="form-group col-sm-6">
                         <label for="">Kategori</label>
-                        <select class="form-control form-select mt-2" aria-label="Default select example" name="inputs[0][kode_kategori]" required>
+                        <select class="form-control form-select" aria-label="Default select example" name="inputs[0][kode_kategori]" required>
                             <option>-- Pilih Kategori --</option>
                             @foreach($kategoribarang as $kategori)
                             <option value="{{ $kategori->id }}">{{ $kategori->nama_kategori }}</option>
                             @endforeach
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="" class="mt-3">Nama Barang</label>
+                    <div class="form-group col-sm-5">
+                        <label for="" class="">Nama Barang</label>
                         <input type="text" class="form-control" name="inputs[0][nama_barang]" required>
                     </div>
 
@@ -153,11 +153,13 @@
                         <label for="">Stok</label>
                         <input type="number" class="form-control" name="inputs[0][stok]" value="0" readonly>
                     </div>
+                    <div class="form-group" hidden>
+                        <label for="">Stok</label>
+                        <input type="number" class="form-control" name="inputs[0][stok]" value="0" readonly>
+                    </div>
                 </div>
                 <div class="mt-3">
-
                     <button type="submit" class="btn btn-success btn-sm mx-1 mb-2 mt-2" style="float: right;"><i class="fa fa-save mx-1"></i> Simpan</button>
-
                 </div>
             </form>
         </div>

@@ -28,7 +28,7 @@
                             <strong class="card-title">Data Produk</strong>
                         </div>
                         <div class="col-md-2">
-                            <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#addModal" onclick="generateKodeProduk()">
+                            <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#addModal" aria-labelledby="largeModalLabel" onclick="generateKodeProduk()">
                                 <i class="fa fa-plus mr-1"></i>Tambah Data
                             </button>
                         </div>
@@ -43,6 +43,7 @@
                                 <th>Nama</th>
                                 <th>Harga</th>
                                 <th>Status</th>
+                                <th>Foto</th>
                                 <th>Deskripsi</th>
                                 <th>Action</th>
                             </tr>
@@ -55,6 +56,7 @@
                                 <td>{{ $produk->nama_produk}}</td>
                                 <td>@rp($produk->harga)</td>
                                 <td>{{ $produk->status}}</td>
+                                <td>{{ $produk->foto}}</td>
                                 <td>{{ $produk->deskripsi}}</td>
                                 <td>
                                     <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal<?php echo $produk['id'] ?>">
@@ -204,16 +206,12 @@
                                             </div>
 
                                             <div class="mt-1">
-
                                                 <button type="submit" class="btn btn-success btn-sm mx-3 mb-3" style="float: right;"><i class="fa fa-save mx-1"></i> Simpan</button>
-
                                             </div>
-
                                         </form>
                                     </div>
                                 </div>
                             </div>
-
                             <!-- End Pop Up Edit -->
                             @endforeach
                         </tbody>
@@ -224,76 +222,118 @@
     </div>
 </div>
 <!-- Pop Up Add -->
-<div class="modal fade" id="addModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="row card-header">
                 <div class="col-md-10">
                     <strong>Tambah Data produk</strong>
                 </div>
-
             </div>
 
-            <form action="/admin/produk" method="POST" class="p-3 mt-2" enctype="multipart/form-data">
+            <form action="/admin/produk" method="POST" class="p-2 mt-2" enctype="multipart/form-data">
                 @csrf
-                <div>
-                    <div class="form-group" hidden>
-                        <label for="kode_produk">Kode Produk</label>
-                        <input type="text" class="form-control" id="kodeProdukInput" name="kode_produk" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="kode_kategori">Kategori</label>
-                        <select class="form-control form-select mt-2" aria-label="Default select example" name="kode_kategori">
-                            <option>-- Pilih Kategori --</option>
-                            @foreach($kategoriproduk as $kategori)
-                            <option value="{{ $kategori->id }}">{{ $kategori->nama_kategori }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="nama_produk" class="mt-3">Nama Produk</label>
-                        <input type="text" class="form-control" name="nama_produk" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="harga">Harga</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1">Rp</span>
-                            </div>
-                            <input type="number" class="form-control" name="harga" required>
+                <div style="display: flex;">
+                    <div class="col-sm-5">
+                        <div class="form-group" hidden>
+                            <label for="kode_produk">Kode Produk</label>
+                            <input type="text" class="form-control" id="kodeProdukInput" name="kode_produk" readonly>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <!-- <label>Status</label> -->
-                        <div style="display: flex;" hidden>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="status" value="Belum Terjual" checked readonly>
-                                <label class="form-check-label">Belum Terjual</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="pro$produk" value="Terjual" readonly>
-                                <label class="form-check-label">Terjual</label>
+                        <div class="form-group">
+                            <label for="kode_kategori">Kategori</label>
+                            <select class="form-control form-select mt-2" aria-label="Default select example" name="kode_kategori">
+                                <option>-- Pilih Kategori --</option>
+                                @foreach($kategoriproduk as $kategori)
+                                <option value="{{ $kategori->id }}">{{ $kategori->nama_kategori }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="nama_produk" class="mt-3">Nama Produk</label>
+                            <input type="text" class="form-control" name="nama_produk" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="harga">Harga</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">Rp</span>
+                                </div>
+                                <input type="number" class="form-control" name="harga" required>
                             </div>
                         </div>
-                    </div>
+                        <div class="form-group">
+                            <!-- <label>Status</label> -->
+                            <div style="display: flex;" hidden>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="status" value="Belum Terjual" checked readonly>
+                                    <label class="form-check-label">Belum Terjual</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="status" value="Terjual" readonly>
+                                    <label class="form-check-label">Terjual</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="deskripsi">Deskripsi</label>
+                            <textarea class="form-control" name="deskripsi" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="foto">Foto</label>
+                            <input type="file" class="form-control" name="foto" accept="image/jpeg, image/png, image/jpg, image/gif" onchange="validateFile(this)">
+                            <small class="form-text text-muted">Pastikan foto berformat JPEG, PNG, JPG, atau GIF dan ukuran maksimal 2MB.</small>
+                        </div>
+                        <script>
+                            function validateFile(input) {
+                                const fileSize = input.files[0].size; // Mendapatkan ukuran file dalam bytes
+                                const maxSize = 2 * 1024 * 1024; // 2MB dalam bytes
 
-                    <!-- <div class="form-group">
-                        <label for="foto">Foto</label>
-                        <input type="file" class="form-control" name="foto">
-                    </div> -->
-                    <div class="form-group">
-                        <label for="deskripsi">Deskripsi</label>
-                        <textarea class="form-control" name="deskripsi" rows="4" required></textarea>
+                                if (fileSize > maxSize) {
+                                    alert('Ukuran foto melebihi 2MB. Silakan pilih foto dengan ukuran lebih kecil.');
+                                    input.value = ''; // Menghapus file yang telah dipilih
+                                }
+                            }
+                        </script>
+                    </div>
+                    <div class="col-sm-7 mt-2" id="komponen">
+                        
+                        <div class="form-group" style="display: flex;">
+                            <div class="col-sm-4">
+                                <label for="nama_barang">Barang</label>
+                                <select class="form-control form-select" id="kodeBarangSelect" aria-label="Default select example" name="kode_barang">
+                                    <option>Pilih</option>
+                                    @foreach($barang as $barang)
+                                    <option value="{{ $barang->id }}">{{ $barang->nama_barang }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="harga">Harga</label>
+                                <input type="number" id="hargaInput" class="form-control" name="harga">
+                            </div>
+                            <div class="col-sm-3">
+                                <label for="jumlah">Jumlah</label>
+                                <input type="number" class="form-control" name="jumlah">
+                            </div>
+                           
+                            
+                            <div class="col-sm-1">
+                                <button type="button" class="btn btn-dark btn-sm" style="margin-left:-15px; margin-top: 31px;" name="add" id="add"><i class="fa fa-plus"></i></button>
+
+                            </div>
+                        </div>
+
+
                     </div>
                 </div>
                 <div class="mt-3">
-
                     <button type="submit" class="btn btn-success btn-sm mx-1 mb-2 mt-2" style="float: right;"><i class="fa fa-save mx-1"></i> Simpan</button>
-
                 </div>
+                
             </form>
         </div>
     </div>
+</div>
 </div>
 <!-- End Pop Up Add -->
 
