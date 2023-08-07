@@ -48,7 +48,7 @@
                             <i class="pe-7s-cart"></i>
                         </div>
                         <div class="stat-content">
-                           
+
                             <div class="text-left dib">
                                 <div class="stat-text">
                                     <span class="count">{{ $totalTerjual }}</span>
@@ -61,7 +61,7 @@
             </div>
         </div>
 
-      
+
     </div>
     <!-- /Widgets -->
     <!--  Traffic  -->

@@ -11,7 +11,7 @@ class Barang extends Model
     use HasFactory;
 
     protected $guarded = [];
-    
+
     public function kategoribarang()
     {
     	// return $this->belongsTo(Kategori::class,'id');
@@ -29,8 +29,11 @@ class Barang extends Model
 
 
     }
-   
+    public function produk()
+    {
+        return $this->belongsToMany(Produk::class, 'produk_komponen')->withPivot('jumlah');
+    }
 
-    
+
 
 }

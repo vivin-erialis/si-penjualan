@@ -22,6 +22,26 @@ class BarangController extends Controller
             'kategoribarang' => KategoriBarang::all()
         ]);
     }
+    public function DataBarang($id)
+    {
+        $barang=Barang::with('kategoribarang')->where('id','=',$id)->first();
+
+        return response()->json($barang,200);
+    }
+
+    public function searchBarang(Request $request)
+    {
+        // if($request->ajax())
+        // $keyword = $request->input('keyword');
+        $keyword = $request->input('keyword');
+
+        $result =Barang::where('nama_barang','like','%'.$keyword.'%')
+                //  ->pluck('nama')
+                //  ->toArray();
+                ->get();
+
+         return response()->json($result);
+    }
 
     /**
      * Show the form for creating a new resource.

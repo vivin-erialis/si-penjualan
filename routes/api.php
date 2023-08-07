@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\BarangController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,4 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('/admin/penjualan/by-date-range', [PenjualanController::class, 'getDataByDateRange']);
+Route::get('/get-DataBarang/${id}', [BarangController::class,'DataBarang']);
+Route::get('/get-NamaBarang', [BarangController::class,'SearchBarang']);
 

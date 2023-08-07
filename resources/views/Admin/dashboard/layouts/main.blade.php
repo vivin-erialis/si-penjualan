@@ -31,6 +31,11 @@
     <link href="https://cdn.jsdelivr.net/npm/weathericons@2.1.0/css/weather-icons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
 
+    <!-- Axios CDN link -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
+
     <style>
         #weatherWidget .currentDesc {
             color: #ffffff !important;

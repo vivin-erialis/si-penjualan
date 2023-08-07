@@ -15,9 +15,9 @@ $('#add').click(function () {
 
         </div>
     </div>
-        
 
-       
+
+
     `
     );
 });
@@ -72,7 +72,7 @@ $('#add').click(function () {
 var i = 0;
 $('#add').click(function () {
     ++i;
-   
+
 });
 
 // Multiinsert untuk komponen produk
@@ -84,12 +84,13 @@ $('#add').click(function () {
         <div class="form-group multiinsert" style="display: flex;">
 
         <div class="col-sm-4">
-        <select class="form-control form-select" aria-label="Default select example" name="kode_kategori">
-            <option>Pilih</option>
-            @foreach($barang as $b)
-            <option value="{{ $b->id }}">{{ $b->nama_barang }}</option>
-            @endforeach
-        </select>
+        <select class="form-control form-select mt-2" id="kodeBarangSelect" aria-label="Default select example"
+                                    name="kode_kategori">
+                                    <option>-- Pilih Kategori --</option>
+                                    @foreach ($barang as $barang)
+                                        <option value="{{ $barang->id }}">{{ $barang->nama_barang }}</option>
+                                    @endforeach
+                                </select>
     </div>
     <div class="col-sm-3">
 
@@ -105,7 +106,7 @@ $('#add').click(function () {
 
                             </div>
                             </div>
-                       
+
 
                     `
     );

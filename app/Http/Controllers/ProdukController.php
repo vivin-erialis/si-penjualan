@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Barang;
 use App\Models\KategoriProduk;
 use App\Models\Produk;
+use App\Models\produk_komponen;
 use GuzzleHttp\Handler\Proxy;
 use Illuminate\Http\Request;
 
@@ -33,7 +34,11 @@ class ProdukController extends Controller
     public function create()
     {
         //
-        
+        return view('admin.dashboard.produk.create', [
+            'produk' => Produk::with('kategoriproduk')->get(),
+            'kategoriproduk' => KategoriProduk::all(),
+            'barang' => Barang::all()
+        ]);
     }
 
     /**
@@ -42,34 +47,80 @@ class ProdukController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function hitungModal(Request $request)
+    {
+        $selectedKomponen = $request->input('komponen');
+
+        $komponenData = Barang::whereIn('id', $selectedKomponen)->get();
+        $totalModal = $komponenData->sum('harga');
+
+        return view('hasil', ['totalModal' => $totalModal]);
+    }
     public function store(Request $request)
-{
-   
-    // Validasi data yang diterima dari formulir
-    $request->validate([
-        'kode_produk' => 'required',
-        'nama_produk' => 'required',
-        'kode_kategori' => 'required',
-        'harga' => 'required',
-        'deskripsi' => 'required',
-        'status' => 'required',
-    ]);
+    {
+        try {
+             // Validasi data yang diterima dari formulir
+        $validate = $request->validate([
+            'nama_produk' => 'required',
+            'kode_kategori' => 'required',
+            'harga_modal' => 'required',
+            'harga_jual' => 'required',
+            'deskripsi' => 'required',
+            'foto' => 'image|mimes:jpeg,png,jpg,gif|',
+            'status' => 'required',
+        ]);
 
-    // Buat instance baru dari model Produk
-    $produk = new Produk;
-    $produk->kode_produk = $request->kode_produk;
-    $produk->nama_produk = $request->nama_produk;
-    $produk->kode_kategori = $request->kode_kategori;
-    $produk->harga = $request->harga;
-    $produk->deskripsi = $request->deskripsi;
-    $produk->status = $request->status;
+        // Buat instance baru dari model Produk
+        $produk = new Produk;
+        // $produk->kode_produk = $request->kode_produk;
+        $produk->nama_produk = $request->nama_produk;
+        $produk->kode_kategori = $request->kode_kategori;
+        $produk->harga_modal = $request->harga_modal;
+        $produk->harga_jual = $request->harga_jual;
+        $produk->deskripsi = $request->deskripsi;
+        $produk->foto = $request->foto;
+        $produk->status = $request->status;
+        // if ($request->hasFile('foto')) {
 
-    // Simpan data ke database
-    $produk->save();
+        //     //jika request memiliki file dengan name foto maka -->
+        //     $nama = time() . $request->file('foto')->getClientOriginalName();
+        //     $request->file('foto')->move(public_path('images/foto_produk'), $nama);
+        //     //Memindahkan file ke public/foto_pegawai dengan nama asli file
+        //     $validate['foto'] = $nama;
+        //     //Mengubah nama file menjadi nama asli sesuai nama file di direktori
+        // }
 
-    // Redirect ke halaman atau tampilkan pesan sukses
-    return redirect()->back()->with('pesan', 'Data produk berhasil disimpan.');
-}
+        // Simpan data ke database
+        $produk->save();
+        // Produk::create($validate);
+        // Redirect ke halaman atau tampilkan pesan sukses
+        // return redirect()->back()->with('pesan', 'Data produk berhasil disimpan.');
+        $jumlahKomponen = $request->input('jumlah_komponen');
+        $komponenIds = $request->input('komponen');
+        $hargaKomponen = $request->input('komponen_harga'); // Asumsi Anda menambahkan input hidden untuk harga komponen
+
+        foreach ($komponenIds as $index => $komponenId) {
+            $komponen = new produk_komponen();
+            $komponen->produk_id = $produk->id;
+            $komponen->barang_id = $komponenId;
+            $komponen->jumlah_digunakan = $jumlahKomponen[$index];
+            $komponen->save();
+
+            // Kurangi stok komponen pada tabel barang
+            $barang = Barang::find($komponenId);
+            $barang->stok -= $jumlahKomponen[$index];
+            $barang->save();
+        }
+        // dd($produk);
+        return redirect()->back()->with('pesan', 'Data produk berhasil disimpan.');
+            // Kode penyimpanan data di sini
+        } catch (\Exception $e) {
+            // Tangkap pesan error
+            dd($e->getMessage()); // Tampilkan pesan error
+        }
+
+
+    }
 
 
     /**
@@ -107,12 +158,12 @@ class ProdukController extends Controller
         // Validasi input
         $validatedData = $request->validate([
             'kode_produk' => 'required',
-            'kode_kategori' => 'required',
             'nama_produk' => 'required',
+            'kode_kategori' => 'required',
             'harga' => 'required',
             'status' => 'required',
             'deskripsi' => 'required',
-            'foto' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'foto' => 'image|mimes:jpeg,png,jpg,gif|',
         ]);
         Produk::where('id', $id)->update($validatedData);
         return redirect('/admin/produk')->with('pesan', 'Produk berhasil diperbarui');
@@ -130,5 +181,4 @@ class ProdukController extends Controller
         Produk::destroy($id);
         return redirect('/admin/produk')->with('pesan', 'Data Berhasil Dihapus');
     }
-    
 }

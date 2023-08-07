@@ -22,6 +22,7 @@ use App\Http\Controllers\GantiPasswordController;
 use App\Http\Middleware\CheckLevel;
 use App\Models\Barang;
 use App\Models\KategoriBarang;
+use App\Models\Produk;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,10 @@ Route::middleware(['auth', 'CheckLevel:admin'])->group(function () {
     Route::resource('/admin/kategoriproduk', KategoriProdukController::class);
     Route::resource('/admin/barang', BarangController::class);
     Route::resource('/admin/produk', ProdukController::class);
+    Route::get('/admin/produk/create', [ProdukController::class, 'create'])->name('produk.create');
+    Route::post('/admin/produk', [ProdukController::class, 'store'])->name('produk.store');
+    Route::post('/admin/komponen', [ProdukController::class, 'store'])->name('produk_komponen.store');
+
     Route::resource('/admin/penjualan', PenjualanController::class);
     Route::resource('/admin/barangMasuk', BarangMasukController::class);
     Route::resource('/admin/barangKeluar', BarangKeluarController::class);
@@ -57,8 +62,8 @@ Route::middleware(['auth', 'CheckLevel:admin'])->group(function () {
     Route::get('/register', function () {
         return view('register');
     });
-    
-    
+
+
     //Action Register
     Route::get('register', [RegisterController::class,'register'])->name('register');
     Route::post('register/action', [StaffController::class, 'actionregister'])->name('actionregister');
@@ -78,7 +83,7 @@ Route::middleware(['auth', 'CheckLevel:petugas'])->group(function () {
     Route::get('/dashboardpetugas', [HomeController::class, 'indexPetugas']);
     Route::resource('/kategori', KategoriController::class);
 
-   
+
 });
 
 

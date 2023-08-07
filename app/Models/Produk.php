@@ -17,4 +17,8 @@ class Produk extends Model
         return $this->belongsTo(KategoriProduk::class, 'kode_kategori', 'id');
 
     }
+    public function komponen()
+{
+    return $this->belongsToMany(Barang::class, 'produk_komponen')->withPivot('jumlah');
+}
 }

@@ -45,6 +45,7 @@ return array(
     'App\\Models\\Sewa' => $baseDir . '/app/Models/Sewa.php',
     'App\\Models\\Transaksi' => $baseDir . '/app/Models/Transaksi.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
+    'App\\Models\\produk_komponen' => $baseDir . '/app/Models/produk_komponen.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',
     'App\\Providers\\BroadcastServiceProvider' => $baseDir . '/app/Providers/BroadcastServiceProvider.php',

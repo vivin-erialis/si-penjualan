@@ -296,14 +296,14 @@
                         </script>
                     </div>
                     <div class="col-sm-7 mt-2" id="komponen">
-                        
+
                         <div class="form-group" style="display: flex;">
                             <div class="col-sm-4">
                                 <label for="nama_barang">Barang</label>
                                 <select class="form-control form-select" id="kodeBarangSelect" aria-label="Default select example" name="kode_barang">
-                                    <option>Pilih</option>
+                                    {{-- <option>--Pilih--</option> --}}
                                     @foreach($barang as $barang)
-                                    <option value="{{ $barang->id }}">{{ $barang->nama_barang }}</option>
+                                    <option  value="{{ $barang->id }}">{{ $barang->nama_barang }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -313,10 +313,10 @@
                             </div>
                             <div class="col-sm-3">
                                 <label for="jumlah">Jumlah</label>
-                                <input type="number" class="form-control" name="jumlah">
+                                <input type="number" class="form-control" id="jumlah" name="jumlah">
                             </div>
-                           
-                            
+
+
                             <div class="col-sm-1">
                                 <button type="button" class="btn btn-dark btn-sm" style="margin-left:-15px; margin-top: 31px;" name="add" id="add"><i class="fa fa-plus"></i></button>
 
@@ -329,7 +329,7 @@
                 <div class="mt-3">
                     <button type="submit" class="btn btn-success btn-sm mx-1 mb-2 mt-2" style="float: right;"><i class="fa fa-save mx-1"></i> Simpan</button>
                 </div>
-                
+
             </form>
         </div>
     </div>
@@ -337,6 +337,22 @@
 </div>
 <!-- End Pop Up Add -->
 
+<script>
+    let barang = $('#kodeBarangSelect').val()
+    let idBarang = $('#kodeBarangSelect').attr('id')
 
+
+
+    axios.post(`/api/get-DataBarang/${barang}`)
+    .then(response=>{
+        console.log(response)
+        if(barang == response.data.nama_barang){
+            $('#hargaInput').val(response.data[0].harga)
+        }
+        // else{
+        //     $('#hargaInput').val('')
+        // }
+    }).catch()
+</script>
 
 @endsection
