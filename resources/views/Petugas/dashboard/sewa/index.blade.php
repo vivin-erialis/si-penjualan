@@ -1,4 +1,4 @@
-@extends('admin.dashboard.layouts.main')
+@extends('petugas.dashboard.layouts.main')
 @section('container')
     <div class="row">
         <div class="col mt-1">

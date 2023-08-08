@@ -1,4 +1,4 @@
-@extends('admin.dashboard.layouts.main')
+@extends('petugas.dashboard.layouts.main')
 @section('container')
     <div class="">
         <div class="modal-content">

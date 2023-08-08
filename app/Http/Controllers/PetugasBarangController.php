@@ -7,23 +7,15 @@ use App\Models\Kategori;
 use App\Models\KategoriBarang;
 use Illuminate\Http\Request;
 
-class BarangController extends Controller
+class PetugasBarangController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        // return Barang::with('kategori')->get();
-        return view('admin.dashboard.barang.index', [
-            'barang' => Barang::with('kategoribarang')->get(),
-            'kategoribarang' => KategoriBarang::all()
-        ]);
-    }
 
-    public function indexPetugas()
+    public function index()
     {
         // return Barang::with('kategori')->get();
         return view('petugas.dashboard.barang.index', [
@@ -85,7 +77,7 @@ class BarangController extends Controller
             Barang::create($value);
         }
 
-        return redirect('/admin/barang')->with('pesan', 'Data Barang Berhasil Ditambah');
+        return redirect('/petugas/barang')->with('pesan', 'Data Barang Berhasil Ditambah');
     }
 
     /**
@@ -127,7 +119,7 @@ class BarangController extends Controller
             'stok' => 'required'
         ]);
         Barang::where('id', $id)->update($validatedData);
-        return redirect('/admin/barang')->with('pesan', 'Data Barang Berhasil Diubah');
+        return redirect('/petugas/barang')->with('pesan', 'Data Barang Berhasil Diubah');
     }
 
     /**
@@ -140,6 +132,6 @@ class BarangController extends Controller
     {
         //
         Barang::destroy($id);
-        return redirect('/admin/barang')->with('pesan', 'Data Barang Berhasil Dihapus');
+        return redirect('/petugas/barang')->with('pesan', 'Data Barang Berhasil Dihapus');
     }
 }

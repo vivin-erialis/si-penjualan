@@ -8,12 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class produk_komponen extends Model
 {
     use HasFactory;
-    protected $table = 'komponen'; // Nama tabel komponen (sesuaikan dengan nama tabel yang Anda gunakan)
-    protected $fillable = [
-        'produk_id',
-        'barang_id',
-        'jumlah_digunakan',
-    ];
+    protected $table = 'produk_komponens'; // Nama tabel komponen (sesuaikan dengan nama tabel yang Anda gunakan)
+    protected $guarded=[];
 
     // Relasi dengan model Barang
     public function barang()

@@ -16,13 +16,13 @@ use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\Controller\SewaContoller;
 use App\Http\Controllers\GaleriController;
+use App\Http\Controllers\PetugasBarangController;
+use App\Http\Controllers\PetugasProdukController;
+use App\Http\Controllers\PetugasSewaController;
+use App\Http\Controllers\PetugasTransaksiController;
 use App\Http\Controllers\SewaController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\GantiPasswordController;
 use App\Http\Middleware\CheckLevel;
-use App\Models\Barang;
-use App\Models\KategoriBarang;
-use App\Models\Produk;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -39,7 +39,7 @@ Route::get('/', function () {
     return view('login');
 });
 
-//Dashboard
+//Dashboard Admin
 Route::middleware(['auth', 'CheckLevel:admin'])->group(function () {
     Route::get('/dashboardadmin', [HomeController::class, 'index']);
     Route::resource('/admin/kategoribarang', KategoriBarangController::class);
@@ -51,8 +51,6 @@ Route::middleware(['auth', 'CheckLevel:admin'])->group(function () {
     Route::post('/admin/komponen', [ProdukController::class, 'store'])->name('produk_komponen.store');
 
     Route::resource('/admin/penjualan', PenjualanController::class);
-    Route::resource('/admin/barangMasuk', BarangMasukController::class);
-    Route::resource('/admin/barangKeluar', BarangKeluarController::class);
     Route::resource('/admin/transaksi', TransaksiController::class);
     Route::resource('/admin/sewa', SewaController::class);
     Route::resource('/admin/petugas', StaffController::class);
@@ -63,41 +61,38 @@ Route::middleware(['auth', 'CheckLevel:admin'])->group(function () {
         return view('register');
     });
 
-
-    //Action Register
-    Route::get('register', [RegisterController::class,'register'])->name('register');
+    //Action Register untuk membuat akun petugas oleh admin
+    Route::get('register', [RegisterController::class, 'register'])->name('register');
     Route::post('register/action', [StaffController::class, 'actionregister'])->name('actionregister');
-
-
-
-
 });
 
+// Ganti Password
 Route::group(['middleware' => ['auth']], function () {
-    // routes/web.php
-Route::get('/admin/gantipassword', 'App\Http\Controllers\GantiPasswordController@showChangePasswordForm')->name('ganti.password');
-Route::post('/admin/gantipassword', 'App\Http\Controllers\GantiPasswordController@changePassword')->name('ganti.password.post');
-
+    Route::get('/admin/gantipassword', 'App\Http\Controllers\GantiPasswordController@showChangePasswordForm')->name('ganti.password');
+    Route::post('/admin/gantipassword', 'App\Http\Controllers\GantiPasswordController@changePassword')->name('ganti.password.post');
 });
+
+
+// Dashboard Petugas
 Route::middleware(['auth', 'CheckLevel:petugas'])->group(function () {
     Route::get('/dashboardpetugas', [HomeController::class, 'indexPetugas']);
-    Route::resource('/kategori', KategoriController::class);
+    Route::resource('/petugas/produk', PetugasProdukController::class);
+    Route::get('/petugas/produk/create', [ProdukController::class, 'create'])->name('produk.create');
+    Route::post('/petugas/produk', [ProdukController::class, 'store'])->name('produk.store');
+    Route::post('/petugas/komponen', [ProdukController::class, 'store'])->name('produk_komponen.store');
 
+    Route::resource('/petugas/sewa', PetugasSewaController::class);
+
+    Route::resource('/petugas/barang', PetugasBarangController::class);
+
+    Route::resource('/petugas/transaksi', PetugasTransaksiController::class);
 
 });
 
-
-
-
 //Action Login
-Route::get ('/login', [LoginController::class,'login'])->name('login')->middleware('guest');
-Route::post ('/logout', [LoginController::class,'logout']);
-Route::post ('/login', [LoginController::class,'authenticate']);
-
-
-
-//Barang Masuk
-// Route::resource('/barangMasuk', BarangMasukController::class)->middleware('auth');
+Route::get('/login', [LoginController::class, 'login'])->name('login')->middleware('guest');
+Route::post('/logout', [LoginController::class, 'logout']);
+Route::post('/login', [LoginController::class, 'authenticate']);
 
 //Galeri
 Route::resource('/galeri', GaleriController::class);

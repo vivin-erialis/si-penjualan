@@ -1,30 +1,22 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Sewa;
 use App\Models\KategoriProduk;
 use Illuminate\Http\Request;
 use PDF;
 
 
-class SewaController extends Controller
+class PetugasSewaController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-        return view('admin.dashboard.sewa.index', [
-            'sewa' => Sewa::with('kategoriproduk')->get(),
-            'kategoriproduk' => KategoriProduk::all()
-        ]);
-    }
 
-    public function indexPetugas()
+
+    public function index()
     {
         //
         return view('petugas.dashboard.sewa.index', [
@@ -37,7 +29,7 @@ class SewaController extends Controller
         $buktiSewa = Sewa::select('*')
             ->get();
 
-        $pdf = PDF::loadView('admin.dashboard.sewa.buktisewa', ['sewa' => $buktiSewa]);
+        $pdf = PDF::loadView('petugas.dashboard.sewa.buktisewa', ['sewa' => $buktiSewa]);
         return $pdf->stream('Bukti-Sewa.pdf');
     }
 
@@ -74,7 +66,7 @@ class SewaController extends Controller
         Sewa::create($validatedData);
 
         // Redirect ke halaman atau tampilan lain jika diperlukan
-        return redirect('/admin/sewa')->with('pesan', 'Data Sewa berhasil disimpan.');
+        return redirect('/petugas/sewa')->with('pesan', 'Data Sewa berhasil disimpan.');
     }
 
     /**
@@ -121,6 +113,6 @@ class SewaController extends Controller
     {
         //
         Sewa::destroy($id);
-        return redirect('/admin/sewa')->with('pesan', 'Data Berhasil Dihapus');
+        return redirect('/petugas/sewa')->with('pesan', 'Data Berhasil Dihapus');
     }
 }

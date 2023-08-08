@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Barang;
 use App\Models\KategoriProduk;
 use App\Models\Produk;
 use App\Models\produk_komponen;
-use GuzzleHttp\Handler\Proxy;
 use Illuminate\Http\Request;
 
-class ProdukController extends Controller
+class PetugasProdukController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,15 +17,6 @@ class ProdukController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
-        return view('admin.dashboard.produk.index', [
-            'produk' => Produk::with('kategoriproduk')->get(),
-            'kategoriproduk' => KategoriProduk::all(),
-            'barang' => Barang::all()
-        ]);
-    }
-    public function indexPetugas()
     {
         //
         return view('petugas.dashboard.produk.index', [
@@ -196,7 +187,7 @@ class ProdukController extends Controller
             'foto' => 'image|mimes:jpeg,png,jpg,gif|',
         ]);
         Produk::where('id', $id)->update($validatedData);
-        return redirect('/admin/produk')->with('pesan', 'Produk berhasil diperbarui');
+        return redirect('/petugas/produk')->with('pesan', 'Produk berhasil diperbarui');
     }
 
     /**
@@ -209,6 +200,7 @@ class ProdukController extends Controller
     {
         //
         Produk::destroy($id);
-        return redirect('/admin/produk')->with('pesan', 'Data Berhasil Dihapus');
+        return redirect('/petugas/produk')->with('pesan', 'Data Berhasil Dihapus');
     }
 }
+

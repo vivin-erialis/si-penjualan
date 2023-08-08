@@ -1,4 +1,4 @@
-@extends('admin.dashboard.layouts.main')
+@extends('petugas.dashboard.layouts.main')
 @section('container')
 <div class="row">
     <div class="col mt-1">
@@ -28,7 +28,7 @@
                             <strong class="card-title">Data Produk</strong>
                         </div>
                         <div class="col-md-2">
-                           <a href="/admin/produk/create" class="btn btn-sm btn-dark"> <i class="fa fa-plus mr-1"></i>Tambah Data</a>
+                           <a href="/petugas/produk/create" class="btn btn-sm btn-dark"> <i class="fa fa-plus mr-1"></i>Tambah Data</a>
                         </div>
                     </div>
                 </div>
@@ -60,7 +60,7 @@
                                     <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal<?php echo $produk['id'] ?>">
                                         <i class="fa fa-edit"></i>
                                     </button>
-                                    <form action="/admin/produk/{{$produk->id}}" method="post" class="d-inline">
+                                    <form action="/petugas/produk/{{$produk->id}}" method="post" class="d-inline">
                                         @method('DELETE')
                                         @csrf
                                         <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Yakin akan menghapus data ?')"><i class="fa fa-trash"></i></i></button>
@@ -83,7 +83,7 @@
                                             </div>
                                         </div>
 
-                                        <form action="/admin/penjualan" method="POST">
+                                        <form action="/petugas/penjualan" method="POST">
                                             @csrf
                                             @method('POST')
                                             <input type="hidden" name="produk_id" value="<?php echo $produk['id'] ?>">
@@ -146,7 +146,7 @@
                                             <strong>Edit Data Produk</strong>
                                         </div>
 
-                                        <form action="/admin/produk/{{ $produk->id }}" method="POST">
+                                        <form action="/petugas/produk/{{ $produk->id }}" method="POST">
                                             @method('PUT')
                                             @csrf
                                             <div class="p-3">
@@ -229,7 +229,7 @@
                 </div>
             </div>
 
-            <form action="/admin/produk" method="POST" class="p-2 mt-2" enctype="multipart/form-data">
+            <form action="/petugas/produk" method="POST" class="p-2 mt-2" enctype="multipart/form-data">
                 @csrf
                 <div style="display: flex;">
                     <div class="col-sm-5">

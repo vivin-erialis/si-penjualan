@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Sistem Informasi Penjualan</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="Sistem Informasi Penjualan">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -29,6 +30,11 @@
 
     <link href="https://cdn.jsdelivr.net/npm/weathericons@2.1.0/css/weather-icons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
+
+    <!-- Axios CDN link -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 
     <style>
         #weatherWidget .currentDesc {
@@ -73,7 +79,11 @@
         }
     </style>
 </head>
+<!-- Contoh pengaturan jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<!-- Panggil file JavaScript Anda -->
+@yield('scripts')
 <body>
     <!-- Left Panel -->
     @include('petugas.dashboard.layouts.sidebar')
@@ -91,7 +101,7 @@
         <!-- /.content -->
 
         <!-- Footer -->
-        <!-- @include('petugas.dashboard.layouts.footer') -->
+        @include('petugas.dashboard.layouts.footer')
         <!-- /.site-footer -->
     </div>
     <!-- /#right-panel -->
@@ -109,6 +119,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
     <script src="/js/init/fullcalendar-init.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Data Tables -->
     <script src="/js/lib/data-table/datatables.min.js"></script>
