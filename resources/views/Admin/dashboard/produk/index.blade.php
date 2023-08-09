@@ -50,11 +50,11 @@
                             @foreach ($produk as $produk)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $produk->kode_produk}}</td>
+                                <td>PR-{{ $produk->id}}</td>
                                 <td>{{ $produk->nama_produk}}</td>
                                 <td>@rp($produk->harga)</td>
                                 <td>{{ $produk->status}}</td>
-                                <td><img src="../images/foto_produk/{{ $produk->foto}}" alt="{{ $produk->foto}}"></td>
+                                <td><img @if src="../images/foto_produk/{{ $produk->foto}}" @else src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.marketeers.com%2Fwujudkan-keberagaman-mattel-rilis-barbie-dengan-alat-bantu-dengar%2F&psig=AOvVaw2yY1J-JcCP4Q1Fz52UyXeM&ust=1691665386566000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCNCz0ee2z4ADFQAAAAAdAAAAABAE" @endif alt="{{ $produk->foto}}"></td>
                                 <td>{{ $produk->deskripsi}}</td>
                                 <td>
                                     <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal<?php echo $produk['id'] ?>">
