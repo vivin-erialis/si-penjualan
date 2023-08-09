@@ -106,9 +106,24 @@ class SewaController extends Controller
      * @param  \App\Models\Sewa  $sewa
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Sewa $sewa)
+    public function update(Request $request, $id)
     {
         //
+        $validatedData = $request->validate([
+            'kode_sewa' => 'required',
+            'nama_penyewa' => 'required',
+            'telp' => 'required',
+            'alamat' => 'required',
+            'tanggal_sewa' => 'required',
+            'nama_produk' => 'required',
+            'harga_sewa' => 'required',
+            'deskripsi' => 'required',
+
+        ]);
+        Sewa::where('id', $id)->update($validatedData);
+
+        // Redirect ke halaman atau tampilan lain jika diperlukan
+        // return redirect('/admin/sewa')->with('pesan', 'Data Sewa Berhasil Diubah.');
     }
 
     /**

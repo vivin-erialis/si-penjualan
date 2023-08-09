@@ -15,14 +15,14 @@ class TransaksiController extends Controller
      */
     public function index()
     {
-        
+
         return view('admin.dashboard.transaksi.index', [
             'transaksi' => Transaksi::with('barang')->get(),
             'barang' => Barang::all()
         ]);
 
-      
-        
+
+
     }
 
     /**
@@ -37,44 +37,46 @@ class TransaksiController extends Controller
         //     'kode_barang' => 'required',
         //     'jenis_transaksi' => 'required',
         //     'jumlah' => 'required',
-            
+
         // ]);
         // Transaksi::create($validatedData);
 
         // return redirect('/admin/transaksi')->with('pesan', 'Data berhasil Ditambah');
 
-       
+
 
         // Barang::where('kode_produk', '=', $request->kode_produk)->update(['status' => 'Terjual']);
 
-        $data = $request->validate([
-            'kode_transaksi' => 'required',
-            'kode_barang' => 'required|exists:barangs,id',
-            'jenis_transaksi' => 'required|in:masuk,keluar',
-            'satuan' => 'required',
-            'jumlah' => 'required|integer|min:1',
-            'harga' => 'required',
-            'total' => 'required',
-        ]);
+        try {
+            $data = $request->validate([
+                'kode_transaksi' => 'required',
+                'kode_barang' => 'required|exists:barangs,id',
+                'jenis_transaksi' => 'required|in:masuk,keluar',
+                'jumlah' => 'required|integer|min:1',
+                'harga' => 'required',
+                'harga_pcs' => 'required',
+            ]);
 
-        // Update stok barang
-        $barang = Barang::find($data['kode_barang']);
-        if ($data['jenis_transaksi'] === 'masuk') {
-            $barang->stok += $data['jumlah'];
-            $barang->harga += $data['harga'];
-        } else {
-            $barang->stok -= $data['jumlah'];
-            // if ($barang->stok < 0) {
-            //     // Stok tidak mencukupi untuk transaksi keluar
-            //     // Anda bisa menangani kasus ini sesuai dengan kebutuhan Anda
-            //     return redirect('/admin/transaksi')->with('pesan', 'Stok barang tidak mencukupi');
-            // }
-        
+            // Update stok barang
+            $barang = Barang::find($data['kode_barang']);
+            if ($data['jenis_transaksi'] === 'masuk') {
+                $barang->stok += $data['jumlah'];
+                $barang->harga += $data['harga'];
+            } else {
+                $barang->stok -= $data['jumlah'];
+                // if ($barang->stok < 0) {
+                //     // Stok tidak mencukupi untuk transaksi keluar
+                //     // Anda bisa menangani kasus ini sesuai dengan kebutuhan Anda
+                //     return redirect('/admin/transaksi')->with('pesan', 'Stok barang tidak mencukupi');
+                // }
+            }
+            $barang->save();
+            $transaksi = Transaksi::create($data);
+
+            return redirect('/admin/transaksi')->with('pesan', 'Data berhasil Ditambah');
+        } catch (\Exception $e) {
+            return redirect('/admin/transaksi')->with('pesan', 'Terjadi kesalahan: ' . $e->getMessage());
         }
-        $barang->save();
-        $transaksi = Transaksi::create($data);
-
-        return redirect('/admin/transaksi')->with('pesan', 'Data berhasil Ditambah');
 
         // return response()->json(['message' => 'Transaksi berhasil disimpan.']);
     }
@@ -128,7 +130,7 @@ class TransaksiController extends Controller
             'satuan' => 'required',
             'jumlah' => 'required|integer|min:1',
             'harga' => 'required',
-            'total' => 'required',
+            'harga_pcs' => 'required',
         ]);
 
 
@@ -140,20 +142,20 @@ class TransaksiController extends Controller
         } else {
             // Jika jenis transaksi bukan 'masuk', kurangi jumlah baru dari stok barang
             $stokSetelahDikurang = $barang->stok - $data['jumlah'];
-        
+
             // Periksa apakah stok cukup untuk transaksi keluar
             if ($stokSetelahDikurang < 0) {
                 // Stok tidak mencukupi untuk transaksi keluar
                 // Anda bisa menangani kasus ini sesuai dengan kebutuhan Anda
                 return redirect('/admin/transaksi')->with('pesan', 'Stok barang tidak mencukupi');
             }
-        
+
             $barang->stok = $stokSetelahDikurang;
         }
-        
+
         // Simpan perubahan stok barang
         $barang->save();
-        
+
         // Update data transaksi
         Transaksi::where('id', $id)->update($data);
         return redirect('/admin/transaksi')->with('pesan', 'Data Transaksi Berhasil Diubah');

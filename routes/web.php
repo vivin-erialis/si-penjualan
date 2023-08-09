@@ -77,14 +77,11 @@ Route::group(['middleware' => ['auth']], function () {
 Route::middleware(['auth', 'CheckLevel:petugas'])->group(function () {
     Route::get('/dashboardpetugas', [HomeController::class, 'indexPetugas']);
     Route::resource('/petugas/produk', PetugasProdukController::class);
-    Route::get('/petugas/produk/create', [ProdukController::class, 'create'])->name('produk.create');
-    Route::post('/petugas/produk', [ProdukController::class, 'store'])->name('produk.store');
+    // Route::get('/petugas/produk/create', [PetugasProdukController::class, 'create'])->name('produk.create');
+    // Route::post('/petugas/produk', [PetugasProdukController::class, 'store'])->name('produk.store');
     Route::post('/petugas/komponen', [ProdukController::class, 'store'])->name('produk_komponen.store');
-
     Route::resource('/petugas/sewa', PetugasSewaController::class);
-
     Route::resource('/petugas/barang', PetugasBarangController::class);
-
     Route::resource('/petugas/transaksi', PetugasTransaksiController::class);
 
 });

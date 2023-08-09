@@ -5,7 +5,7 @@
             <div class=" card-header">
                 <strong>Tambah Data Produk</strong>
             </div>
-            <form action="{{ route('produk.store') }}" method="POST" class="p-2 mt-2" enctype="multipart/form-data">
+            <form action="/admin/produk" method="POST" class="p-2 mt-2" enctype="multipart/form-data">
                 @csrf
                 <div style="display: flex;">
                     <div class="col">
@@ -51,27 +51,20 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($barang as $barang)
-                                                    @php
-                                                        $i=0;
-                                                        $i++;
-                                                    @endphp
+                                                    @foreach ($barang as $index => $item)
                                                         <tr>
-                                                            <td>{{ $barang->nama_barang }}</td>
-                                                            <td>{{ $barang->stok }}</td>
+                                                            <td>{{ $item->nama_barang }}</td>
+                                                            <td>{{ $item->stok }}</td>
                                                             <td>
                                                                 <input type="number" class="form-control komponen-jumlah"
-                                                                name="komponen[{{$loop->iteration}}][jumlah]" min="1"
-                                                                    max="{{ $barang->stok }}">
+                                                                       name="jumlah_komponen[{{ $item->id }}]" min="1" value=""
+                                                                       max="{{ $item->stok }}">
                                                             </td>
                                                             <td>
-                                                                {{ $barang->harga }}
+                                                                {{ $item->harga }}
                                                                 <input type="hidden" class="komponen-harga"
-                                                                    name="komponen[{{$loop->iteration}}][id]" value="{{ $barang->id }}"
-                                                                    data-harga="{{ $barang->harga }}">
-                                                            </td>
-                                                            <td>
-                                                                <span class="subtotal">0.00</span>
+                                                                       name="komponenId[{{ $item->id }}]" value="{{ $item->id }}"
+                                                                       data-harga="{{ $item->harga }}">
                                                             </td>
                                                         </tr>
                                                     @endforeach

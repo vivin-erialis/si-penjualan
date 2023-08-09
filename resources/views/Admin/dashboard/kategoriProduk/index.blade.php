@@ -68,12 +68,6 @@
                                                 @method('PUT')
                                                 @csrf
                                                 <div>
-                                                    <!-- <div class="row mb-3" hidden>
-                            <label for="kategoriKode" class="col-sm-3 col-form-label">Kode</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" name="inputs[0][kode_kategori]" id="kodeKategoriInput" readonly>
-                            </div>
-                        </div> -->
                                                     <div class="row mb-3">
                                                         <label for="kategoriNama" class="col-sm-3 col-form-label">Nama</label>
                                                         <div class="col-sm-9">
@@ -122,7 +116,7 @@
                 <form action="/admin/kategoriproduk" method="POST">
                     @csrf
                     <div class="px-4 mt-4" id="kategori-produk">
-                        <di class="row mb-3">
+                        <div class="row mb-3">
                             <label for="kategoriNama" class="col-sm-2 col-form-label">Nama</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" name="inputs[0][nama_kategori]" required>
@@ -131,7 +125,7 @@
 
                                 <button type="button" class="btn btn-dark btn-sm" style="margin-left:-15px;" name="add" id="add"><i class="fa fa-plus"></i></button>
                             </div>
-                        </di>
+                        </div>
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label">Tipe</label>
                             <div class="col-sm-9" style="display: flex;">

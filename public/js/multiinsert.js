@@ -117,7 +117,7 @@ $(document).on('click', '.remove-komponen', function () {
 });
 
 function generateRandomString(length) {
-    var characters = '1234567890';
+    var characters = '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     var result = '';
     for (var i = 0; i < length; i++) {
         result += characters.charAt(Math.floor(Math.random() * characters.length));
@@ -231,10 +231,10 @@ function calculateTotal() {
     const harga = parseFloat(document.getElementById('harga').value);
 
     // Menghitung total berdasarkan jumlah dan harga yang dimasukkan
-    const total = jumlah * harga;
+    const total = harga / jumlah;
 
     // Menampilkan total pada input total
-    document.getElementById('total').value = total;
+    document.getElementById('harga_pcs').value = total;
 }
 
 function checkEnter(event) {

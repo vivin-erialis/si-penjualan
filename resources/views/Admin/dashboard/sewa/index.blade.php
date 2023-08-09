@@ -74,74 +74,89 @@
                                                     </div>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form action="/admin/sewa" method="POST">
+                                                    <form action="/admin/sewa/{{ $item->id }}" method="PUT">
                                                         @csrf
                                                         <div class="form-group">
                                                             <label for="kodeSewa">Kode</label>
-                                                            <input type="text" class="form-control" id="kodeSewaInput"
-                                                                name="kode_sewa" value="{{ $item->kode_transaksi }}"
-                                                                readonly>
+                                                            <input type="text" class="form-control"
+                                                                value="{{ $item->kode_sewa }}" name="kode_sewa" readonly>
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label for="nama_penyewa">Nama Penyewa</label>
-                                                            <div class="input-group">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text" id="basic-addon1"><i
-                                                                            class="fa fa-user"></i></span>
+                                                        <div style="display: flex">
+                                                            <div class="form-group">
+                                                                <label for="nama_penyewa">Nama Penyewa</label>
+                                                                <div class="input-group">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text" id="basic-addon1"><i
+                                                                                class="fa fa-user"></i></span>
+                                                                    </div>
+                                                                    <input type="text" class="form-control"
+                                                                        name="nama_penyewa"
+                                                                        value="{{ $item->nama_penyewa }}">
                                                                 </div>
-                                                                <input type="text" class="form-control"
-                                                                    name="nama_penyewa" value="{{ $item->nama_penyewa }}">
                                                             </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="telp">Telepon</label>
-                                                            <div class="input-group">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text" id="basic-addon1"><i
-                                                                            class="fa fa-phone"></i></span>
+                                                            <div class="form-group mx-1">
+                                                                <label for="telp">Telepon</label>
+                                                                <div class="input-group">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text" id="basic-addon1"><i
+                                                                                class="fa fa-phone"></i></span>
+                                                                    </div>
+                                                                    <input type="number" class="form-control"
+                                                                        name="telp" value="{{ $item->telp }}">
                                                                 </div>
-                                                                <input type="number" class="form-control" name="telp"
-                                                                    value="{{ $item->telepon }}">
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="alamat">Alamat</label>
-                                                            <textarea class="form-control" name="alamat" rows="3"></textarea>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="tanggal_sewa">Tanggal Sewa</label>
-                                                            <input type="date" class="form-control" name="tanggal_sewa">
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text" id="basic-addon1"><i
+                                                                            class="fa fa-home"></i></span>
+                                                                </div>
+                                                                <textarea class="form-control" name="alamat" rows="2">{{ $item->alamat }}</textarea>
+                                                            </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label>Produk</label>
                                                             <div style="display: flex;">
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio"
-                                                                        name="nama_produk" value="Papan Bunga">
+                                                                        name="nama_produk" value="Papan Bunga" checked
+                                                                        {{ $item->nama_produk == 'Papan Karangan' ? 'checked' : '' }}>
                                                                     <label class="form-check-label">Papan Karangan
                                                                         Bunga</label>
                                                                 </div>
                                                                 <div class="form-check mx-3">
                                                                     <input class="form-check-input" type="radio"
-                                                                        name="nama_produk" value="Hantaran Nikah">
+                                                                        name="nama_produk" value="Hantaran Nikah" checked
+                                                                        {{ $item->nama_produk == 'Hantaran Nikah' ? 'checked' : '' }}>
                                                                     <label class="form-check-label">Hantaran Nikah</label>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label for="harga_sewa">Harga</label>
-                                                            <div class="input-group">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text"
-                                                                        id="basic-addon1">Rp</span>
+                                                        <div style="display: flex">
+                                                            <div class="form-group">
+                                                                <label for="tanggal_sewa">Tanggal Sewa</label>
+                                                                <input type="date" class="form-control"
+                                                                    name="tanggal_sewa"
+                                                                    value="{{ $item->tanggal_sewa }}">
+                                                            </div>
+                                                            <div class="form-group col-sm-8">
+                                                                <label for="harga_sewa">Harga</label>
+                                                                <div class="input-group mx-1">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text"
+                                                                            id="basic-addon1">Rp</span>
+                                                                    </div>
+                                                                    <input type="number" class="form-control"
+                                                                        name="harga_sewa"
+                                                                        value="{{ $item->harga_sewa }}">
                                                                 </div>
-                                                                <input type="number" class="form-control"
-                                                                    name="harga_sewa">
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="deskripsi">Deskripsi</label>
-                                                            <textarea class="form-control" name="deskripsi" rows="4"></textarea>
+                                                            <textarea class="form-control" name="deskripsi" rows="4">{{ $item->deskripsi }}</textarea>
                                                         </div>
                                                 </div>
                                                 <div class="mt-2 mr-3">
@@ -165,7 +180,7 @@
     <!-- Pop Up Add -->
     <div class="modal fade" id="addModal" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="row card-header">
                     <div class="col">
@@ -201,36 +216,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div style="display: flex">
-                            <div class="form-group mx-1">
-                                <label for="alamat">Alamat</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1"><i
-                                                class="fa fa-home"></i></span>
-                                    </div>
-                                    <textarea class="form-control" name="alamat" rows="1"></textarea>
+                        <div class="form-group">
+                            <label for="alamat">Alamat</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-home"></i></span>
                                 </div>
-                            </div>
-                            <div>
-                                <div class="form-group">
-                                    <label for="tanggal_sewa">Tanggal Sewa</label>
-
-                                    <input type="date" class="form-control" name="tanggal_sewa">
-
-                                </div>
-                                <div class="form-group">
-                                    <label for="tanggal_sewa">Tanggal Sewa</label>
-
-                                    <input type="date" class="form-control" name="tanggal_sewa">
-
-                                </div>
+                                <textarea class="form-control" name="alamat" rows="2"></textarea>
                             </div>
                         </div>
-
-
-
-
                         <div class="form-group">
                             <label>Produk</label>
                             <div style="display: flex;">
@@ -246,15 +240,27 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="harga_sewa">Harga</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1">Rp</span>
+                        <div style="display: flex">
+                            <div class="form-group">
+                                <label for="tanggal_sewa">Tanggal Sewa</label>
+                                <input type="date" class="form-control" name="tanggal_sewa">
+                            </div>
+                            <div class="form-group col-sm-8">
+                                <label for="harga_sewa">Harga</label>
+                                <div class="input-group mx-1">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">Rp</span>
+                                    </div>
+                                    <input type="number" class="form-control" name="harga_sewa">
                                 </div>
-                                <input type="number" class="form-control" name="harga_sewa">
                             </div>
                         </div>
+
+
+
+
+
+
                         <div class="form-group">
                             <label for="deskripsi">Deskripsi</label>
                             <textarea class="form-control" name="deskripsi" rows="4"></textarea>

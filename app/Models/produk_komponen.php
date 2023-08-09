@@ -14,6 +14,6 @@ class produk_komponen extends Model
     // Relasi dengan model Barang
     public function barang()
     {
-        return $this->belongsTo(Barang::class, 'id');
+        return $this->belongsTo(Barang::class, 'barang_id' ,'id');
     }
 }
