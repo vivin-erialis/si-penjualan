@@ -71,27 +71,28 @@ class ProdukController extends Controller
         ]);
 
 
-       $komponenIds = $request->input('komponenId'); // Array of komponen IDs
-$jumlahKomponen = $request->input('jumlah_komponen'); // Array of jumlah komponen
+        $komponenIds = $request->input('komponenId'); // Array of komponen IDs
+        $jumlahKomponen = $request->input('jumlah_komponen'); // Array of jumlah komponen
 
-foreach ($komponenIds as $komponenId) {
-    $komponen = Barang::find($komponenId);
+        foreach ($komponenIds as $komponenId => $value) {
+            $komponen = Barang::find($komponenId)->get();
 
-    if ($komponen) {
-        $DataStok = $komponen->stok;
-        $requestedJumlah = $jumlahKomponen[$komponenId];
-        $hasil = $DataStok - $requestedJumlah;
+            if ($komponen) {
+                $DataStok = $komponen->stok;
+                $requestedJumlah = $jumlahKomponen[$komponenId];
+                $hasil = $DataStok - $requestedJumlah;
 
-        // Pastikan hasil tidak kurang dari 0
-        if ($hasil >= 0) {
-            $komponen->update([
-                'stok' => $hasil
-            ]);
-        } else {
-            // Handle kasus jika stok menjadi negatif
-            // Misalnya dengan memberikan pesan kesalahan kepada pengguna
-        }
-    }
+                // Pastikan hasil tidak kurang dari 0
+                if ($hasil >= 0) {
+                    $komponen->update([
+                        'stok' => $hasil
+                    ]);
+                } else {
+                    // Handle kasus jika stok menjadi negatif
+                    // Misalnya dengan memberikan pesan kesalahan kepada pengguna
+                }
+            }
+
 }
 
         if ($request->hasFile('foto')) {

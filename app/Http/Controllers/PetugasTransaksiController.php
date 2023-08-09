@@ -51,10 +51,9 @@ class PetugasTransaksiController extends Controller
             'kode_transaksi' => 'required',
             'kode_barang' => 'required|exists:barangs,id',
             'jenis_transaksi' => 'required|in:masuk,keluar',
-            'satuan' => 'required',
             'jumlah' => 'required|integer|min:1',
             'harga' => 'required',
-            'total' => 'required',
+            'harga_pcs' => 'required',
         ]);
 
         // Update stok barang
@@ -125,10 +124,9 @@ class PetugasTransaksiController extends Controller
             'kode_transaksi' => 'required',
             'kode_barang' => 'required|exists:barangs,id',
             'jenis_transaksi' => 'required|in:masuk,keluar',
-            'satuan' => 'required',
             'jumlah' => 'required|integer|min:1',
             'harga' => 'required',
-            'total' => 'required',
+            'harga_pcs' => 'required',
         ]);
 
 
