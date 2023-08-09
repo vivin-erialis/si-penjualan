@@ -59,7 +59,7 @@ class ProdukController extends Controller
     public function store(Request $request)
     {
         // try {
-        // Validasi data yang diterima dari formulir
+             // Validasi data yang diterima dari formulir
         $validate = $request->validate([
             'nama_produk' => 'required',
             'kode_kategori' => 'required',
@@ -71,12 +71,33 @@ class ProdukController extends Controller
         ]);
 
 
+       $komponenIds = $request->input('komponenId'); // Array of komponen IDs
+$jumlahKomponen = $request->input('jumlah_komponen'); // Array of jumlah komponen
 
+foreach ($komponenIds as $komponenId) {
+    $komponen = Barang::find($komponenId);
+
+    if ($komponen) {
+        $DataStok = $komponen->stok;
+        $requestedJumlah = $jumlahKomponen[$komponenId];
+        $hasil = $DataStok - $requestedJumlah;
+
+        // Pastikan hasil tidak kurang dari 0
+        if ($hasil >= 0) {
+            $komponen->update([
+                'stok' => $hasil
+            ]);
+        } else {
+            // Handle kasus jika stok menjadi negatif
+            // Misalnya dengan memberikan pesan kesalahan kepada pengguna
+        }
+    }
+}
 
         if ($request->hasFile('foto')) {
 
             //jika request memiliki file dengan name foto maka -->
-            $nama = time() . $request->file('foto')->getClientOriginalName();
+            $nama = time().$request->file('foto')->getClientOriginalName();
             $request->file('foto')->move(public_path('images/foto_produk'), $nama);
             //Memindahkan file ke public/foto_pegawai dengan nama asli file
             $validate['foto'] = $nama;
@@ -98,28 +119,6 @@ class ProdukController extends Controller
         // Simpan data ke database
         $produk->save();
 
-        $komponenIds = $request->input('komponenId'); // Array of komponen IDs
-        $jumlahKomponen = $request->input('jumlah_komponen'); // Array of jumlah komponen
-
-        foreach ($komponenIds as $komponenId) {
-            $komponen = Barang::find($komponenId);
-
-            if ($komponen) {
-                $DataStok = $komponen->stok;
-                $requestedJumlah = $jumlahKomponen[$komponenId];
-                $hasil = $DataStok - $requestedJumlah;
-
-                // Pastikan hasil tidak kurang dari 0
-                if ($hasil >= 0) {
-                    $komponen->update([
-                        'stok' => $hasil
-                    ]);
-                } else {
-                    // Handle kasus jika stok menjadi negatif
-                    // Misalnya dengan memberikan pesan kesalahan kepada pengguna
-                }
-            }
-        }
 
         // Produk::create($validate);
         // Redirect ke halaman atau tampilkan pesan sukses
@@ -142,17 +141,17 @@ class ProdukController extends Controller
         // }
         // dd($produk);
 
-        $id_produk = Produk::latest()->first();
+        $id_produk=Produk::latest()->first();
 
 
-        produk_komponen::create([
-            'produk_id' => $id_produk->id,
-            'barang_id' => $request->komponenId,
-            'jumlah' => $request->jumlah_komponen,
-        ]);
+            produk_komponen::create([
+                'produk_id'=>$id_produk->id,
+                'barang_id'=>$request->komponenId,
+                'jumlah'=>$request->jumlah_komponen,
+            ]);
 
         return redirect('/admin/produk');
-        // Kode penyimpanan data di sini
+            // Kode penyimpanan data di sini
         // } catch (\Exception $e) {
         //     // Tangkap pesan error
         //     dd($e->getMessage()); // Tampilkan pesan error
