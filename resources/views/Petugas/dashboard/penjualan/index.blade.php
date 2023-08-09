@@ -55,7 +55,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{$item->kode_penjualan}}</td>
-                                <td>{{$item->nama_produk}}</td>
+                                <td>{{$item->produk->nama_produk}}</td>
                                 <td>{{$item->tanggal_transaksi}}</td>
                                 <td>Rp.{{$item->harga}}</td>
                             </tr>

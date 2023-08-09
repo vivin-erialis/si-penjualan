@@ -14,7 +14,7 @@ class Penjualan extends Model
     	// return $this->belongsTo(Kategori::class,'id');
         // return $this->hasOne(Kategori::class,'id');
     	// return $this->belongsTo(KategoriProduk::class,'id_kategori');
-        return $this->belongsTo(Produk::class, 'kode_kategori', 'id');
+        return $this->belongsTo(KategoriProduk::class, 'kode_kategori', 'id');
 
     }
 
@@ -23,9 +23,10 @@ class Penjualan extends Model
     	// return $this->belongsTo(Kategori::class,'id');
         // return $this->hasOne(Kategori::class,'id');
     	// return $this->belongsTo(KategoriProduk::class,'id_kategori');
-        return $this->belongsTo(Produk::class, 'kode_kategori', 'id');
+        return $this->belongsTo(Produk::class, 'nama_produk', 'id');
+
 
     }
 
-    
+
 }

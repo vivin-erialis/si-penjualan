@@ -20,10 +20,8 @@ class TransaksiController extends Controller
             'transaksi' => Transaksi::with('barang')->get(),
             'barang' => Barang::all()
         ]);
-
-
-
     }
+
 
     /**
      * Show the form for creating a new resource.

@@ -16,31 +16,23 @@ class PenjualanController extends Controller
      */
     public function index(Request $request)
     {
-        $startDate = $request->input('start_date');
-        $endDate = $request->input('end_date');
+        // $startDate = $request->input('start_date');
+        // $endDate = $request->input('end_date');
 
-        if($startDate && $endDate){
-            $penjualan = Penjualan::with('produk')->whereBetween('tanggal_transaksi',[$startDate, $endDate])->get();
-        }else{
-            $penjualan =Penjualan::with('produk')->get();
-        }
+        // if ($startDate && $endDate) {
+        //     $penjualan = Penjualan::with('produk')
+        //         ->whereBetween('tanggal_transaksi', [$startDate, $endDate])
+        //         ->get();
+        // } else {
+        //     $penjualan = Penjualan::with('produk')
+        //     ->get();
+        // }
 
 
         return view('admin.dashboard.penjualan.index', [
-            'penjualan' => $penjualan,
+            'penjualan' => Penjualan::all(),
             'produk' => Produk::all()
         ]);
-    }
-
-    
-    public function getDataByDateRange(Request $request)
-    {
-        $startDate = $request->input('start_date');
-        $endDate = $request->input('end_date');
-    
-        $dataPenjualan = Penjualan::whereBetween('tanggal_transaksi', [$startDate, $endDate])->get();
-    
-        return view("admin.Dashboard.penjualan.index");
     }
 
     /**
@@ -72,7 +64,7 @@ class PenjualanController extends Controller
         ]);
         Penjualan::create($validatedData);
 
-        Produk::where('nama_produk', '=', $request->nama_produk)->update(['status' => 'Terjual']);
+        Produk::where('id', '=', $request->nama_produk)->update(['status' => 'Terjual']);
 
         // Redirect ke halaman atau tampilan lain jika diperlukan
         return redirect()->back()->with('berhasil', 'Data penjualan berhasil disimpan.');

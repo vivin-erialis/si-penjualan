@@ -37,7 +37,6 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Kode</th>
                                 <th>Nama</th>
                                 <th>Harga</th>
                                 <th>Status</th>
@@ -50,16 +49,15 @@
                             @foreach ($produk as $produk)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $produk->kode_produk}}</td>
                                 <td>{{ $produk->nama_produk}}</td>
-                                <td>@rp($produk->harga)</td>
+                                <td>@rp($produk->harga_jual)</td>
                                 <td>{{ $produk->status}}</td>
                                 <td><img src="../images/foto_produk/{{ $produk->foto}}" alt="{{ $produk->foto}}"></td>
                                 <td>{{ $produk->deskripsi}}</td>
                                 <td>
-                                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal<?php echo $produk['id'] ?>">
+                                    {{-- <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal<?php echo $produk['id'] ?>">
                                         <i class="fa fa-edit"></i>
-                                    </button>
+                                    </button> --}}
                                     <form action="/admin/produk/{{$produk->id}}" method="post" class="d-inline">
                                         @method('DELETE')
                                         @csrf
@@ -94,10 +92,10 @@
                                                     <input type="text" class="form-control" id="kodePenjualanInput" name="kode_penjualan" readonly>
 
                                                 </div>
-                                                <div class="form-group">
+                                                <div class="form-group" hidden>
                                                     <label for="nama_produk">Nama Produk</label>
 
-                                                    <input type="text" class="form-control" name="nama_produk" value="{{$produk['nama_produk']}}" readonly>
+                                                    <input type="text" class="form-control" name="nama_produk" value="{{$produk['id']}}" readonly>
                                                 </div>
 
                                                 <div class="form-group">
@@ -122,7 +120,7 @@
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text" id="basic-addon1">Rp</span>
                                                         </div>
-                                                        <input type="number" class="form-control" name="harga" value="<?php echo $produk['harga'] ?>" readonly>
+                                                        <input type="number" class="form-control" name="harga" value="<?php echo $produk['harga_jual'] ?>" readonly>
                                                     </div>
                                                 </div>
                                                 <div class="mt-3">

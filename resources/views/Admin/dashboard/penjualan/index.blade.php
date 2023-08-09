@@ -1,31 +1,36 @@
 @extends('admin.dashboard.layouts.main')
 @section('container')
-<div class="row">
-    <div class="col mt-1">
-        @if (session()->has('pesan'))
-        <div class="alert alert-success d-flex align-items-center" role="alert">
-            {{session ('pesan')}}
-        </div>
-        @endif
-    </div>
-</div>
-<div class="row">
-    <div class="col mt-1">
-        <!-- Add a form to select the date range -->
-        <form id="dateRangeForm" class="form-inline" method="get" action="/admin/penjualan">
-            <div class="form-group mb-2">
-                <label for="startDate" class="sr-only">Tanggal Awal</label>
-                <input type="date" class="form-control" id="startDate" name="start_date" placeholder="Start Date" value="{{request('start_date')}}">
-            </div>
-            <div class="form-group mx-sm-3 mb-2">
-                <label for="endDate" class="sr-only">Tanggal Akhir</label>
-                <input type="date" class="form-control" id="endDate" name="end_date" placeholder="End Date" value="{{request('end_date')}}">
-            </div>
-            <button type="submit" class="btn btn-primary btn-sm mb-2"><i class="fa fa-search mr-2"></i>Cari</button>
-        </form>
-    </div>
-</div>
+
 <div class="animated fadeIn">
+    <div class="row">
+        <div class="col mt-1">
+            @if (session()->has('pesan'))
+            <div class="alert alert-success d-flex align-items-center" role="alert">
+                {{session ('pesan')}}
+            </div>
+            @endif
+        </div>
+    </div>
+    <div class="row m-1">
+        <div class="card p-2">
+            <form id="dateRangeForm" class="form-inline" method="get" action="/admin/penjualan">
+                <div class="form-group">
+                    <label for="startDate" class="mx-3">Tanggal Awal</label>
+                    <input type="date" class="form-control" id="startDate" name="start_date" placeholder="Start Date"
+                        value="{{ request('start_date') }}">
+                </div>
+                <div class="form-group mx-3 mb-2">
+                    <label for="endDate" class="mx-3">Tanggal Akhir</label>
+                    <input type="date" class="form-control" id="endDate" name="end_date" placeholder="End Date"
+                        value="{{ request('end_date') }}">
+                </div>
+                <button type="submit" class="btn btn-primary btn-sm mb-2"><i class="fa fa-search mr-2"></i>Cari</button>
+            </form>
+        </div>
+        <!-- Add a form to select the date range -->
+
+
+    </div>
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -55,7 +60,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{$item->kode_penjualan}}</td>
-                                <td>{{$item->nama_produk}}</td>
+                                <td>{{$item->produk->nama_produk}}</td>
                                 <td>{{$item->tanggal_transaksi}}</td>
                                 <td>Rp.{{$item->harga}}</td>
                             </tr>

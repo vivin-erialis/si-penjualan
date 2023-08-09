@@ -16,13 +16,14 @@ use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\Controller\SewaContoller;
 use App\Http\Controllers\GaleriController;
+use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\PetugasBarangController;
 use App\Http\Controllers\PetugasProdukController;
 use App\Http\Controllers\PetugasSewaController;
 use App\Http\Controllers\PetugasTransaksiController;
 use App\Http\Controllers\SewaController;
 use App\Http\Middleware\CheckLevel;
-
+use App\Models\Transaksi;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,12 +52,13 @@ Route::middleware(['auth', 'CheckLevel:admin'])->group(function () {
     Route::post('/admin/komponen', [ProdukController::class, 'store'])->name('produk_komponen.store');
 
     Route::resource('/admin/penjualan', PenjualanController::class);
+    Route::resource('/admin/pembelian', PembelianController::class);
     Route::resource('/admin/transaksi', TransaksiController::class);
     Route::resource('/admin/sewa', SewaController::class);
     Route::resource('/admin/petugas', StaffController::class);
     Route::get('/admin/cetakpenjualan', [CetakLaporanController::class, 'cetaklaporanpenjualan'])->name('cetaklaporanpenjualan');
     Route::get('/admin/cetakbuktisewa', [SewaController::class, 'cetakbuktisewa'])->name('cetakbuktisewa');
-    Route::get('/admin/penjualan/by-date-range', [PenjualanController::class, 'getDataByDateRange']);
+    // Route::get('/admin/penjualan/by-date-range', [PenjualanController::class, 'getDataByDateRange']);
     Route::get('/register', function () {
         return view('register');
     });

@@ -57,7 +57,7 @@ class HomeController extends Controller
         $totalPengeluaran = Transaksi::whereMonth('created_at', $bulanIni)
             ->whereYear('created_at', $tahunIni)
             ->where('jenis_transaksi', '=', 'masuk')
-            ->sum('total');
+            ->sum('harga');
 
         return $totalPengeluaran;
     }

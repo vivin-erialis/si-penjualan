@@ -75,7 +75,7 @@ class ProdukController extends Controller
         $jumlahKomponen = $request->input('jumlah_komponen'); // Array of jumlah komponen
 
         foreach ($komponenIds as $komponenId => $value) {
-            $komponen = Barang::find($komponenId)->get();
+            $komponen = Barang::find($komponenId);
 
             if ($komponen) {
                 $DataStok = $komponen->stok;
@@ -112,7 +112,7 @@ class ProdukController extends Controller
         $produk->kode_kategori = $request->kode_kategori;
         $produk->harga_modal = $request->harga_modal;
         $produk->harga_jual = $request->harga_jual;
-        $produk->komponen = $request->jumlah_komponen;
+        $produk->komponen = 'ayang';
         $produk->deskripsi = $request->deskripsi;
         $produk->foto = $nama;
         $produk->status = $request->status;
@@ -121,12 +121,7 @@ class ProdukController extends Controller
         $produk->save();
 
 
-        // Produk::create($validate);
-        // Redirect ke halaman atau tampilkan pesan sukses
-        // return redirect()->back()->with('pesan', 'Data produk berhasil disimpan.');
-        $jumlahKomponen = $request->input('jumlah_komponen');
-        $komponenIds = $request->input('komponen');
-        $hargaKomponen = $request->input('komponen_harga'); // Asumsi Anda menambahkan input hidden untuk harga komponen
+        // Asumsi Anda menambahkan input hidden untuk harga komponen
 
         // foreach ($komponenIds as $index => $komponenId) {
         //     $komponen = new produk_komponen();
@@ -142,14 +137,7 @@ class ProdukController extends Controller
         // }
         // dd($produk);
 
-        $id_produk=Produk::latest()->first();
 
-
-            produk_komponen::create([
-                'produk_id'=>$id_produk->id,
-                'barang_id'=>$request->komponenId,
-                'jumlah'=>$request->jumlah_komponen,
-            ]);
 
         return redirect('/admin/produk');
             // Kode penyimpanan data di sini
