@@ -5,49 +5,66 @@
             <div class=" card-header">
                 <strong>Tambah Data Produk</strong>
             </div>
-            <form action="/admin/produk" method="POST" class="p-2 mt-2" enctype="multipart/form-data">
+            <form action="/admin/produk" method="POST" class="p-5 mt-2" enctype="multipart/form-data">
                 @csrf
                 <div style="display: flex;">
                     <div class="col">
                         <!-- Bagian informasi produk -->
-                        <div class="form-group">
-                            <label for="nama_produk" class="mt-3">Nama Produk</label>
-                            <input type="text" class="form-control" name="nama_produk" required>
+                        <div class="row" style="display: flex">
+                            <div class="form-group col-sm-6">
+                                <label for="nama_produk">Nama Produk</label>
+                                <input type="text" class="form-control" name="nama_produk" required>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="kode_kategori">Kategori</label>
+                                <select class="form-control form-select" aria-label="Default select example"
+                                    name="kode_kategori" required>
+                                    <option>-- Pilih Kategori --</option>
+                                    @foreach ($kategoriproduk as $kategori)
+                                        <option value="{{ $kategori->id }}">{{ $kategori->nama_kategori }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="kode_kategori">Kategori</label>
-                            <select class="form-control form-select mt-2" aria-label="Default select example"
-                                name="kode_kategori" required>
-                                <option>-- Pilih Kategori --</option>
-                                @foreach ($kategoriproduk as $kategori)
-                                    <option value="{{ $kategori->id }}">{{ $kategori->nama_kategori }}</option>
-                                @endforeach
-                            </select>
+                        <div class="row" style="display: flex">
+                            <div class="form-group col-sm-4">
+                                <label for="harga_modal">Harga Modal</label>
+                                <input type="number" class="form-control" name="harga_modal" id="harga_modal_input" readonly>
+                            </div>
+                            <div class="form-group col-sm-2">
+                                <label for="harga_modal">Pilih Komponen</label>
+                                <button type="button" data-bs-target="#modalKomponen" data-bs-toggle="modal"
+                            class="btn btn-secondary btn-sm">  Komponen<i class="fa fa-right-to-bracket mx-1"></i></button>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="harga">Harga</label>
+                                <div class="input-group">
+
+                                    <input type="number" class="form-control" name="harga_jual" required>
+                                </div>
+                            </div>
                         </div>
-                        <button type="button" data-bs-target="#modalKomponen" data-bs-toggle="modal"
-                            class="btn btn-primary">Komponen</button>
+
                         <!-- Modal Komponen -->
                         <div class="modal fade" id="modalKomponen" tabindex="-1" role="dialog"
                             aria-labelledby="modalKomponenLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="modalKomponenLabel">Pilih Komponen Barang</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
+                                    <div class="card-header">
+                                        <div class="row p-2">
+                                            <div class="col-md-10 mt-1">
+                                                <strong class="card-title">Pilih Komponen Barang</strong>
+                                            </div>
+
+                                        </div>
                                     </div>
                                     <div class="modal-body">
-                                        {{-- <form action="{{ route('produk_komponen.store') }}" method="POST" class="p-2 mt-2"
-                                            enctype="multipart/form-data">
-                                            @csrf --}}
-                                            <table class="table table-bordered">
-                                                <thead>
+                                        <table id="bootstrap-data-table" class="table table-striped table-hover">                                                <thead>
                                                     <tr>
                                                         <th>Nama Barang</th>
                                                         <th>Stok</th>
                                                         <th>Jumlah</th>
                                                         <th>Harga</th>
-                                                        <th>Subtotal</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -60,7 +77,7 @@
                                                                        name="jumlah_komponen[{{ $item->id }}]" min="1" value=""
                                                                        max="{{ $item->stok }}">
                                                             </td>
-                                                            <td>
+                                                            <td> Rp.
                                                                 {{ $item->harga }}
                                                                 <input type="hidden" class="komponen-harga"
                                                                        name="komponenId[{{ $item->id }}]" value="{{ $item->id }}"
@@ -72,8 +89,8 @@
                                             </table>
 
                                         {{-- </form> --}}
-                                        <div id="totalHargaModal" class="mt-3">
-                                            Total Harga Modal: Rp<span id="hargaModal">0.00</span>
+                                        <div id="totalHargaModal" class="mt-3 mx-3 card-header">
+                                            Total Harga Modal: Rp. <span id="hargaModal">0.00</span>
                                         </div>
 
 
@@ -100,8 +117,6 @@
                                                 // Update harga modal di form produk sebelum menutup modal
                                                 const hargaModalInput = document.getElementById('harga_modal_input');
                                                 hargaModalInput.value = totalHargaModal;
-
-
                                             }
 
                                             document.querySelector('form').addEventListener('submit', function() {
@@ -109,57 +124,31 @@
                                                 hargaModalInput.value = hargaModalSpan.textContent; // Menggunakan nilai yang dihitung sebelumnya
                                             });
                                         </script>
-
-
-
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="submit" class="btn btn-success btn-sm"
-                                            data-bs-dismiss="modal">Simpan</button>
+                                        <button type="button" class="btn btn-success btn-sm mr-3"
+                                            data-bs-dismiss="modal"><i class="fa fa-check"></i> Pilih</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- Bagian komponen barang -->
-                        {{-- <div class="form-group">
-                    <label for="nama_barang">Komponen Barang</label>
-                    <select class="form-control form-select mt-2" id="kodeBarangSelect" name="komponen[]"
-                        multiple required>
-                        @foreach ($barang as $barang)
-                            <option value="{{ $barang->id }}">{{ $barang->nama_barang }}</option>
-                        @endforeach
-                    </select>
-                </div> --}}
+
+
                         <!-- ... -->
-                        <!-- Field Harga Modal -->
-                        <div class="form-group">
-                            <label for="harga_modal">Harga Modal</label>
-                            <input type="number" class="form-control" name="harga_modal" id="harga_modal_input" readonly>
-                        </div>
-                        <!-- ... -->
-                        <div class="form-group">
-                            <label for="harga">Harga</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1">Rp</span>
-                                </div>
-                                <input type="number" class="form-control" name="harga_jual" required>
-                            </div>
-                        </div>
-                        <!-- ... -->
-                        <div class="form-group">
-                            <label for="nama_produk" class="mt-3">Nama Produk</label>
-                            <input type="text" class="form-control" name="deskripsi" required>
+
+                        <div class="form-group ">
+                            <label for="nama_produk">Deskripsi</label>
+                            <textarea type="text" class="form-control" row="3" name="deskripsi" required></textarea>
                         </div>
 
                         <!-- Bagian foto -->
-                        <div class="form-group">
+                        <div class="form-group ">
                             <label for="foto">Foto</label>
                             <input type="file" class="form-control" name="foto"
                                 accept="image/jpeg, image/png, image/jpg, image/gif" onchange="validateFile(this)">
                             <small class="form-text text-muted">Pastikan foto berformat JPEG, PNG, JPG, atau GIF dan
                                 ukuran maksimal 2MB.</small>
-                        </div>
+                        </div></div>
                         <div class="form-group">
                             <!-- <label>Status</label> -->
                             <div style="display: flex;" hidden>
@@ -176,11 +165,12 @@
                         </div>
                         <!-- ... -->
                         <!-- Tombol Submit -->
-                        <div class="mt-3">
-                            <button type="submit" class="btn btn-success btn-sm mx-1 mb-2 mt-2" style="float: right;">
-                                <i class="fa fa-save mx-1"></i> Simpan
-                            </button>
-                        </div>
+
+                    </div>
+                    <div class="mt-3">
+                        <button type="submit" class="btn btn-success btn-sm mx-1 mb-2 mt-2" style="float: right;">
+                            <i class="fa fa-save mx-1"></i> Simpan
+                        </button>
                     </div>
                 </div>
             </form>

@@ -59,7 +59,7 @@ class TransaksiController extends Controller
             $barang = Barang::find($data['kode_barang']);
             if ($data['jenis_transaksi'] === 'masuk') {
                 $barang->stok += $data['jumlah'];
-                $barang->harga += $data['harga'];
+                $barang->harga += $data['harga_pcs'];
             } else {
                 $barang->stok -= $data['jumlah'];
                 // if ($barang->stok < 0) {

@@ -105,48 +105,21 @@ class ProdukController extends Controller
             //Mengubah nama file menjadi nama asli sesuai nama file di direktori
         }
 
-        // Buat instance baru dari model Produk
+        // Buat instance baru dari model Produk utnuk menyimpan data produk
         $produk = new Produk;
-        // $produk->kode_produk = $request->kode_produk;
         $produk->nama_produk = $request->nama_produk;
         $produk->kode_kategori = $request->kode_kategori;
         $produk->harga_modal = $request->harga_modal;
         $produk->harga_jual = $request->harga_jual;
-        $produk->komponen = 'ayang';
+        $produk->komponen = '';
         $produk->deskripsi = $request->deskripsi;
         $produk->foto = $nama;
         $produk->status = $request->status;
 
         // Simpan data ke database
         $produk->save();
-
-
-        // Asumsi Anda menambahkan input hidden untuk harga komponen
-
-        // foreach ($komponenIds as $index => $komponenId) {
-        //     $komponen = new produk_komponen();
-        //     $komponen->produk_id = $produk->id;
-        //     $komponen->barang_id = $komponenId;
-        //     $komponen->jumlah_digunakan = $jumlahKomponen[$index];
-        //     $komponen->save();
-
-        //     // Kurangi stok komponen pada tabel barang
-        //     $barang = Barang::find($komponenId);
-        //     $barang->stok -= $jumlahKomponen[$index];
-        //     $barang->save();
-        // }
-        // dd($produk);
-
-
-
+        // Kembali ke halaman data produk
         return redirect('/admin/produk');
-            // Kode penyimpanan data di sini
-        // } catch (\Exception $e) {
-        //     // Tangkap pesan error
-        //     dd($e->getMessage()); // Tampilkan pesan error
-        // }
-
-
     }
 
 

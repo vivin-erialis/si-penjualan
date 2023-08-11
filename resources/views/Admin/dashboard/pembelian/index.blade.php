@@ -39,6 +39,7 @@
                             <div class="col-md-10 mt-1">
                                 <strong class="card-title">Data Pembelian Barang</strong>
                             </div>
+                            <a class="btn btn-warning btn-sm btn-default" href="{{route('cetaklaporanpembelian')}}" target="blank"><i class="fa fa-print"></i> Cetak Laporan</a>
 
                         </div>
                     </div>
@@ -52,7 +53,6 @@
                                     <th>Nama Barang</th>
                                     <th>Jumlah</th>
                                     <th>Harga</th>
-                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -67,26 +67,7 @@
                                             @endif
                                         </td>
                                         <td>{{ $item->jumlah }}</td>
-                                        <td>{{ $item->harga }}</td>
-                                        <td>
-                                            <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                                data-bs-target="#editModal{{ $item->id }}">
-                                                <i class="fa fa-edit"></i>
-                                            </button>
-                                            <form action="/admin/transaksi/{{ $item->id }}" method="post"
-                                                class="d-inline">
-                                                @method('DELETE')
-                                                @csrf
-                                                <button class="btn btn-danger btn-sm" type="submit"
-                                                    onclick="return confirm('Yakin akan menghapus data ?')">
-                                                    <i class="fa fa-trash"></i>
-                                                </button>
-                                            </form>
-                                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                                                data-bs-target="#detailModal{{ $item->id }}">
-                                                <i class="fa fa-eye"></i>
-                                            </button>
-                                        </td>
+                                        <td>Rp. {{ $item->harga }}</td>
                                     </tr>
                                     <!-- Pop Up Edit -->
                                     <div class="modal fade" id="editModal{{ $item->id }}" data-bs-keyboard="false"

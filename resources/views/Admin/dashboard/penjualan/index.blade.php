@@ -40,7 +40,7 @@
                             <strong class="card-title">Data Penjualan</strong>
                         </div>
                         <div class="col-md-2">
-                        <a class="btn btn-warning btn-sm btn-default" href="{{route('cetaklaporanpenjualan')}}" target="blank"><i class="fa fa-print"></i> Cetak Laporan</a>
+                        <a class="btn btn-warning btn-sm btn-default" href="{{route('cetaklaporanpenjualan')}}" target="_blank"><i class="fa fa-print"></i> Cetak Laporan</a>
                         </div>
                     </div>
                 </div>
