@@ -66,27 +66,46 @@
     <!-- /Widgets -->
     <!--  Traffic  -->
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
                     <h4 class="mb-3">Bar chart </h4>
-                    <canvas id="barChart"></canvas>
+                      <canvas id="myChart"></canvas>
                 </div>
             </div>
         </div><!-- /# column -->
-
-        <div class="col-lg-6">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="mb-3">Rader chart </h4>
-                    <canvas id="radarChart"></canvas>
-                </div>
-            </div>
-        </div><!-- /# column -->
-
     </div>
     <!--  /Traffic -->
 </div>
 <!-- .animated -->
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const ctx = document.getElementById('myChart');
+  console.log(@json($labelGrafik))
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: @json($labelGrafik),
+      datasets: [{
+        label: '# of Votes',
+        data: @json($dataGrafik),
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
 
 @endsection
