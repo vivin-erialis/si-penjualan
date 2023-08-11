@@ -39,8 +39,13 @@
                             <div class="col-md-10 mt-1">
                                 <strong class="card-title">Data Pembelian Barang</strong>
                             </div>
-                            <a class="btn btn-warning btn-sm btn-default" href="{{route('cetaklaporanpembelian')}}" target="blank"><i class="fa fa-print"></i> Cetak Laporan</a>
-
+                            <div class="col-md-2">
+                                <a class="btn btn-warning btn-sm btn-default"
+                                    href="{{ route('cetaklaporanpenjualan', ['start_date' => request('start_date'), 'end_date' => request('end_date')]) }}"
+                                    target="_blank">
+                                    <i class="fa fa-print"></i> Cetak Laporan
+                                </a>
+                            </div>
                         </div>
                     </div>
                     <div class="card-body">

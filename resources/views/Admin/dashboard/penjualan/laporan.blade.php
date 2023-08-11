@@ -40,6 +40,7 @@
 }
 </style>
 <body>
+
 <div class="header">
         <h1>Laporan Penjualan</h1>
     </div>

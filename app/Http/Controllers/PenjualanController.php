@@ -16,24 +16,28 @@ class PenjualanController extends Controller
      */
     public function index(Request $request)
     {
-        // $startDate = $request->input('start_date');
-        // $endDate = $request->input('end_date');
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
 
-        // if ($startDate && $endDate) {
-        //     $penjualan = Penjualan::with('produk')
-        //         ->whereBetween('tanggal_transaksi', [$startDate, $endDate])
-        //         ->get();
-        // } else {
-        //     $penjualan = Penjualan::with('produk')
-        //     ->get();
-        // }
+        if ($startDate && $endDate) {
+            $penjualan = Penjualan::with('produk')
+                ->whereBetween('tanggal_transaksi', [$startDate, $endDate])
+                ->get();
 
+            if ($penjualan->isEmpty()) {
+                return back()->with('pesan', 'Data Tidak Tersedia');
+            }
+        } else {
+            $penjualan = Penjualan::with('produk')
+                ->get();
+        }
 
         return view('admin.dashboard.penjualan.index', [
-            'penjualan' => Penjualan::all(),
+            'penjualan' => $penjualan,
             'produk' => Produk::all()
         ]);
     }
+
 
     /**
      * Show the form for creating a new resource.
