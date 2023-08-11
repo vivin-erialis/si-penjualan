@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Home;
 use Carbon\Carbon;
 use App\Models\Penjualan;
+use App\Models\Produk;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
+use DB;
 
 class HomeController extends Controller
 {
@@ -17,10 +19,21 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $data=Produk::join('kategori_produks','produks.kode_kategori','=','kategori_produks.id')
+        ->select(\DB::raw("COUNT(*) as count"), DB::raw('kategori_produks.nama_kategori as kode'))
+        ->whereYear('produks.created_at', date('Y'))
+            ->groupBy(\DB::raw("kode"))
+            ->orderBy('produks.created_at', 'asc')
+            ->pluck('count', 'kode');
+
+        $labelGrafik=$data->keys();
+        $dataGrafik=$data->values();
+
+
         $totalTerjual = $this->getTotalTerjual();
         $totalPendapatan = $this->getTotalPendapatan();
         $totalPengeluaran = $this->getTotalPengeluaran();
-        return view('admin.dashboard.home.dashboard', compact('totalTerjual', 'totalPendapatan', 'totalPengeluaran'));
+        return view('admin.dashboard.home.dashboard', compact('totalTerjual', 'totalPendapatan', 'totalPengeluaran','labelGrafik','dataGrafik'));
     }
 
     // ... kode lain dalam controller ...
