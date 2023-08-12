@@ -5,6 +5,7 @@
     <!-- Widgets  -->
     <div class="row">
         <div class="col-lg-4 col-md-6">
+
             <div class="card">
                 <div class="card-body">
                     <div class="stat-widget-five">
@@ -63,13 +64,22 @@
 
 
     </div>
-    <!-- /Widgets -->
-    <!--  Traffic  -->
+
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="mb-3">Bar chart </h4>
+                    <div class="row header-data mb-4 mt-3">
+                        <div class="stat-content">
+                            <div class="text-left dib">
+                                <div class="stat-heading">
+                                    <p class="">
+                                         Penjualan Toko Pada Bulan {{ $namaBulan }} Tahun {{ $tahunIni }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                       <canvas id="myChart"></canvas>
                 </div>
             </div>
@@ -93,7 +103,7 @@
     data: {
       labels: @json($labelGrafik),
       datasets: [{
-        label: '# of Votes',
+        label: 'Jumlah Terjual :',
         data: @json($dataGrafik),
         borderWidth: 1
       }]

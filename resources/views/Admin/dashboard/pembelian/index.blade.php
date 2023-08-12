@@ -24,7 +24,7 @@
                         <input type="date" class="form-control" id="endDate" name="end_date" placeholder="End Date"
                             value="{{ request('end_date') }}">
                     </div>
-                    <button type="submit" class="btn btn-primary btn-sm mb-2"><i class="fa fa-search mr-2"></i>Cari</button>
+                    <button type="submit" class="btn btn-warning btn-sm mb-2"><i class="fa fa-search mr-2"></i></button>
                 </form>
             </div>
             <!-- Add a form to select the date range -->
@@ -40,9 +40,9 @@
                                 <strong class="card-title">Data Pembelian Barang</strong>
                             </div>
                             <div class="col-md-2">
-                                <a class="btn btn-warning btn-sm btn-default"
-                                    href="{{ route('cetaklaporanpenjualan', ['start_date' => request('start_date'), 'end_date' => request('end_date')]) }}"
-                                    target="_blank">
+                                <a class="btn btn-success btn-sm btn-default"
+                                    href="{{ route('cetaklaporanpembelian', ['start_date' => request('start_date'), 'end_date' => request('end_date')]) }}"
+                                    target="_blank" style="color: white;">
                                     <i class="fa fa-print"></i> Cetak Laporan
                                 </a>
                             </div>
@@ -54,7 +54,6 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Tanggal</th>
-                                    {{-- <th>Kode Transaksi</th> --}}
                                     <th>Nama Barang</th>
                                     <th>Jumlah</th>
                                     <th>Harga</th>
@@ -64,15 +63,15 @@
                                 @foreach ($transaksi as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->created_at }}</td>
-                                        {{-- <td><span class="badge badge-primary">{{ $item->kode_transaksi }}</span></td> --}}
+                                        <td>{{ $item->created_at->format('d-m-Y') }}</td>
                                         <td>
                                             @if ($item->barang)
                                                 {{ $item->Barang->nama_barang }}
                                             @endif
                                         </td>
                                         <td>{{ $item->jumlah }}</td>
-                                        <td>Rp. {{ $item->harga }}</td>
+                                        <td>Rp. {{ number_format($item->harga, 0, ',', '.') }}</td>
+
                                     </tr>
                                     <!-- Pop Up Edit -->
                                     <div class="modal fade" id="editModal{{ $item->id }}" data-bs-keyboard="false"

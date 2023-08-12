@@ -14,14 +14,20 @@ class PembelianController extends Controller
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
 
-        if($startDate && $endDate){
-            $pembelian = Transaksi::with('barang')->whereBetween('created_at',[$startDate, $endDate])->get();
-        }else{
-            $pembelian =Transaksi::with('barang')->get();
+        if ($startDate && $endDate) {
+            $pembelian = Transaksi::with('barang')
+                ->whereDate('created_at', '>=', $startDate)
+                ->whereDate('created_at', '<=', $endDate)
+                ->get();
+                if ($pembelian->isEmpty()) {
+                    return back()->with('pesan', 'Data Tidak Tersedia');
+                }
+        } else {
+            $pembelian = Transaksi::with('barang')->get();
         }
 
         return view('admin.dashboard.pembelian.index', [
-            'transaksi' => Transaksi::with('barang')->where('jenis_transaksi' ,'=', 'masuk')->get(),
+            'transaksi' => $pembelian,
             'barang' => Barang::all()
         ]);
     }

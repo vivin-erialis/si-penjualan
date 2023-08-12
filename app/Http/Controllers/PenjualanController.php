@@ -39,6 +39,7 @@ class PenjualanController extends Controller
     }
 
 
+
     /**
      * Show the form for creating a new resource.
      *
@@ -60,7 +61,6 @@ class PenjualanController extends Controller
         //
         // Validasi data yang diterima dari form
         $validatedData = $request->validate([
-            'kode_penjualan' => 'required',
             'nama_produk' => 'required',
             'kode_kategori' => 'required',
             'tanggal_transaksi' => 'required',

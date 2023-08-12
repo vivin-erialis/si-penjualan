@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('penjualans', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_penjualan', 30);
             $table->string('nama_produk', 100);
             $table->foreignId('kode_kategori');
             $table->date('tanggal_transaksi');

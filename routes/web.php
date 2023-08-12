@@ -57,8 +57,8 @@ Route::middleware(['auth', 'CheckLevel:admin'])->group(function () {
     Route::resource('/admin/sewa', SewaController::class);
     Route::resource('/admin/petugas', StaffController::class);
     Route::get('/admin/cetakpenjualan', [CetakLaporanController::class, 'cetaklaporanpenjualan'])->name('cetaklaporanpenjualan');
+    Route::get('/admin/cetakpendapatan', [CetakLaporanController::class, 'cetaklaporanpendapatan'])->name('cetaklaporanpendapatan');
     Route::get('admin/cetakpembelian', [CetakLaporanController::class, 'cetaklaporanpembelian'])->name('cetaklaporanpembelian');
-    Route::get('/admin/cetakbuktisewa', [SewaController::class, 'cetakbuktisewa'])->name('cetakbuktisewa');
     // Route::get('/admin/penjualan/by-date-range', [PenjualanController::class, 'getDataByDateRange']);
     Route::get('/register', function () {
         return view('register');

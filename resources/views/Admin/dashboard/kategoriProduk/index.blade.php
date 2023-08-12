@@ -87,7 +87,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="mt-3">
+                                                    <div class="mt-3 mr-3">
                                                         <button type="submit" class="btn btn-success btn-sm mx-1 mb-4 mt-2" style="float: right;"><i class="fa fa-save mx-1"></i> Simpan</button>
                                                     </div>
                                                 </div>
@@ -140,7 +140,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mt-3">
+                    <div class="mt-3 mr-3">
                         <button type="submit" class="btn btn-success btn-sm mx-1 mb-4 mt-2" style="float: right;"><i class="fa fa-save mx-1"></i> Simpan</button>
                     </div>
 

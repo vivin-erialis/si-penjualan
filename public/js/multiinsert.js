@@ -249,10 +249,10 @@ function calculateTotal1() {
     const harga = parseFloat(document.getElementById('harga_1').value);
 
     // Menghitung total berdasarkan jumlah dan harga yang dimasukkan
-    const total = jumlah * harga;
+    const total = harga / jumlah;
 
     // Menampilkan total pada input total
-    document.getElementById('total_1').value = total;
+    document.getElementById('harga_pcs').value = total;
 }
 
 function checkEnter(event) {
@@ -260,3 +260,4 @@ function checkEnter(event) {
         calculateTotal(); // Panggil fungsi calculateTotal() saat tombol "Enter" ditekan
     }
 }
+

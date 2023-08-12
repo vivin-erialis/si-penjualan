@@ -5,7 +5,7 @@
                 <li class="{{ Request::is('dashboardadmin') ? 'active' : ''}}">
                     <a href="/dashboardadmin"><i class="menu-icon fa fa-home"></i>Dashboard </a>
                 </li>
-                
+
                 <!-- Menu Data Master Toko -->
                 <li class="menu-title">Data Master</li>
                 <li class="{{ Request::is('admin/petugas') ? 'active' : ''}}">

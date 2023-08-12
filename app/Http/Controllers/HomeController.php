@@ -29,11 +29,28 @@ class HomeController extends Controller
         $labelGrafik=$data->keys();
         $dataGrafik=$data->values();
 
+        $bulanIni = Carbon::now()->month;
+        $tahunIni = Carbon::now()->year;
+
+        $namaBulan = [
+            1 => 'Januari',
+            2 => 'Februari',
+            3 => 'Maret',
+            4 => 'April',
+            5 => 'Mei',
+            6 => 'Juni',
+            7 => 'Juli',
+            8 => 'Agustus',
+            9 => 'September',
+            10 => 'Oktober',
+            11 => 'November',
+            12 => 'Desember',
+        ][$bulanIni];
 
         $totalTerjual = $this->getTotalTerjual();
         $totalPendapatan = $this->getTotalPendapatan();
         $totalPengeluaran = $this->getTotalPengeluaran();
-        return view('admin.dashboard.home.dashboard', compact('totalTerjual', 'totalPendapatan', 'totalPengeluaran','labelGrafik','dataGrafik'));
+        return view('admin.dashboard.home.dashboard', compact('totalTerjual', 'totalPendapatan', 'totalPengeluaran','labelGrafik','dataGrafik','tahunIni','namaBulan'));
     }
 
     // ... kode lain dalam controller ...

@@ -30,6 +30,17 @@ Googel Fonts  */
   font-size: 14px;
 }
 
+/* styles.css */
+.header {
+    text-align: center;
+}
+.header-data {
+    text-align: center;
+    font-size: 15px;
+}
+.header-data p {
+    color: #000;
+}
 div.dataTables_wrapper div.dataTables_filter input {
   width: 150px;
 }

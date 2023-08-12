@@ -30,54 +30,38 @@ class TransaksiController extends Controller
      */
     public function store(Request $request)
     {
-
-        // $validatedData = $request->validate([
-        //     'kode_barang' => 'required',
-        //     'jenis_transaksi' => 'required',
-        //     'jumlah' => 'required',
-
-        // ]);
-        // Transaksi::create($validatedData);
-
-        // return redirect('/admin/transaksi')->with('pesan', 'Data berhasil Ditambah');
-
-
-
-        // Barang::where('kode_produk', '=', $request->kode_produk)->update(['status' => 'Terjual']);
-
         try {
             $data = $request->validate([
-                'kode_transaksi' => 'required',
-                'kode_barang' => 'required|exists:barangs,id',
-                'jenis_transaksi' => 'required|in:masuk,keluar',
-                'jumlah' => 'required|integer|min:1',
-                'harga' => 'required',
-                'harga_pcs' => 'required',
+                "inputs.*.kode_barang" => 'required',
+                "inputs.*.jenis_transaksi" => 'required|in:masuk,keluar',
+                "inputs.*.jumlah" => 'required|integer|min:1',
+                "inputs.*.harga" => 'required',
+                "inputs.*.harga_pcs" => 'required',
             ]);
 
-            // Update stok barang
-            $barang = Barang::find($data['kode_barang']);
-            if ($data['jenis_transaksi'] === 'masuk') {
-                $barang->stok += $data['jumlah'];
-                $barang->harga += $data['harga_pcs'];
-            } else {
-                $barang->stok -= $data['jumlah'];
-                // if ($barang->stok < 0) {
-                //     // Stok tidak mencukupi untuk transaksi keluar
-                //     // Anda bisa menangani kasus ini sesuai dengan kebutuhan Anda
-                //     return redirect('/admin/transaksi')->with('pesan', 'Stok barang tidak mencukupi');
-                // }
+            // Loop through each input item in the multiinput
+            foreach ($data['inputs'] as $input) {
+                // Update stok barang for each item
+                $barang = Barang::find($input['kode_barang']);
+                if ($input['jenis_transaksi'] === 'masuk') {
+                    $barang->stok += $input['jumlah'];
+                    $barang->harga += $input['harga_pcs'];
+                } else {
+                    $barang->stok -= $input['jumlah'];
+                    if ($barang->stok < 0) {
+                        return redirect('/admin/transaksi')->with('pesan', 'Stok barang tidak mencukupi');
+                    }
+                }
+                $barang->save();
+                Transaksi::create($input);
             }
-            $barang->save();
-            $transaksi = Transaksi::create($data);
 
             return redirect('/admin/transaksi')->with('pesan', 'Data berhasil Ditambah');
         } catch (\Exception $e) {
             return redirect('/admin/transaksi')->with('pesan', 'Terjadi kesalahan: ' . $e->getMessage());
         }
-
-        // return response()->json(['message' => 'Transaksi berhasil disimpan.']);
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -122,10 +106,8 @@ class TransaksiController extends Controller
     {
         //
         $data = $request->validate([
-            'kode_transaksi' => 'required',
             'kode_barang' => 'required|exists:barangs,id',
             'jenis_transaksi' => 'required|in:masuk,keluar',
-            'satuan' => 'required',
             'jumlah' => 'required|integer|min:1',
             'harga' => 'required',
             'harga_pcs' => 'required',

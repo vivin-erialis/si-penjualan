@@ -23,8 +23,8 @@
                         <input type="date" class="form-control" id="endDate" name="end_date" placeholder="End Date"
                             value="{{ request('end_date') }}">
                     </div>
-                    <button type="submit" class="btn btn-primary btn-sm mb-2"><i
-                            class="fa fa-search mr-2"></i>Cari</button>
+                    <button type="submit" class="btn btn-warning btn-sm mb-2"><i
+                            class="fa fa-search"></i></button>
                 </form>
             </div>
             <!-- Add a form to select the date range -->
@@ -36,15 +36,19 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row p-2">
-                            <div class="col-md-10 mt-1">
+                            <div class="col-md-7 mt-1">
                                 <strong class="card-title">Data Penjualan</strong>
                             </div>
-                            <div class="col-md-2">
-                                <a class="btn btn-warning btn-sm btn-default"
-                                    href="{{ route('cetaklaporanpenjualan', ['start_date' => request('start_date'), 'end_date' => request('end_date')]) }}"
-                                    target="_blank">
-                                    <i class="fa fa-print"></i> Cetak Laporan
-                                </a>
+                            <div class="col-md-5" style="display: flex;">
+                                <a class="btn btn-success btn-sm btn-default"
+                                href="{{ route('cetaklaporanpenjualan', ['start_date' => request('start_date'), 'end_date' => request('end_date')]) }}"
+                                target="_blank"  style="color: white;">
+                                <i class="fa fa-print"></i> Laporan Penjualan
+                                <a class="btn btn-primary btn-sm btn-default mx-2"
+                                href="{{ route('cetaklaporanpendapatan', ['start_date' => request('start_date'), 'end_date' => request('end_date')]) }}"
+                                target="_blank"  style="color: white;">
+                                <i class="fa fa-print"></i> Laporan Pendapatan
+                            </a>
                             </div>
                         </div>
                     </div>
@@ -53,9 +57,8 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Kode</th>
-                                    <th>Nama</th>
                                     <th>Tanggal</th>
+                                    <th>Produk</th>
                                     <th>Harga</th>
                                 </tr>
                             </thead>
@@ -63,51 +66,11 @@
                                 @foreach ($penjualan as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->kode_penjualan }}</td>
+                                        <td>{{ $item->created_at->format('d-m-Y') }}</td>
                                         <td>{{ $item->produk->nama_produk }}</td>
-                                        <td>{{ $item->tanggal_transaksi }}</td>
-                                        <td>Rp.{{ $item->harga }}</td>
-                                    </tr>
+                                        <td>Rp. {{ number_format($item->harga, 0, ',', '.') }}</td>                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
                     </div>
-                    <!-- resources/views/admin/dashboard/layouts/main.blade.php -->
-
-                    <!-- <script>
-                        $(document).ready(function() {
-                            $('#dateRangeForm').submit(function(event) {
-                                event.preventDefault();
-                                var startDate = $('#startDate').val();
-                                var endDate = $('#endDate').val();
-
-                                $.ajax({
-                                    url: 'api/admin/penjualan/by-date-range',
-                                    type: 'GET',
-                                    data: {
-                                        start_date: startDate,
-                                        end_date: endDate
-                                    },
-                                    success: function(data) {
-                                        // Mengosongkan isi tabel sebelum mengisi dengan data baru
-                                        $('tbody').empty();
-
-                                        // Mengisi tabel dengan data penjualan yang baru
-                                        $.each(data, function(index, penjualan) {
-                                            var row = '<tr>' +
-                                                '<td>' + (index + 1) + '</td>' +
-                                                '<td>' + penjualan.kode + '</td>' +
-                                                '<td>' + penjualan.nama + '</td>' +
-                                                '<td>' + penjualan.tanggal_transaksi + '</td>' +
-                                                '<td>' + penjualan.harga + '</td>' +
-                                                '<td>Aksi</td>' +
-                                                '</tr>';
-
-                                            $('tbody').append(row);
-                                        });
-                                    }
-                                });
-                            });
-                        });
-                    </script> -->
                 @endsection

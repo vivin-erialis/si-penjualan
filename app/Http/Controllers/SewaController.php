@@ -32,14 +32,7 @@ class SewaController extends Controller
             'kategoriproduk' => KategoriProduk::all()
         ]);
     }
-    public function cetakbuktisewa()
-    {
-        $buktiSewa = Sewa::select('*')
-            ->get();
 
-        $pdf = PDF::loadView('admin.dashboard.sewa.buktisewa', ['sewa' => $buktiSewa]);
-        return $pdf->stream('Bukti-Sewa.pdf');
-    }
 
     /**
      * Show the form for creating a new resource.

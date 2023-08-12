@@ -34,6 +34,7 @@
                                     <th>Kode</th>
                                     <th>Nama</th>
                                     <th>Produk</th>
+                                    <th>Harga Sewa</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -44,14 +45,12 @@
                                         <td>{{ $item->kode_sewa }}</td>
                                         <td>{{ $item->nama_penyewa }}</td>
                                         <td>{{ $item->nama_produk }}</td>
+                                        <td>@rp($item->harga_sewa)</td>
                                         <td>
                                             <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
                                                 data-bs-target="#editModal{{ $item->id }}">
                                                 <i class="fa fa-edit"></i>
                                             </button>
-                                            <a class="btn btn-primary btn-sm btn-default"
-                                                href="{{ route('cetakbuktisewa') }}" target="blank"><i
-                                                    class="fa fa-print"></i></a>
 
                                             <form action="/admin/sewa/{{ $item->id }}" method="post" class="d-inline">
                                                 @method('DELETE')
@@ -164,7 +163,6 @@
                                                         style="float: right;"><i class="fa fa-save mx-1"></i>
                                                         Simpan</button>
                                                 </div>
-                                                </form>
                                             </div>
                                         </div>
                                     </div>
