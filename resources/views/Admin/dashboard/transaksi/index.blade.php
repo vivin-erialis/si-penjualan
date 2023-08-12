@@ -20,7 +20,7 @@
                             </div>
                             <div class="col-md-2">
                                 <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal"
-                                    data-bs-target="#addModal">
+                                    data-bs-target="#addModal" onclick="generateKodeTransaksi()">
                                     <i class="fa fa-plus mr-1"></i>Tambah Data
                                 </button>
                             </div>
@@ -34,8 +34,6 @@
                                     <th>Nama Barang</th>
                                     <th>Jenis Transaksi</th>
                                     <th>Jumlah</th>
-                                    <th>Harga</th>
-                                    <th>Harga/pcs</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -50,8 +48,6 @@
                                         </td>
                                         <td>{{ $item->jenis_transaksi }}</td>
                                         <td>{{ $item->jumlah }}</td>
-                                        <td>Rp. {{ number_format($item->harga, 0, ',', '.') }}</td>
-                                        <td>Rp. {{ number_format($item->harga_pcs, 0, ',', '.') }}</td>
                                         <td>
                                             <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
                                                 data-bs-target="#editModal{{ $item->id }}">
@@ -136,24 +132,22 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="harga">Harga/pcs</label>
+                                                            <label for="total">Total</label>
                                                             <div class="input-group">
                                                                 <div class="input-group-prepend">
                                                                     <span class="input-group-text"
                                                                         id="basic-addon1">Rp</span>
                                                                 </div>
                                                                 <input type="number" id="harga_pcs" class="form-control"
-                                                                    name="harga_pcs" value="{{ $item->harga_pcs }}"
-                                                                    >
+                                                                    value="{{ $item->harga_pcs }}" name="harga_pcs" readonly>
                                                             </div>
                                                         </div>
 
-                                                        <div class="mt-3">
-                                                            <button type="submit"
-                                                                class="btn btn-success btn-sm mx-1 mb-2 mt-2"
-                                                                style="float: right;"><i class="fa fa-save mx-1"></i>
-                                                                Simpan</button>
-                                                        </div>
+                                                    </div>
+                                                    <div class="mt-3 mb-3 mr-3">
+                                                        <button type="submit" class="btn btn-success btn-sm"
+                                                            style="float: right;"><i class="fa fa-save mx-1"></i>
+                                                            Simpan</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -169,10 +163,9 @@
                                                 </div>
                                                 <div class="card-body">
                                                     <ul class="list-group list-group-flush p-2">
-                                                        <li class="list-group-item">
-                                                            Kode Transaksi <span
-                                                                class="badge badge-primary pull-right">{{ $item->barang->nama_barang }}</span>
-                                                        </li>
+                                                        {{-- <li class="list-group-item">
+                                                    Kode Transaksi <span class="badge badge-primary pull-right">{{ $item->kode_transaksi }}</span>
+                                                </li> --}}
                                                         <li class="list-group-item">
                                                             Jenis Transaksi <span
                                                                 class="badge badge-primary pull-right">{{ $item->jenis_transaksi }}</span>
@@ -182,12 +175,9 @@
                                                                 class="badge badge-primary pull-right">{{ $item->jumlah }}</span>
                                                         </li>
                                                         <li class="list-group-item">
-                                                            Harga <span class="badge badge-primary pull-right">Rp. {{ number_format($item->harga, 0, ',', '.') }}</span>
+                                                            Total <span
+                                                                class="badge badge-primary pull-right ">{{ $item->total }}</span>
                                                         </li>
-                                                        <li class="list-group-item">
-                                                            Harga/pcs <span class="badge badge-primary pull-right">Rp. {{ number_format($item->harga_pcs, 0, ',', '.') }}</span>
-                                                        </li>
-
                                                     </ul>
                                                 </div>
                                             </div>
@@ -203,7 +193,7 @@
     <!-- Pop Up Add -->
     <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="row card-header">
                     <strong> Tambah Data Transaksi</strong>
@@ -213,19 +203,19 @@
                         @csrf
                         <div id="barang" class="">
                             <div>
-                                <div class="form-group"><label>Jenis Transaksi</label>
+                                <div class="form-group mx-1" ><label>Jenis Transaksi</label>
                                     <div style="display: flex;">
                                         <div class="form-check"><input class="form-check-input" type="radio"
-                                                name="jenis_transaksi" value="masuk"><label
+                                                name="inputs[0][jenis_transaksi]" value="masuk" checked><label
                                                 class="form-check-label">Barang Masuk</label></div>
                                         <div class="form-check mx-3"><input class="form-check-input" type="radio"
-                                                name="jenis_transaksi" value="keluar"><label
+                                                name="inputs[0][jenis_transaksi]" value="keluar"><label
                                                 class="form-check-label">Barang Keluar</label></div>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group mx-1">
                                     <label for="kode_barang">Barang</label>
-                                    <select class="form-control" name="kode_barang" id="kode_barang" required>
+                                    <select class="form-control" name="inputs[0][kode_barang]" id="kode_barang" required>
                                         @foreach ($barang as $barangItem)
                                             <option value="{{ $barangItem->id }}">{{ $barangItem->nama_barang }}
                                             </option>
@@ -233,34 +223,38 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group"><label for="jumlah">Jumlah</label><input type="number"
-                                        class="form-control" id="jumlah" name="jumlah" id="jumlah" required>
+                                <div class="form-group mx-1"><label for="jumlah">Jumlah</label><input type="number"
+                                        class="form-control" id="jumlah" name="inputs[0][jumlah]" id="jumlah" required>
                                 </div>
-                                <div class="form-group"><label for="harga">Harga</label>
+                                <div class="form-group mx-1"><label for="harga">Harga</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend"><span class="input-group-text"
                                                 id="basic-addon1">Rp</span></div><input type="number" id="harga"
-                                            class="form-control" name="harga" oninput="calculateTotal()">
+                                            class="form-control" name="inputs[0][harga]" oninput="calculateTotal()">
                                     </div>
                                 </div>
-                                <div class="form-group"><label for="total">Harga/pcs</label>
+                                <div class="form-group mx-1"><label for="total">Harga/pcs</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend"><span class="input-group-text"
                                                 id="basic-addon1">Rp</span></div><input type="number" id="harga_pcs"
-                                            class="form-control" name="harga_pcs" readonly>
+                                            class="form-control" name="inputs[0][harga_pcs]" readonly>
                                     </div>
 
                                 </div>
+
                             </div>
                         </div>
-                </div>
-                <div class="mt-3"><button type="submit" class="btn btn-success btn-sm mx-1 mb-2 mt-2"
-                        style="float: right;"><i class="fa fa-save mx-1"></i> Simpan</button></div>
-                </form>
-            </div>
 
+                        <div class="mt-2 mr-3">
+                            <button type="submit" class="btn btn-success btn-sm mx-1 mb-4 mt-2" style="float: right;"><i
+                                    class="fa fa-save mx-1"></i>
+                                Simpan</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
         </div>
-    </div>
     </div>
     <!-- End Pop Up Add -->
 @endsection

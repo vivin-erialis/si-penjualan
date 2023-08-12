@@ -23,13 +23,10 @@
                         <input type="date" class="form-control" id="endDate" name="end_date" placeholder="End Date"
                             value="{{ request('end_date') }}">
                     </div>
-                    <button type="submit" class="btn btn-warning btn-sm mb-2"><i
-                            class="fa fa-search"></i></button>
+                    <button type="submit" class="btn btn-warning btn-sm mb-2"><i class="fa fa-search"></i></button>
                 </form>
             </div>
             <!-- Add a form to select the date range -->
-
-
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -41,14 +38,14 @@
                             </div>
                             <div class="col-md-5" style="display: flex;">
                                 <a class="btn btn-success btn-sm btn-default"
-                                href="{{ route('cetaklaporanpenjualan', ['start_date' => request('start_date'), 'end_date' => request('end_date')]) }}"
-                                target="_blank"  style="color: white;">
-                                <i class="fa fa-print"></i> Laporan Penjualan
-                                <a class="btn btn-primary btn-sm btn-default mx-2"
-                                href="{{ route('cetaklaporanpendapatan', ['start_date' => request('start_date'), 'end_date' => request('end_date')]) }}"
-                                target="_blank"  style="color: white;">
-                                <i class="fa fa-print"></i> Laporan Pendapatan
-                            </a>
+                                    href="{{ route('cetaklaporanpenjualan', ['start_date' => request('start_date'), 'end_date' => request('end_date')]) }}"
+                                    target="_blank" style="color: white;">
+                                    <i class="fa fa-print"></i> Laporan Penjualan
+                                    <a class="btn btn-primary btn-sm btn-default mx-2"
+                                        href="{{ route('cetaklaporanpendapatan', ['start_date' => request('start_date'), 'end_date' => request('end_date')]) }}"
+                                        target="_blank" style="color: white;">
+                                        <i class="fa fa-print"></i> Laporan Pendapatan
+                                    </a>
                             </div>
                         </div>
                     </div>
@@ -68,7 +65,8 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->created_at->format('d-m-Y') }}</td>
                                         <td>{{ $item->produk->nama_produk }}</td>
-                                        <td>Rp. {{ number_format($item->harga, 0, ',', '.') }}</td>                                    </tr>
+                                        <td>Rp. {{ number_format($item->harga, 0, ',', '.') }}</td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>

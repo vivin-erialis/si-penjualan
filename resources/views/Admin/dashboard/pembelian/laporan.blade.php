@@ -46,53 +46,69 @@
     <hr>
 
     @php
-        $daftarBulan = [
-            'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
-            'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
-        ];
-        $currentMonth = null;
+    $daftarBulan = [
+        'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+        'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+    ];
+    $currentMonth = null;
+    $totalPembelianBarang = 0;
     @endphp
 
     <table class="laporan-table">
 
         <tbody>
             @foreach ($transaksi as $index => $data)
-                @php
-                    $tanggal = \Carbon\Carbon::parse($data->created_at);
-                    $bulan = $daftarBulan[$tanggal->format('n') - 1] . ' ' . $tanggal->format('Y');
-                @endphp
+            @php
+            $tanggal = \Carbon\Carbon::parse($data->created_at);
+            $bulan = $daftarBulan[$tanggal->format('n') - 1] . ' ' . $tanggal->format('Y');
+            @endphp
 
-                @if ($bulan !== $currentMonth)
-                    @if (!is_null($currentMonth))
-                        </tbody>
-                    </table>
-                    <hr>
-                    @endif
-                    <h4 style="text-align: center;">Data Penjualan Bulan {{ $bulan }}</h4>
-                    <table class="laporan-table">
-                        <thead>
-                            <tr>
-                                <th>Tanggal </th>
-                                <th>Nama Barang</th>
-                                <th>Jumlah</th>
-                                <th>Harga Barang</th>
-                                <th>Harga/pcs</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        @php
-                            $currentMonth = $bulan;
-                        @endphp
+            @if ($bulan !== $currentMonth)
+            @if (!is_null($currentMonth))
+            <tr>
+                <td colspan="4" style="text-align: left;"><strong>Total Harga Bulan {{ $currentMonth }}</strong></td>
+                <td><strong>@rp($totalPembelianBarang)</strong></td>
+            </tr>
+            </tbody>
+        </table>
+        <hr>
+        @endif
+        <h4 style="text-align: center; margin-top: -17px;">Data Pembelian Barang Bulan {{ $bulan }}</h4>
+        <table class="laporan-table">
+            <thead>
+                <tr>
+                    <th>Tanggal</th>
+                    <th>Nama Barang</th>
+                    <th>Harga/pcs</th>
+
+                    <th>Jumlah</th>
+                    <th>Harga Barang</th>
+                </tr>
+            </thead>
+            <tbody>
+                @php
+                $currentMonth = $bulan;
+                $totalPembelianBarang = 0;
+                @endphp
                 @endif
 
                 <tr>
                     <td>{{ $tanggal->format('d/m/Y') }}</td>
                     <td>{{ $data->barang->nama_barang }}</td>
-                    <td>{{ $data->jumlah }}</td>
-                    <td>@rp( $data->harga)</td>
                     <td>@rp($data->harga_pcs)</td>
+                    <td>{{ $data->jumlah }}</td>
+                    <td>@rp($data->harga)</td>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
+                @php
+                $totalPembelianBarang += $data->harga;
+                @endphp
+                @endforeach
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4" style="text-align: left;"><strong>Total Pembelian Barang</strong></td>
+                    <td><strong>@rp($totalPembelianBarang)</strong></td>
+                </tr>
+            </tfoot>
+        </table>
 </body>

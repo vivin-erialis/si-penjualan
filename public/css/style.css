@@ -65,7 +65,7 @@ div.dataTables_wrapper div.dataTables_length select {
   font-size: 18px;
   text-align: center;
   font-weight: bold;
-  margin-left: 12px;
+  margin-left: -75px;
   text-transform: uppercase;
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;

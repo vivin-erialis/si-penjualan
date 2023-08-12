@@ -55,6 +55,7 @@
     </div>
     <hr>
 
+    <p style="text-align: center; font-size: 17px; margin-top:28px; margin-bottom: 15px;">Laporan Pendapatan Toko Ayesha Projek Pada Bulan {{ $namaBulan }} Tahun {{ $tahunIni }}</p>
     <table class="laporan-table">
         <thead>
             <tr>
@@ -117,7 +118,7 @@
 
         </tbody>
 
-        <tr style="background-color: black">
+        <tr style="background-color: #4FB477">
             <td style="font-weight: bold; color:#f2f2f2;">TOTAL PENDAPATAN</td>
             <td class="label" style="color: #f2f2f2"> Rp.
                 {{ number_format($totalPenjualan + $totalSewa, 0, ',', '.') }}</td>
@@ -148,7 +149,7 @@
             </tr>
 
         </tbody>
-        <tr style="background-color: black">
+        <tr style="background-color: #4FB477">
             <td style="font-weight: bold; color:#f2f2f2;">TOTAL KEUNTUNGAN</td>
             <td class="label" style="color: #f2f2f2"> Rp.
                 {{ number_format(($totalPenjualan + $totalSewa)-$hargaModal, 0, ',', '.') }}</td>

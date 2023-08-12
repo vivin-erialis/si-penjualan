@@ -19,15 +19,21 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $data=Produk::join('kategori_produks','produks.kode_kategori','=','kategori_produks.id')
+        $bulanIni = Carbon::now()->month;
+        $tahunIni = Carbon::now()->year;
+
+        $data=Penjualan::join('kategori_produks','penjualans.kode_kategori','=','kategori_produks.id')
         ->select(\DB::raw("COUNT(*) as count"), DB::raw('kategori_produks.nama_kategori as kode'))
-        ->whereYear('produks.created_at', date('Y'))
+        ->whereMonth('penjualans.tanggal_transaksi', $bulanIni)
+        ->whereYear('penjualans.tanggal_transaksi', $tahunIni)
             ->groupBy(\DB::raw("kode"))
-            ->orderBy('produks.created_at', 'asc')
+            ->orderBy('penjualans.tanggal_transaksi', 'asc')
             ->pluck('count', 'kode');
 
-        $labelGrafik=$data->keys();
-        $dataGrafik=$data->values();
+
+
+        $labelGrafik = $data->keys();
+        $dataGrafik = $data->values();
 
         $bulanIni = Carbon::now()->month;
         $tahunIni = Carbon::now()->year;
@@ -50,7 +56,7 @@ class HomeController extends Controller
         $totalTerjual = $this->getTotalTerjual();
         $totalPendapatan = $this->getTotalPendapatan();
         $totalPengeluaran = $this->getTotalPengeluaran();
-        return view('admin.dashboard.home.dashboard', compact('totalTerjual', 'totalPendapatan', 'totalPengeluaran','labelGrafik','dataGrafik','tahunIni','namaBulan'));
+        return view('admin.dashboard.home.dashboard', compact('totalTerjual', 'totalPendapatan', 'totalPengeluaran', 'labelGrafik', 'dataGrafik', 'tahunIni', 'namaBulan'));
     }
 
     // ... kode lain dalam controller ...
@@ -60,8 +66,8 @@ class HomeController extends Controller
         $bulanIni = Carbon::now()->month;
         $tahunIni = Carbon::now()->year;
 
-        $totalTerjual = Penjualan::whereMonth('created_at', $bulanIni)
-            ->whereYear('created_at', $tahunIni)
+        $totalTerjual = Penjualan::whereMonth('tanggal_transaksi', $bulanIni)
+            ->whereYear('tanggal_transaksi', $tahunIni)
             ->count();
 
         return $totalTerjual;
@@ -72,8 +78,8 @@ class HomeController extends Controller
         $bulanIni = Carbon::now()->month;
         $tahunIni = Carbon::now()->year;
 
-        $totalPendapatan = Penjualan::whereMonth('created_at', $bulanIni)
-            ->whereYear('created_at', $tahunIni)
+        $totalPendapatan = Penjualan::whereMonth('tanggal_transaksi', $bulanIni)
+            ->whereYear('tanggal_transaksi', $tahunIni)
             ->sum('harga');
 
         return $totalPendapatan;

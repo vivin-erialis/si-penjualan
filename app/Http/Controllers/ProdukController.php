@@ -111,7 +111,7 @@ class ProdukController extends Controller
         $produk->kode_kategori = $request->kode_kategori;
         $produk->harga_modal = $request->harga_modal;
         $produk->harga_jual = $request->harga_jual;
-        $produk->komponen = '';
+        // $produk->komponen = '';
         $produk->deskripsi = $request->deskripsi;
         $produk->foto = $nama;
         $produk->status = $request->status;
