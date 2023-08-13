@@ -21,7 +21,7 @@ class RegisterController extends Controller
             'role' => $request->role,
         ]);
 
-        Session::flash('pesan', 'Register akun anda berhasil');
+        Session::flash('pesan', 'Akun Staff Berhasil Dibuat');
         return redirect('register');
     }
 }

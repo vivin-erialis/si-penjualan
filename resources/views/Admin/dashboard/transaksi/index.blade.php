@@ -132,7 +132,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="total">Total</label>
+                                                            <label for="total">Harga/pcs</label>
                                                             <div class="input-group">
                                                                 <div class="input-group-prepend">
                                                                     <span class="input-group-text"
@@ -224,19 +224,19 @@
                                 </div>
 
                                 <div class="form-group mx-1"><label for="jumlah">Jumlah</label><input type="number"
-                                        class="form-control" id="jumlah" name="inputs[0][jumlah]" id="jumlah" required>
+                                        class="form-control" name="inputs[0][jumlah]" id="jumlah_barang" required>
                                 </div>
                                 <div class="form-group mx-1"><label for="harga">Harga</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend"><span class="input-group-text"
-                                                id="basic-addon1">Rp</span></div><input type="number" id="harga"
+                                                id="basic-addon1">Rp</span></div><input type="number" id="harga_barang"
                                             class="form-control" name="inputs[0][harga]" oninput="calculateTotal()">
                                     </div>
                                 </div>
                                 <div class="form-group mx-1"><label for="total">Harga/pcs</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend"><span class="input-group-text"
-                                                id="basic-addon1">Rp</span></div><input type="number" id="harga_pcs"
+                                                id="basic-addon1">Rp</span></div><input type="number" id="harga_pcs_barang"
                                             class="form-control" name="inputs[0][harga_pcs]" readonly>
                                     </div>
 
@@ -250,6 +250,20 @@
                                     class="fa fa-save mx-1"></i>
                                 Simpan</button>
                         </div>
+
+                        <script>
+function calculateTotal() {
+    // Mendapatkan nilai jumlah dan harga dari input
+    const jumlah = parseFloat(document.getElementById('jumlah_barang').value);
+    const harga = parseFloat(document.getElementById('harga_barang').value);
+
+    // Menghitung total berdasarkan jumlah dan harga yang dimasukkan
+    const total = harga / jumlah;
+
+    // Menampilkan total pada input total
+    document.getElementById('harga_pcs_barang').value = total;
+}
+                        </script>
                     </form>
                 </div>
 

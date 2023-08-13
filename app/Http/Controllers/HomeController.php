@@ -100,7 +100,44 @@ class HomeController extends Controller
 
     public function indexPetugas()
     {
-        return view('petugas.dashboard.home.dashboard');
+        $bulanIni = Carbon::now()->month;
+        $tahunIni = Carbon::now()->year;
+
+        $data=Penjualan::join('kategori_produks','penjualans.kode_kategori','=','kategori_produks.id')
+        ->select(\DB::raw("COUNT(*) as count"), DB::raw('kategori_produks.nama_kategori as kode'))
+        ->whereMonth('penjualans.tanggal_transaksi', $bulanIni)
+        ->whereYear('penjualans.tanggal_transaksi', $tahunIni)
+            ->groupBy(\DB::raw("kode"))
+            ->orderBy('penjualans.tanggal_transaksi', 'asc')
+            ->pluck('count', 'kode');
+
+
+
+        $labelGrafik = $data->keys();
+        $dataGrafik = $data->values();
+
+        $bulanIni = Carbon::now()->month;
+        $tahunIni = Carbon::now()->year;
+
+        $namaBulan = [
+            1 => 'Januari',
+            2 => 'Februari',
+            3 => 'Maret',
+            4 => 'April',
+            5 => 'Mei',
+            6 => 'Juni',
+            7 => 'Juli',
+            8 => 'Agustus',
+            9 => 'September',
+            10 => 'Oktober',
+            11 => 'November',
+            12 => 'Desember',
+        ][$bulanIni];
+
+        $totalTerjual = $this->getTotalTerjual();
+        $totalPendapatan = $this->getTotalPendapatan();
+        $totalPengeluaran = $this->getTotalPengeluaran();
+        return view('petugas.dashboard.home.dashboard', compact('totalTerjual', 'totalPendapatan', 'totalPengeluaran', 'labelGrafik', 'dataGrafik', 'tahunIni', 'namaBulan'));
     }
 
 

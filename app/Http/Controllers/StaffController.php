@@ -18,7 +18,7 @@ class StaffController extends Controller
             'user' => User::all()
         ]);
     }
-    
+
     public function actionregister(Request $request) {
         $user = User::create([
             'name' => $request->name,
@@ -27,14 +27,14 @@ class StaffController extends Controller
             'role' => $request->role,
         ]);
 
-        Session::flash('pesan', 'Register akun anda berhasil');
+        Session::flash('pesan', 'Akun Staff Berhasil Dibuat');
         return redirect('/admin/petugas');
     }
     public function destroy($id,User $User)
     {
         //
         User::destroy($id);
-        return redirect('/admin/petugas')->with('pesan', 'Akun User Berhasil Dihapus');
+        return redirect('/admin/petugas')->with('pesan', 'Akun Staff Berhasil Dihapus');
     }
 
 }

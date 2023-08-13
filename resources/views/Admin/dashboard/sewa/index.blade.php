@@ -31,7 +31,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Kode</th>
+                                    {{-- <th>Kode</th> --}}
                                     <th>Nama</th>
                                     <th>Produk</th>
                                     <th>Harga Sewa</th>
@@ -42,7 +42,7 @@
                                 @foreach ($sewa as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->kode_sewa }}</td>
+                                        {{-- <td>{{ $item->kode_sewa }}</td> --}}
                                         <td>{{ $item->nama_penyewa }}</td>
                                         <td>{{ $item->nama_produk }}</td>
                                         <td>@rp($item->harga_sewa)</td>
@@ -69,17 +69,17 @@
                                             <div class="modal-content">
                                                 <div class="row card-header">
                                                     <div class="col">
-                                                        <strong>Form Data Sewa</strong>
+                                                        <strong>Edit Data Sewa</strong>
                                                     </div>
                                                 </div>
                                                 <div class="modal-body">
                                                     <form action="/admin/sewa/{{ $item->id }}" method="PUT">
                                                         @csrf
-                                                        <div class="form-group">
+                                                        {{-- <div class="form-group">
                                                             <label for="kodeSewa">Kode</label>
                                                             <input type="text" class="form-control"
                                                                 value="{{ $item->kode_sewa }}" name="kode_sewa" readonly>
-                                                        </div>
+                                                        </div> --}}
                                                         <div style="display: flex">
                                                             <div class="form-group">
                                                                 <label for="nama_penyewa">Nama Penyewa</label>
@@ -137,8 +137,7 @@
                                                             <div class="form-group">
                                                                 <label for="tanggal_sewa">Tanggal Sewa</label>
                                                                 <input type="date" class="form-control"
-                                                                    name="tanggal_sewa"
-                                                                    value="{{ $item->tanggal_sewa }}">
+                                                                    name="tanggal_sewa" value="{{ $item->tanggal_sewa }}">
                                                             </div>
                                                             <div class="form-group col-sm-8">
                                                                 <label for="harga_sewa">Harga</label>
@@ -157,12 +156,16 @@
                                                             <label for="deskripsi">Deskripsi</label>
                                                             <textarea class="form-control" name="deskripsi" rows="4">{{ $item->deskripsi }}</textarea>
                                                         </div>
+                                                        <div class="mt-2 mr-3">
+                                                            <button type="submit" class="btn btn-success btn-sm mx-1 mb-4 mt-2"
+                                                                style="float: right;"><i class="fa fa-save mx-1"></i>
+                                                                Simpan</button>
+                                                        </div>
+                                                    </form>
+
                                                 </div>
-                                                <div class="mt-2 mr-3">
-                                                    <button type="submit" class="btn btn-success btn-sm mx-1 mb-4 mt-2"
-                                                        style="float: right;"><i class="fa fa-save mx-1"></i>
-                                                        Simpan</button>
-                                                </div>
+
+
                                             </div>
                                         </div>
                                     </div>
@@ -182,16 +185,16 @@
             <div class="modal-content">
                 <div class="row card-header">
                     <div class="col">
-                        <strong>Form Data Sewa</strong>
+                        <strong>Tambah Data Sewa</strong>
                     </div>
                 </div>
                 <div class="modal-body">
                     <form action="/admin/sewa" method="POST">
                         @csrf
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="kodeSewa">Kode</label>
                             <input type="text" class="form-control" id="kodeSewaInput" name="kode_sewa" readonly>
-                        </div>
+                        </div> --}}
                         <div style="display: flex">
                             <div class="form-group">
                                 <label for="nama_penyewa">Nama Penyewa</label>
@@ -253,23 +256,21 @@
                                 </div>
                             </div>
                         </div>
-
-
-
-
-
-
                         <div class="form-group">
                             <label for="deskripsi">Deskripsi</label>
                             <textarea class="form-control" name="deskripsi" rows="4"></textarea>
+
                         </div>
+                        <div class="mt-2 mr-3">
+                            <button type="submit" class="btn btn-success btn-sm mx-1 mb-4 mt-2" style="float: right;"><i
+                                    class="fa fa-save mx-1"></i> Simpan</button>
+                        </div>
+                    </form>
+
                 </div>
 
-                <div class="mt-2 mr-3">
-                    <button type="submit" class="btn btn-success btn-sm mx-1 mb-4 mt-2" style="float: right;"><i
-                            class="fa fa-save mx-1"></i> Simpan</button>
-                </div>
-                </form>
+
+
             </div>
         </div>
     </div>

@@ -53,8 +53,24 @@ class SewaController extends Controller
     public function store(Request $request)
     {
         //
+        // $validatedData = $request->validate([
+        //     // 'kode_sewa' => 'required',
+        //     'nama_penyewa' => 'required',
+        //     'telp' => 'required',
+        //     'alamat' => 'required',
+        //     'tanggal_sewa' => 'required',
+        //     'nama_produk' => 'required',
+        //     'harga_sewa' => 'required',
+        //     'deskripsi' => 'required',
+
+        // ]);
+        // Sewa::create($validatedData);
+
+        // Redirect ke halaman atau tampilan lain jika diperlukan
+        // return redirect('/admin/sewa')->with('pesan', 'Data Sewa berhasil disimpan.');
+
+    try {
         $validatedData = $request->validate([
-            'kode_sewa' => 'required',
             'nama_penyewa' => 'required',
             'telp' => 'required',
             'alamat' => 'required',
@@ -62,12 +78,20 @@ class SewaController extends Controller
             'nama_produk' => 'required',
             'harga_sewa' => 'required',
             'deskripsi' => 'required',
-
         ]);
+
         Sewa::create($validatedData);
 
-        // Redirect ke halaman atau tampilan lain jika diperlukan
         return redirect('/admin/sewa')->with('pesan', 'Data Sewa berhasil disimpan.');
+    } catch (\Exception $e) {
+        // Ambil pesan error dari exception
+        $errorMessage = $e->getMessage();
+
+        // Tampilkan pesan error kepada pengguna atau lakukan handling lainnya
+        return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $errorMessage);
+    }
+
+
     }
 
     /**
@@ -103,7 +127,7 @@ class SewaController extends Controller
     {
         //
         $validatedData = $request->validate([
-            'kode_sewa' => 'required',
+            // 'kode_sewa' => 'required',
             'nama_penyewa' => 'required',
             'telp' => 'required',
             'alamat' => 'required',
@@ -116,7 +140,7 @@ class SewaController extends Controller
         Sewa::where('id', $id)->update($validatedData);
 
         // Redirect ke halaman atau tampilan lain jika diperlukan
-        // return redirect('/admin/sewa')->with('pesan', 'Data Sewa Berhasil Diubah.');
+        return redirect('/admin/sewa')->with('pesan', 'Data Sewa Berhasil Diubah.');
     }
 
     /**

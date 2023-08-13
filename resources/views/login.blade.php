@@ -3,7 +3,7 @@
 <div class="box">
     <div class="container">
         <div class="top">
-            <span>Login Admin</span>
+            <span>Login </span>
             <header>AYESHA PROJECT</header>
         </div>
         @if(session()->has('errorLogin'))

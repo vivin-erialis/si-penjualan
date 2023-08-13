@@ -225,17 +225,17 @@ function generateKodeSewa() {
     document.getElementById('kodeSewaInput').value = kodeSewa;
 }
 
-function calculateTotal() {
-    // Mendapatkan nilai jumlah dan harga dari input
-    const jumlah = parseFloat(document.getElementById('jumlah').value);
-    const harga = parseFloat(document.getElementById('harga').value);
+// function calculateTotal() {
+//     // Mendapatkan nilai jumlah dan harga dari input
+//     const jumlah = parseFloat(document.getElementById('jumlah').value);
+//     const harga = parseFloat(document.getElementById('harga').value);
 
-    // Menghitung total berdasarkan jumlah dan harga yang dimasukkan
-    const total = harga / jumlah;
+//     // Menghitung total berdasarkan jumlah dan harga yang dimasukkan
+//     const total = harga / jumlah;
 
-    // Menampilkan total pada input total
-    document.getElementById('harga_pcs').value = total;
-}
+//     // Menampilkan total pada input total
+//     document.getElementById('harga_pcs').value = total;
+// }
 
 function checkEnter(event) {
     if (event.key === "click") {
