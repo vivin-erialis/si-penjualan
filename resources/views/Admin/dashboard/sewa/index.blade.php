@@ -73,13 +73,14 @@
                                                     </div>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form action="/admin/sewa/{{ $item->id }}" method="PUT">
+                                                    <form action="/admin/sewa" method="POST">
                                                         @csrf
                                                         {{-- <div class="form-group">
                                                             <label for="kodeSewa">Kode</label>
                                                             <input type="text" class="form-control"
                                                                 value="{{ $item->kode_sewa }}" name="kode_sewa" readonly>
                                                         </div> --}}
+                                                        <input type="hidden" name='id' value="{{$item->id}}">
                                                         <div style="display: flex">
                                                             <div class="form-group">
                                                                 <label for="nama_penyewa">Nama Penyewa</label>

@@ -15,50 +15,24 @@ class CetakLaporanController extends Controller
     public function cetaklaporanpenjualan(Request $request)
     {
 
-        // $laporanPenjualan = Penjualan::select('*')
-        //     ->get();
-
-        // $pdf = PDF::loadView('admin.dashboard.penjualan.laporan', ['penjualan' => $laporanPenjualan]);
-        // return $pdf->stream('Laporan-Penjualan.pdf');
-        // $tanggalAwal = $request->input('start_date');
-        // $tanggalAkhir = $request->input('end_date');
-
-        // if (!empty($tanggalAwal)) {
-        //     $tanggalAwal = date('Y-m-d', strtotime($tanggalAwal));
-        // }
-
-        // if (!empty($tanggalAkhir)) {
-        //     $tanggalAkhir = date('Y-m-d', strtotime($tanggalAkhir));
-        // }
-
-        // $laporanPenjualan = Penjualan::query();
-
-        // if (!empty($tanggalAwal) && !empty($tanggalAkhir)) {
-        //     $laporanPenjualan->whereBetween('tanggal_transaksi', [$tanggalAwal, $tanggalAkhir]);
-        // }
-
-        // $laporanPenjualan = $laporanPenjualan->get();
-
-        // if ($laporanPenjualan->isEmpty()) {
-        //     return back()->with('error', 'Tidak ada data penjualan dalam rentang tanggal yang dipilih.');
-        // }
-        $startDate = $request->input('start_date');
-        $endDate = $request->input('end_date');
+        $bulan = $request->input('bulan');
 
 
-        if ($startDate && $endDate) {
+        if ($bulan) {
             $penjualan = Penjualan::with('produk')
-                ->whereBetween('tanggal_transaksi', [$startDate, $endDate])
+                ->whereYear('tanggal_transaksi', Carbon::parse($bulan)->year)
+                ->whereMonth('tanggal_transaksi', Carbon::parse($bulan)->month)
                 ->get();
-                $totalPenjualan = Penjualan::whereBetween('tanggal_transaksi', [$startDate, $endDate])
+            $totalPenjualan = Penjualan::whereYear('tanggal_transaksi', Carbon::parse($bulan)->year)
+                ->whereMonth('tanggal_transaksi', Carbon::parse($bulan)->month)
                 ->sum('harga');
         } else {
             $penjualan = Penjualan::with('produk')
                 ->get();
-                $totalPenjualan = Penjualan::sum('harga');
+            $totalPenjualan = Penjualan::sum('harga');
         }
 
-        $pdf = PDF::loadView('admin.dashboard.penjualan.laporan-penjualan', compact('penjualan','totalPenjualan'));
+        $pdf = PDF::loadView('admin.dashboard.penjualan.laporan-penjualan', compact('penjualan', 'totalPenjualan'));
         return $pdf->stream('Laporan-Penjualan.pdf');
     }
 
@@ -90,13 +64,23 @@ class CetakLaporanController extends Controller
 
     //     return $formattedPenjualan;
     // }
-    public function cetaklaporanpembelian()
+    public function cetaklaporanpembelian(Request $request)
     {
-        $jenisTransaksi = 'masuk'; // Ganti dengan jenis transaksi yang Anda inginkan
+        $jenisTransaksi = 'masuk';
 
-        $transaksi = Transaksi::where('jenis_transaksi', $jenisTransaksi)
-            ->get();
+        $dataTransaksi = Transaksi::where('jenis_transaksi', $jenisTransaksi);
 
+        if ($request->has('bulan')) {
+            $bulan = $request->input('bulan');
+            $dataTransaksi->whereYear('created_at', Carbon::parse($bulan)->year)
+                ->whereMonth('created_at', Carbon::parse($bulan)->month);
+        }
+
+        $transaksi = $dataTransaksi->get();
+
+        if ($transaksi->isEmpty()) {
+            return redirect()->back()->with('error', 'Tidak ada data untuk bulan yang dipilih.');
+        }
 
         $pdf = PDF::loadView('admin.dashboard.pembelian.laporan', ['transaksi' => $transaksi]);
         return $pdf->stream('Laporan-Pembelian-Barang.pdf');
@@ -105,8 +89,7 @@ class CetakLaporanController extends Controller
     public function cetaklaporanpendapatan(Request $request)
     {
 
-        $startDate = $request->input('start_date');
-        $endDate = $request->input('end_date');
+        $bulan = $request->input('bulan');
         $bulanIni = Carbon::now()->month;
         $tahunIni = Carbon::now()->year;
         $namaBulan = [
@@ -124,27 +107,9 @@ class CetakLaporanController extends Controller
             12 => 'Desember',
         ][$bulanIni];
 
-        $namaBulanStart = [
-            1 => 'Januari',
-            2 => 'Februari',
-            3 => 'Maret',
-            4 => 'April',
-            5 => 'Mei',
-            6 => 'Juni',
-            7 => 'Juli',
-            8 => 'Agustus',
-            9 => 'September',
-            10 => 'Oktober',
-            11 => 'November',
-            12 => 'Desember',
-        ][Carbon::createFromFormat('Y-m-d', $startDate)->format('n')];
-
-        $namaBulan = $namaBulanStart;
-
-
         $transaksiKeluar = Transaksi::where('jenis_transaksi', '=', 'keluar')
-            ->whereDate('created_at', '>=', $startDate)
-            ->whereDate('created_at', '<=', $endDate)
+        ->whereYear('created_at', Carbon::parse($bulan)->year)
+        ->whereMonth('created_at', Carbon::parse($bulan)->month)
             ->get();
 
 
@@ -156,77 +121,87 @@ class CetakLaporanController extends Controller
 
 
         $hargaModalProduk = Produk::where('status', '=', 'Terjual')
-        ->whereDate('created_at', '>=', $startDate)
-        ->whereDate('created_at', '<=', $endDate)
+            ->whereYear('created_at', Carbon::parse($bulan)->year)
+            ->whereMonth('created_at', Carbon::parse($bulan)->month)
             ->sum('harga_modal');
         $totalSewa = Sewa::sum('harga_sewa');
 
-        $totalPenjualan = Penjualan::whereBetween('tanggal_transaksi', [$startDate, $endDate])
+        $totalPenjualan = Penjualan::whereYear('tanggal_transaksi', Carbon::parse($bulan)->year)
+        ->whereMonth('tanggal_transaksi', Carbon::parse($bulan)->month)
             ->sum('harga');
         $hargaModal = $hargaModalBarang + $hargaModalProduk;
 
 
-        $pdf = PDF::loadView('admin.dashboard.penjualan.laporan-pendapatan', compact('hargaModalProduk', 'totalPenjualan', 'totalSewa', 'hargaModalBarang', 'hargaModal','namaBulan','tahunIni'));
+        // $pdf = new Dompdf();
+        // $laporanBlade = view('admin.dashboard.penjualan.laporan-pendapatan', compact('hargaModalProduk', 'totalPenjualan', 'totalSewa', 'hargaModalBarang', 'hargaModal','namaBulan', 'tahunIni'))->render();
+
+        // $pdf->loadHtml($laporanBlade);
+        //
+        // $pdf->render();
+
+        // return $pdf->stream('Laporan-Pendapatan.pdf');
+        $pdf = PDF::loadView('admin.dashboard.penjualan.laporan-pendapatan', compact('hargaModalProduk', 'totalPenjualan', 'totalSewa', 'hargaModalBarang', 'hargaModal', 'namaBulan', 'tahunIni'));
+        $pdf->setPaper('A4','landscape');
         return $pdf->stream('Laporan-Pendapatan.pdf');
     }
 
-//     public function cetaklaporanpendapatan(Request $request)
-// {
-//     $startDate = $request->input('start_date');
-//     $endDate = $request->input('end_date');
+    //     public function cetaklaporanpendapatan(Request $request)
+    // {
+    //     $startDate = $request->input('start_date');
+    //     $endDate = $request->input('end_date');
 
-//     $namaBulan = [
-//         1 => 'Januari',
-//         2 => 'Februari',
-//         // ... (daftar nama bulan lainnya)
-//     ];
+    //     $namaBulan = [
+    //         1 => 'Januari',
+    //         2 => 'Februari',
+    //         // ... (daftar nama bulan lainnya)
+    //     ];
 
-//     $transaksiKeluar = Transaksi::where('jenis_transaksi', '=', 'keluar');
+    //     $transaksiKeluar = Transaksi::where('jenis_transaksi', '=', 'keluar');
 
-//     if ($startDate && $endDate) {
-//         $transaksiKeluar = $transaksiKeluar
-//             ->whereDate('created_at', '>=', $startDate)
-//             ->whereDate('created_at', '<=', $endDate);
-//     }
+    //     if ($startDate && $endDate) {
+    //         $transaksiKeluar = $transaksiKeluar
+    //             ->whereDate('created_at', '>=', $startDate)
+    //             ->whereDate('created_at', '<=', $endDate);
+    //     }
 
-//     $transaksiKeluar = $transaksiKeluar->get();
+    //     $transaksiKeluar = $transaksiKeluar->get();
 
-//     $hargaModalBarang = 0;
+    //     $hargaModalBarang = 0;
 
-//     foreach ($transaksiKeluar as $transaksi) {
-//         $hargaModalBarang += $transaksi->jumlah * $transaksi->harga_pcs;
-//     }
+    //     foreach ($transaksiKeluar as $transaksi) {
+    //         $hargaModalBarang += $transaksi->jumlah * $transaksi->harga_pcs;
+    //     }
 
-//     $hargaModalProdukQuery = Produk::where('status', '=', 'Terjual');
-//     $totalSewa = Sewa::sum('harga_sewa');
+    //     $hargaModalProdukQuery = Produk::where('status', '=', 'Terjual');
+    //     $totalSewa = Sewa::sum('harga_sewa');
 
-//     if ($startDate && $endDate) {
-//         $hargaModalProdukQuery = $hargaModalProdukQuery
-//             ->whereDate('created_at', '>=', $startDate)
-//             ->whereDate('created_at', '<=', $endDate);
-//     }
+    //     if ($startDate && $endDate) {
+    //         $hargaModalProdukQuery = $hargaModalProdukQuery
+    //             ->whereDate('created_at', '>=', $startDate)
+    //             ->whereDate('created_at', '<=', $endDate);
+    //     }
 
-//     $hargaModalProduk = $hargaModalProdukQuery->sum('harga_modal');
+    //     $hargaModalProduk = $hargaModalProdukQuery->sum('harga_modal');
 
-//     $totalPenjualanQuery = Penjualan::query();
+    //     $totalPenjualanQuery = Penjualan::query();
 
-//     if ($startDate && $endDate) {
-//         $totalPenjualanQuery = $totalPenjualanQuery
-//             ->whereBetween('tanggal_transaksi', [$startDate, $endDate]);
-//     }
-//     $hargaModalProduk = Produk::where('status', '=', 'Terjual')
+    //     if ($startDate && $endDate) {
+    //         $totalPenjualanQuery = $totalPenjualanQuery
+    //             ->whereBetween('tanggal_transaksi', [$startDate, $endDate]);
+    //     }
+    //     $hargaModalProduk = Produk::where('status', '=', 'Terjual')
 
-//             ->sum('harga_modal');
-//         $totalSewa = Sewa::sum('harga_sewa');
+    //             ->sum('harga_modal');
+    //         $totalSewa = Sewa::sum('harga_sewa');
 
-//         $totalPenjualan = Penjualan::whereBetween('tanggal_transaksi', [$startDate, $endDate])
-//             ->sum('harga');
-//         $hargaModal = $hargaModalBarang + $hargaModalProduk;
-//     $totalPenjualan = $totalPenjualanQuery->sum('harga');
+    //         $totalPenjualan = Penjualan::whereBetween('tanggal_transaksi', [$startDate, $endDate])
+    //             ->sum('harga');
+    //         $hargaModal = $hargaModalBarang + $hargaModalProduk;
+    //     $totalPenjualan = $totalPenjualanQuery->sum('harga');
 
-//     $pdf = PDF::loadView('admin.dashboard.penjualan.laporan-pendapatan', compact('hargaModalProduk', 'totalPenjualan', 'totalSewa', 'hargaModalBarang','hargaModal'));
+    //     $pdf = PDF::loadView('admin.dashboard.penjualan.laporan-pendapatan', compact('hargaModalProduk', 'totalPenjualan', 'totalSewa', 'hargaModalBarang','hargaModal'));
 
-//     return $pdf->stream('Laporan-Pendapatan.pdf');
-// }
+    //     return $pdf->stream('Laporan-Pendapatan.pdf');
+    // }
 
 }

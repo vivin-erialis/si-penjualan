@@ -123,7 +123,7 @@ class SewaController extends Controller
      * @param  \App\Models\Sewa  $sewa
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
         $validatedData = $request->validate([
@@ -137,7 +137,7 @@ class SewaController extends Controller
             'deskripsi' => 'required',
 
         ]);
-        Sewa::where('id', $id)->update($validatedData);
+        Sewa::where('id', $request->id)->update($validatedData);
 
         // Redirect ke halaman atau tampilan lain jika diperlukan
         return redirect('/admin/sewa')->with('pesan', 'Data Sewa Berhasil Diubah.');

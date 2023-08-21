@@ -29,8 +29,16 @@
                         <div class="row" style="display: flex">
                             <div class="form-group col-sm-4">
                                 <label for="harga_modal">Harga Modal</label>
-                                <input type="number" class="form-control" name="harga_modal" id="harga_modal_input" readonly>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text mx-2"
+                                            id="basic-addon1">Rp</span>
+                                    </div>
+                                    <input type="number" class="form-control" name="harga_modal" id="harga_modal_input" readonly>
+                                </div>
                             </div>
+
+
                             <div class="form-group col-sm-2">
                                 <label for="harga_modal">Pilih Komponen</label>
                                 <button type="button" data-bs-target="#modalKomponen" data-bs-toggle="modal"
@@ -39,8 +47,11 @@
                             <div class="form-group col-sm-6">
                                 <label for="harga">Harga</label>
                                 <div class="input-group">
-
-                                    <input type="number" class="form-control" name="harga_jual" required>
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text mx-2"
+                                            id="basic-addon1">Rp</span>
+                                    </div>
+                                    <input type="number" class="form-control" name="harga_jual" id="harga_jual_input" required>
                                 </div>
                             </div>
                         </div>
@@ -177,4 +188,31 @@
         </div>
 
     </div>
+
+    <script>
+        // Mendapatkan elemen input harga modal dan harga jual
+        var hargaModalInput = document.getElementById("harga_modal_input");
+        var hargaJualInput = document.getElementById("harga_jual_input");
+
+        // Inisialisasi variabel timeout
+        var timeoutId;
+
+        // Menambahkan event listener untuk memeriksa pengisian input harga jual
+        hargaJualInput.addEventListener("input", function() {
+            // Hapus timeout sebelumnya (jika ada)
+            clearTimeout(timeoutId);
+
+            // Setelah pengguna selesai mengisi, tunggu 500 milidetik sebelum memeriksa harga jual
+            timeoutId = setTimeout(function() {
+                var hargaModal = parseFloat(hargaModalInput.value);
+                var hargaJual = parseFloat(hargaJualInput.value);
+
+                // Memeriksa apakah harga jual lebih kecil dari harga modal
+                if (hargaJual < hargaModal) {
+                    alert("Harga jual tidak boleh lebih kecil dari harga modal.");
+                    hargaJualInput.value = "";
+                }
+            }, 800); // Ubah angka ini untuk mengatur durasi penundaan (dalam milidetik)
+        });
+    </script>
 @endsection

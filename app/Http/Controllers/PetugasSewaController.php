@@ -53,7 +53,6 @@ class PetugasSewaController extends Controller
     {
         //
         $validatedData = $request->validate([
-            'kode_sewa' => 'required',
             'nama_penyewa' => 'required',
             'telp' => 'required',
             'alamat' => 'required',

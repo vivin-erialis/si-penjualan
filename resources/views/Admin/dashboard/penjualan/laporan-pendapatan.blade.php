@@ -1,6 +1,7 @@
 <style>
     body {
         font-family: Arial, sans-serif;
+        font-size: 12px;
     }
 
     .header {
@@ -48,34 +49,49 @@
 
 <body>
 
-    <div class="header" style="text-align: center;">
-        <h1>Laporan Pendapatan</h1>
-        <h3>Toko Ayesha Projek</h3>
-        <p>Jl. Balai Baru Padang | WhatsApp : +62 8 1383093724 | IG : @ayeshaprojek</p>
+    <div class="header" style="text-align: left;">
+        <img src="../public/images/Ayesha.png" alt="" width="15%" style="margin-left:270px;">
+        <div class="header" style="text-align: center; margin-top:-100px;">
+            <h1>Laporan Pendapatan</h1>
+            <h3>Toko Ayesha Projek</h3>
+            <p>Jl. Balai Baru Padang | WhatsApp : +62 8 1383093724 | IG : @ayeshaprojek</p>
+        </div>
     </div>
+
     <hr>
 
-    <p style="text-align: center; font-size: 17px; margin-top:28px; margin-bottom: 15px;">Laporan Pendapatan Toko Ayesha Projek Pada Bulan {{ $namaBulan }} Tahun {{ $tahunIni }}</p>
+    <p style="text-align: center; font-size: 17px; margin-top:28px; margin-bottom: 15px;">Laporan Pendapatan Toko Ayesha
+        Projek Pada Bulan {{ $namaBulan }} Tahun {{ $tahunIni }}</p>
     <table class="laporan-table">
         <thead>
             <tr>
                 <th>Modal</th>
                 <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>Harga Modal Produk</td>
+                <td> Modal Produk</td>
+                <td></td>
                 <td class="label"> Rp. {{ number_format($hargaModalProduk, 0, ',', '.') }}</td>
+                <td></td>
             </tr>
             <tr>
-                <td>Harga Modal Sewa</td>
+                <td>Modal Sewa</td>
+                <td></td>
                 <td class="label"> Rp. {{ number_format($hargaModalBarang, 0, ',', '.') }}</td>
+                <td></td>
             </tr>
 
             <tr>
                 <td style="font-weight: bold;">TOTAL MODAL</td>
-                <td class="label"> Rp. {{ number_format($hargaModal, 0, ',', '.') }}</td>
+                <td></td>
+                <td class="label"> <strong>Rp. {{ number_format($hargaModal, 0, ',', '.') }}</strong></td>
+                <td></td>
+                <td></td>
             </tr>
         </tbody>
 
@@ -83,50 +99,30 @@
     <table class="laporan-table">
         <thead>
             <tr>
-                <th>Penjualan Produk</th>
+                <th>Pendapatan</th>
+                <th></th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>Harga Pokok Penjualan</td>
+                <td>Pendapatan Penjualan</td>
                 <td class="label"> Rp. {{ number_format($totalPenjualan, 0, ',', '.') }}</td>
+                <td></td>
             </tr>
             <tr>
-                <td style="font-weight: bold;">TOTAL PENJUALAN</td>
-                <td class="label"> Rp. {{ number_format($totalPenjualan, 0, ',', '.') }}</td>
+                <td>Pendapatan Sewa</td>
+                <td class="label"> Rp. {{ number_format($totalSewa, 0, ',', '.') }}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold;">TOTAL PENDAPATAN</td>
+                <td class="label"> <strong>Rp. {{ number_format($totalPenjualan + $totalSewa, 0, ',', '.') }}</strong></td>
             </tr>
         </tbody>
 
     </table>
-    <table class="laporan-table mt-5">
-        <thead>
-            <tr>
-                <th>Pendapatan Sewa</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Harga Pokok Pendapatan</td>
-                <td class="label"> Rp. {{ number_format($totalSewa, 0, ',', '.') }}</td>
-            </tr>
-            <tr>
-                <td style="font-weight: bold;">TOTAL PENDAPATAN SEWA</td>
-                <td class="label"> Rp. {{ number_format($totalSewa, 0, ',', '.') }}</td>
-            </tr>
 
-        </tbody>
-
-        <tr style="background-color: #4FB477">
-            <td style="font-weight: bold; color:#f2f2f2;">TOTAL PENDAPATAN</td>
-            <td class="label" style="color: #f2f2f2"> Rp.
-                {{ number_format($totalPenjualan + $totalSewa, 0, ',', '.') }}</td>
-
-        </tr>
-
-
-    </table>
     <table class="laporan-table">
         <thead>
             <tr>
@@ -151,8 +147,8 @@
         </tbody>
         <tr style="background-color: #4FB477">
             <td style="font-weight: bold; color:#f2f2f2;">TOTAL KEUNTUNGAN</td>
-            <td class="label" style="color: #f2f2f2"> Rp.
-                {{ number_format(($totalPenjualan + $totalSewa)-$hargaModal, 0, ',', '.') }}</td>
+            <td class="label" style="color: #f2f2f2">
+                <strong>Rp. {{ number_format($totalPenjualan + $totalSewa - $hargaModal, 0, ',', '.') }}</strong></td>
 
         </tr>
     </table>

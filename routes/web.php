@@ -55,6 +55,7 @@ Route::middleware(['auth', 'CheckLevel:admin'])->group(function () {
     Route::resource('/admin/pembelian', PembelianController::class);
     Route::resource('/admin/transaksi', TransaksiController::class);
     Route::resource('/admin/sewa', SewaController::class);
+    Route::post('/admin/sewa', [SewaController::class, 'update']);
     Route::resource('/admin/petugas', StaffController::class);
     Route::get('/admin/cetakpenjualan', [CetakLaporanController::class, 'cetaklaporanpenjualan'])->name('cetaklaporanpenjualan');
     Route::get('/admin/cetakpendapatan', [CetakLaporanController::class, 'cetaklaporanpendapatan'])->name('cetaklaporanpendapatan');

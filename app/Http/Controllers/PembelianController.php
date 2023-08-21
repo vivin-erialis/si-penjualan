@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaksi;
+use Carbon\Carbon;
 use App\Models\Barang;
 use Illuminate\Http\Request;
 
@@ -11,13 +12,13 @@ class PembelianController extends Controller
     //
     public function index(Request $request)
     {
-        $startDate = $request->input('start_date');
-        $endDate = $request->input('end_date');
+        $bulan = $request->input('bulan');
 
-        if ($startDate && $endDate) {
+
+        if ($bulan) {
             $pembelian = Transaksi::with('barang')
-                ->whereDate('created_at', '>=', $startDate)
-                ->whereDate('created_at', '<=', $endDate)
+                ->whereYear('created_at', Carbon::parse($bulan)->year)
+                ->whereMonth('created_at', Carbon::parse($bulan)->month)
                 ->get();
                 if ($pembelian->isEmpty()) {
                     return back()->with('pesan', 'Data Tidak Tersedia');

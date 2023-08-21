@@ -15,16 +15,11 @@
             <div class="card p-2">
                 <form id="dateRangeForm" class="form-inline" method="get" action="/admin/pembelian">
                     <div class="form-group">
-                        <label for="startDate" class="mx-3">Tanggal Awal</label>
-                        <input type="date" class="form-control" id="startDate" name="start_date" placeholder="Start Date"
-                            value="{{ request('start_date') }}">
+                        <label for="bulan" class="mx-3">Pilih Bulan</label>
+                        <input type="month" class="form-control" id="bulan" name="bulan" value="{{ request('bulan') }}">
                     </div>
-                    <div class="form-group mx-3 mb-2">
-                        <label for="endDate" class="mx-3">Tanggal Akhir</label>
-                        <input type="date" class="form-control" id="endDate" name="end_date" placeholder="End Date"
-                            value="{{ request('end_date') }}">
-                    </div>
-                    <button type="submit" class="btn btn-warning btn-sm mb-2"><i class="fa fa-search mr-2"></i></button>
+
+                    <button type="submit" class="btn btn-warning btn-sm mb-2 mx-3 mt-2"><i class="fa fa-search mr-2"></i>Cari</button>
                 </form>
             </div>
             <!-- Add a form to select the date range -->
@@ -41,10 +36,10 @@
                             </div>
                             <div class="col-md-2">
                                 <a class="btn btn-success btn-sm btn-default"
-                                    href="{{ route('cetaklaporanpembelian', ['start_date' => request('start_date'), 'end_date' => request('end_date')]) }}"
-                                    target="_blank" style="color: white;">
-                                    <i class="fa fa-print"></i> Cetak Laporan
-                                </a>
+                                href="{{ route('cetaklaporanpembelian', ['bulan' => request('bulan')]) }}"
+                                target="_blank" style="color: white;">
+                                <i class="fa fa-print"></i> Cetak Laporan
+                             </a>
                             </div>
                         </div>
                     </div>

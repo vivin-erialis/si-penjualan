@@ -49,9 +49,7 @@
                                                 data-bs-target="#editModal{{ $item->id }}">
                                                 <i class="fa fa-edit"></i>
                                             </button>
-                                            <a class="btn btn-primary btn-sm btn-default"
-                                                href="{{ route('cetakbuktisewa') }}" target="blank"><i
-                                                    class="fa fa-print"></i></a>
+
 
                                             <form action="/petugas/sewa/{{ $item->id }}" method="post" class="d-inline">
                                                 @method('DELETE')
@@ -76,11 +74,7 @@
                                                 <div class="modal-body">
                                                     <form action="/petugas/sewa/{{ $item->id }}" method="PUT">
                                                         @csrf
-                                                        <div class="form-group">
-                                                            <label for="kodeSewa">Kode</label>
-                                                            <input type="text" class="form-control"
-                                                                value="{{ $item->kode_sewa }}" name="kode_sewa" readonly>
-                                                        </div>
+
                                                         <div style="display: flex">
                                                             <div class="form-group">
                                                                 <label for="nama_penyewa">Nama Penyewa</label>
@@ -190,10 +184,7 @@
                 <div class="modal-body">
                     <form action="/petugas/sewa" method="POST">
                         @csrf
-                        <div class="form-group">
-                            <label for="kodeSewa">Kode</label>
-                            <input type="text" class="form-control" id="kodeSewaInput" name="kode_sewa" readonly>
-                        </div>
+
                         <div style="display: flex">
                             <div class="form-group">
                                 <label for="nama_penyewa">Nama Penyewa</label>

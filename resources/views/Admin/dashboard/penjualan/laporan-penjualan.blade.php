@@ -38,10 +38,13 @@
 </style>
 
 <body>
-    <div class="header">
-        <h1>Laporan Penjualan</h1>
-        <h3>Toko Ayesha Projek</h3>
-        <p>Jl. Balai Baru Padang | WhatsApp : +62 8 1383093724 | IG : @ayeshaprojek</p>
+    <div class="header" style="text-align: left; margin-left: 80px;">
+        <img src="../public/images/Ayesha.png" alt="" width="23%" style="margin-left:90px;">
+        <div class="header" style="text-align: center; margin-top:-110px;">
+            <h1>Laporan Penjualan</h1>
+            <h3>Toko Ayesha Projek</h3>
+            <p>Jl. Balai Baru Padang | WhatsApp : +62 8 1383093724 | IG : @ayeshaprojek</p>
+        </div>
     </div>
     <hr>
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Penjualan;
 use App\Models\Produk;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -16,12 +17,12 @@ class PenjualanController extends Controller
      */
     public function index(Request $request)
     {
-        $startDate = $request->input('start_date');
-        $endDate = $request->input('end_date');
+        $bulan = $request->input('bulan');
 
-        if ($startDate && $endDate) {
+        if ($bulan) {
             $penjualan = Penjualan::with('produk')
-                ->whereBetween('tanggal_transaksi', [$startDate, $endDate])
+                ->whereYear('created_at', Carbon::parse($bulan)->year)
+                ->whereMonth('created_at', Carbon::parse($bulan)->month)
                 ->get();
 
             if ($penjualan->isEmpty()) {

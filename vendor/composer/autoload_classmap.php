@@ -18,6 +18,7 @@ return array(
     'App\\Http\\Controllers\\KategoriProdukController' => $baseDir . '/app/Http/Controllers/KategoriProdukController.php',
     'App\\Http\\Controllers\\LoginController' => $baseDir . '/app/Http/Controllers/LoginController.php',
     'App\\Http\\Controllers\\PembelianController' => $baseDir . '/app/Http/Controllers/PembelianController.php',
+    'App\\Http\\Controllers\\PendapatanController' => $baseDir . '/app/Http/Controllers/PendapatanController.php',
     'App\\Http\\Controllers\\PenjualanController' => $baseDir . '/app/Http/Controllers/PenjualanController.php',
     'App\\Http\\Controllers\\PesananController' => $baseDir . '/app/Http/Controllers/PesananController.php',
     'App\\Http\\Controllers\\PetugasBarangController' => $baseDir . '/app/Http/Controllers/PetugasBarangController.php',
