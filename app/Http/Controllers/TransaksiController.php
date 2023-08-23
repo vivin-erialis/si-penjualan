@@ -56,7 +56,7 @@ class TransaksiController extends Controller
                 Transaksi::create($input);
             }
 
-            return redirect('/admin/transaksi')->with('pesan', 'Data berhasil Ditambah');
+            return redirect('/admin/transaksi')->with('pesan', 'Data Transaksi berhasil Ditambah');
         } catch (\Exception $e) {
             return redirect('/admin/transaksi')->with('pesan', 'Terjadi kesalahan: ' . $e->getMessage());
         }

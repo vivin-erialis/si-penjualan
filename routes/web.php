@@ -18,6 +18,7 @@ use App\Http\Controllers\Controller\SewaContoller;
 use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\PetugasBarangController;
+use App\Http\Controllers\PetugasPenjualanController;
 use App\Http\Controllers\PetugasProdukController;
 use App\Http\Controllers\PetugasSewaController;
 use App\Http\Controllers\PetugasTransaksiController;
@@ -55,7 +56,7 @@ Route::middleware(['auth', 'CheckLevel:admin'])->group(function () {
     Route::resource('/admin/pembelian', PembelianController::class);
     Route::resource('/admin/transaksi', TransaksiController::class);
     Route::resource('/admin/sewa', SewaController::class);
-    Route::post('/admin/sewa', [SewaController::class, 'update']);
+    // Route::post('/admin/sewa', [SewaController::class, 'update'])->name('update');
     Route::resource('/admin/petugas', StaffController::class);
     Route::get('/admin/cetakpenjualan', [CetakLaporanController::class, 'cetaklaporanpenjualan'])->name('cetaklaporanpenjualan');
     Route::get('/admin/cetakpendapatan', [CetakLaporanController::class, 'cetaklaporanpendapatan'])->name('cetaklaporanpendapatan');
@@ -87,6 +88,7 @@ Route::middleware(['auth', 'CheckLevel:petugas'])->group(function () {
     Route::resource('/petugas/sewa', PetugasSewaController::class);
     Route::resource('/petugas/barang', PetugasBarangController::class);
     Route::resource('/petugas/transaksi', PetugasTransaksiController::class);
+    Route::resource('/petugas/penjualan', PetugasPenjualanController::class);
 
 });
 

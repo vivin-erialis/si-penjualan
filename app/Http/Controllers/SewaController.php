@@ -153,6 +153,6 @@ class SewaController extends Controller
     {
         //
         Sewa::destroy($id);
-        return redirect('/admin/sewa')->with('pesan', 'Data Berhasil Dihapus');
+        return redirect('/admin/sewa')->with('pesan', 'Data Sewa Berhasil Dihapus');
     }
 }

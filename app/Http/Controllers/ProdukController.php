@@ -119,7 +119,7 @@ class ProdukController extends Controller
         // Simpan data ke database
         $produk->save();
         // Kembali ke halaman data produk
-        return redirect('/admin/produk');
+        return redirect('/admin/produk')->with('pesan', 'Data Produk Berhasil Ditambah');
     }
 
 
@@ -156,17 +156,17 @@ class ProdukController extends Controller
     {
         //
         // Validasi input
-        $validatedData = $request->validate([
-            'kode_produk' => 'required',
-            'nama_produk' => 'required',
-            'kode_kategori' => 'required',
-            'harga' => 'required',
-            'status' => 'required',
-            'deskripsi' => 'required',
-            'foto' => 'image|mimes:jpeg,png,jpg,gif|',
-        ]);
-        Produk::where('id', $id)->update($validatedData);
-        return redirect('/admin/produk')->with('pesan', 'Produk berhasil diperbarui');
+        // $validatedData = $request->validate([
+        //     'kode_produk' => 'required',
+        //     'nama_produk' => 'required',
+        //     'kode_kategori' => 'required',
+        //     'harga' => 'required',
+        //     'status' => 'required',
+        //     'deskripsi' => 'required',
+        //     'foto' => 'image|mimes:jpeg,png,jpg,gif|',
+        // ]);
+        // Produk::where('id', $id)->update($validatedData);
+        // return redirect('/admin/produk')->with('pesan', 'Produk berhasil diperbarui');
     }
 
     /**
@@ -179,6 +179,6 @@ class ProdukController extends Controller
     {
         //
         Produk::destroy($id);
-        return redirect('/admin/produk')->with('pesan', 'Data Berhasil Dihapus');
+        return redirect('/admin/produk')->with('pesan', 'Data Produk Berhasil Dihapus');
     }
 }

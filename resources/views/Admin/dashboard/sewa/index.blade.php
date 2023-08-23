@@ -73,7 +73,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form action="/admin/sewa" method="POST">
+                                                    <form action="/admin/sewa/{{ $item->id }}" method="POST">
+                                                        @method('PUT')
                                                         @csrf
                                                         {{-- <div class="form-group">
                                                             <label for="kodeSewa">Kode</label>

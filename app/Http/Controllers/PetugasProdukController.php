@@ -71,13 +71,30 @@ class PetugasProdukController extends Controller
         ]);
 
 
-        $komponen = Barang::where('id','=',$request->komponen)->first();
-        $DataStok=$komponen->stok;
-        $hasil= $DataStok-$request->jumlah_komponen;
-        // dd($hasil);
-        Barang::where('id','=',$request->komponen)->update([
-            'stok'=>$hasil
-        ]);
+        $komponenIds = $request->input('komponenId'); // Array of komponen IDs
+        $jumlahKomponen = $request->input('jumlah_komponen'); // Array of jumlah komponen
+
+        foreach ($komponenIds as $komponenId => $value) {
+            $komponen = Barang::find($komponenId);
+
+            if ($komponen) {
+                $DataStok = $komponen->stok;
+                $requestedJumlah = $jumlahKomponen[$komponenId];
+                $hasil = $DataStok - $requestedJumlah;
+
+                // Pastikan hasil tidak kurang dari 0
+                if ($hasil >= 0) {
+                    $komponen->update([
+                        'stok' => $hasil
+                    ]);
+                } else {
+                    // Handle kasus jika stok menjadi negatif
+                    // Misalnya dengan memberikan pesan kesalahan kepada pengguna
+                }
+            }
+
+}
+
         if ($request->hasFile('foto')) {
 
             //jika request memiliki file dengan name foto maka -->
@@ -88,59 +105,21 @@ class PetugasProdukController extends Controller
             //Mengubah nama file menjadi nama asli sesuai nama file di direktori
         }
 
-        // Buat instance baru dari model Produk
+        // Buat instance baru dari model Produk utnuk menyimpan data produk
         $produk = new Produk;
-        // $produk->kode_produk = $request->kode_produk;
         $produk->nama_produk = $request->nama_produk;
         $produk->kode_kategori = $request->kode_kategori;
         $produk->harga_modal = $request->harga_modal;
         $produk->harga_jual = $request->harga_jual;
-        $produk->komponen = $request->komponen;
+        // $produk->komponen = '';
         $produk->deskripsi = $request->deskripsi;
         $produk->foto = $nama;
         $produk->status = $request->status;
 
         // Simpan data ke database
         $produk->save();
-
-
-        // Produk::create($validate);
-        // Redirect ke halaman atau tampilkan pesan sukses
-        // return redirect()->back()->with('pesan', 'Data produk berhasil disimpan.');
-        $jumlahKomponen = $request->input('jumlah_komponen');
-        $komponenIds = $request->input('komponen');
-        $hargaKomponen = $request->input('komponen_harga'); // Asumsi Anda menambahkan input hidden untuk harga komponen
-
-        // foreach ($komponenIds as $index => $komponenId) {
-        //     $komponen = new produk_komponen();
-        //     $komponen->produk_id = $produk->id;
-        //     $komponen->barang_id = $komponenId;
-        //     $komponen->jumlah_digunakan = $jumlahKomponen[$index];
-        //     $komponen->save();
-
-        //     // Kurangi stok komponen pada tabel barang
-        //     $barang = Barang::find($komponenId);
-        //     $barang->stok -= $jumlahKomponen[$index];
-        //     $barang->save();
-        // }
-        // dd($produk);
-
-        $id_produk=Produk::latest()->first();
-        $komponen = $request->input('komponen.*.id');
-        foreach($komponen as $komponen){
-            produk_komponen::create([
-                'produk_id'=>$id_produk->id,
-                'barang_id'=>$komponen,
-            ]);
-        }
-        return redirect()->back()->with('pesan', 'Data produk berhasil disimpan.');
-            // Kode penyimpanan data di sini
-        // } catch (\Exception $e) {
-        //     // Tangkap pesan error
-        //     dd($e->getMessage()); // Tampilkan pesan error
-        // }
-
-
+        // Kembali ke halaman data produk
+        return redirect('/petugas/produk')->with('pesan', 'Data Produk Berhasil Ditambah');
     }
 
 
@@ -177,17 +156,17 @@ class PetugasProdukController extends Controller
     {
         //
         // Validasi input
-        $validatedData = $request->validate([
-            'kode_produk' => 'required',
-            'nama_produk' => 'required',
-            'kode_kategori' => 'required',
-            'harga' => 'required',
-            'status' => 'required',
-            'deskripsi' => 'required',
-            'foto' => 'image|mimes:jpeg,png,jpg,gif|',
-        ]);
-        Produk::where('id', $id)->update($validatedData);
-        return redirect('/petugas/produk')->with('pesan', 'Produk berhasil diperbarui');
+        // $validatedData = $request->validate([
+        //     'kode_produk' => 'required',
+        //     'nama_produk' => 'required',
+        //     'kode_kategori' => 'required',
+        //     'harga' => 'required',
+        //     'status' => 'required',
+        //     'deskripsi' => 'required',
+        //     'foto' => 'image|mimes:jpeg,png,jpg,gif|',
+        // ]);
+        // Produk::where('id', $id)->update($validatedData);
+        // return redirect('/petugas/produk')->with('pesan', 'Produk berhasil diperbarui');
     }
 
     /**
@@ -200,7 +179,7 @@ class PetugasProdukController extends Controller
     {
         //
         Produk::destroy($id);
-        return redirect('/petugas/produk')->with('pesan', 'Data Berhasil Dihapus');
+        return redirect('/petugas/produk')->with('pesan', 'Data Produk Berhasil Dihapus');
     }
 }
 
