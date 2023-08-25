@@ -1,4 +1,4 @@
-@extends('petugas.dashboard.layouts.main')
+@extends('admin.dashboard.layouts.main')
 @section('container')
     <div class="row">
         <div class="col mt-1">
@@ -53,7 +53,7 @@
                                                 data-bs-target="#editModal{{ $item->id }}">
                                                 <i class="fa fa-edit"></i>
                                             </button>
-                                            <form action="/petugas/transaksi/{{ $item->id }}" method="post"
+                                            <form action="/admin/transaksi/{{ $item->id }}" method="post"
                                                 class="d-inline">
                                                 @method('DELETE')
                                                 @csrf
@@ -76,7 +76,7 @@
                                                 <div class="row card-header">
                                                     <strong> Edit Data Transaksi</strong>
                                                 </div>
-                                                <form action="/petugas/transaksi/{{ $item->id }}" method="POST"
+                                                <form action="/admin/transaksi/{{ $item->id }}" method="POST"
                                                     class="mt-1">
                                                     @method('PUT')
                                                     @csrf
@@ -199,7 +199,7 @@
                     <strong> Tambah Data Transaksi</strong>
                 </div>
                 <div class="modal-body">
-                    <form action="/petugas/transaksi" method="POST">
+                    <form action="/admin/transaksi" method="POST">
                         @csrf
                         <div id="barang" class="">
                             <div>

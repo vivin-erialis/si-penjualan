@@ -53,7 +53,7 @@
                                 <td>@rp($produk->harga_modal)</td>
                                 <td>@rp($produk->harga_jual)</td>
                                 <td>{{ $produk->status}}</td>
-                                <td><img src="../images/foto_produk/{{ $produk->foto}}" alt="{{ $produk->foto}}"></td>
+                                <td><img src="../images/foto_produk/{{ $produk->foto}}" alt="{{ $produk->foto}}" style="height: 100px"></td>
                                 <td>
                                     {{-- <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal<?php echo $produk['id'] ?>">
                                         <i class="fa fa-edit"></i>
